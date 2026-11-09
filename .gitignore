@@ -5,3 +5,19 @@
 .beads-credential-key
 .beads/proxieddb/
 *.gate.lock*
+.build/
+images/overlays/bennu-arm64/
+
+# Build outputs and runtime state (never commit)
+docker/tmp/
+provider/waterway-sim/target/
+dist/
+*.qc2
+*.qcow2
+*.vmdb
+*.log
+__pycache__/
+.venv*/
+
+# built from provider/waterway-sim (build-linux.sh), copied into injects
+topologies/*/injects/simulinksolver
