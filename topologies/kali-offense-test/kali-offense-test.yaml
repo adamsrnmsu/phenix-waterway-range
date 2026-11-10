@@ -1,0 +1,34 @@
+apiVersion: phenix.sandia.gov/v1
+kind: Topology
+metadata:
+  name: kali-offense-test
+spec:
+  nodes:
+  - general:
+      hostname: kali-offense
+      description: offensive Kali boot test
+    hardware:
+      cpu: host
+      memory: 4096
+      vcpus: 2
+      os_type: linux
+      drives:
+      - image: kali-offense-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device
+        usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: mgmt
+        address: 172.16.9.10
+        mask: 16
+        proto: static
+        type: ethernet
+        vlan: KTEST
+    type: VirtualMachine

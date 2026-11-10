@@ -1,0 +1,26 @@
+window 2026-11-09T05:34:30Z .. 2026-11-09T05:42:00Z (UTC), experiment mitm, vm blue
+01-arpspoof-notices: total hits 8
+02-zeek-modbus-by-src-dst: total hits 1830
+    src=10.1.2.50: 1828
+      dst=10.1.1.101: 922
+      dst=10.1.1.102: 906
+    src=10.1.1.200: 2
+      dst=10.1.1.101: 2
+03-datasets-in-window: total hits 2818
+    dataset=modbus: 1830
+    dataset=modbus_detailed: 928
+    dataset=session: 26
+    dataset=conn: 16
+    dataset=notice: 8
+    dataset=known_modbus: 5
+    dataset=known_hosts: 2
+    dataset=known_services: 2
+    dataset=alert: 1
+04-suricata-alerts: total hits 1
+    rule=WATERWAY Modbus write to RTU from non-OPC host: 1
+05-arkime-tcp502-sessions: total hits 14
+    pair=10.1.2.50: 12
+      dst=10.1.1.101: 6
+      dst=10.1.1.102: 6
+    pair=10.1.1.200: 2
+      dst=10.1.1.101: 2

@@ -1,0 +1,26 @@
+# Phase 0 deliverable. Verified against Lima 2.3.0 templates (docker-rootful, default.yaml).
+minimumLimaVersion: 2.0.0
+base: template:docker-rootful      # rootful docker: privileged + host networking + /dev mounts
+vmType: vz
+nestedVirtualization: true         # needs M3+ and vz; guest qemu must use -cpu host
+arch: aarch64
+cpus: 16
+memory: 80GiB
+disk: 120GiB
+mountType: virtiofs
+mounts:
+- {location: "~/phenix/topologies", mountPoint: /phenix/topologies, writable: true}
+- {location: "~/git", writable: true}       # same path in guest: build contexts, symlink targets
+additionalDisks:
+- {name: phenix-images, format: true, fsType: ext4, mountPoint: /phenix/images}
+portForwards:
+- {guestPort: 3000}                          # phenix UI (0.0.0.0:3000)
+- {guestPort: 9001}                          # miniweb
+provision:
+- mode: system
+  script: |
+    # default template mounts ~ read-only on top of the writable ~/git mount; drop it
+    # (it is the only read-only virtiofs mount, so no host path is hardcoded here)
+    cd / && awk '$3=="virtiofs" && $4 ~ /(^|,)ro(,|$)/ {print $2}' /proc/mounts | while read -r m; do umount "$m" || true; done
+    modprobe openvswitch || (apt-get update && apt-get install -y linux-modules-extra-$(uname -r) && modprobe openvswitch)
+    mkdir -p /phenix/images /phenix/topologies /etc/phenix /var/log/phenix

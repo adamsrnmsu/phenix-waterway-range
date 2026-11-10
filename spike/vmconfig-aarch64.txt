@@ -1,0 +1,20 @@
+# Verified 2026-11-07: minimega (arm64 container, kvm wrapper) launched an aarch64 KVM guest -> RUNNING;
+# tap shows IPv6 router solicitation from the booted Ubuntu noble arm64 guest.
+# Run as: docker exec minimega mm <line>
+vm config disk /phenix/images/t1.qc2,virtio
+vm config cpu host
+vm config machine virt                      # wrapper (docker/kvm-wrapper.sh) turns this into virt,its=off
+vm config vga virtio
+vm config qemu-append -bios /usr/share/AAVMF/AAVMF_CODE.fd
+vm config qemu-override bus=usb-bus.0 bus=xhci.0   # minimega defaults to xHCI (UsbUseXHCI=true), not ehci; plan said ehci.0 (wrong)
+vm config memory 1024
+vm config vcpus 2
+vm config net 100
+vm launch kvm t1
+vm start t1
+# Findings vs plan 1.2:
+#  1. ehci.0 -> xhci.0 in the usb-tablet override.
+#  2. GICv3 ITS must be off under nested KVM on Apple vz: default `-M virt` stalls (RCU stall in smp_call_function) after
+#     "EFI stub: Exiting boot services"; `-M virt,its=off` boots in 26 s. Handled in the kvm wrapper (not in topology).
+#  3. Empty cdrom arg `-drive media=cdrom` fails on virt (no IDE): wrapper rewrites to media=cdrom,if=none.
+#  4. qemu needs root for /dev/kvm (containers are privileged, fine).

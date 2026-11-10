@@ -1,0 +1,195 @@
+{
+ "took": 57,
+ "timed_out": false,
+ "_shards": {
+  "total": 2,
+  "successful": 2,
+  "skipped": 1,
+  "failed": 0
+ },
+ "hits": {
+  "total": {
+   "value": 8,
+   "relation": "eq"
+  },
+  "max_score": null,
+  "hits": [
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-FXG7gIoPCbi02BhqznpWVQ",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:35:06.192Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.1 claimed by 34:bc:a6:2f:92:e4 then 60:ff:dd:7c:af:6a",
+       "note": "ArpSpoof::Conflict",
+       "sub": "34:bc:a6:2f:92:e4 -> 60:ff:dd:7c:af:6a",
+       "src": "10.1.1.1"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202506192
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-BwV_OQt83PjlK2dFwjnVWA",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:35:06.192Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.101 claimed by 14:5a:83:db:7d:05 then 60:ff:dd:7c:af:6a",
+       "note": "ArpSpoof::Conflict",
+       "sub": "14:5a:83:db:7d:05 -> 60:ff:dd:7c:af:6a",
+       "src": "10.1.1.101"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202506192
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-js3hdvPjg9rFTWBhf2Vrpw",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:35:06.950000128Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.1 claimed by 60:ff:dd:7c:af:6a then 34:bc:a6:2f:92:e4",
+       "note": "ArpSpoof::Conflict",
+       "sub": "60:ff:dd:7c:af:6a -> 34:bc:a6:2f:92:e4",
+       "src": "10.1.1.1"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202506950
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-cU0B-Uhd-A2Agssr51fvVQ",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:35:07.957999936Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.101 claimed by 60:ff:dd:7c:af:6a then 14:5a:83:db:7d:05",
+       "note": "ArpSpoof::Conflict",
+       "sub": "60:ff:dd:7c:af:6a -> 14:5a:83:db:7d:05",
+       "src": "10.1.1.101"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202507957
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-BZEQChV3PmsYqzu-I4EoRw",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:37:18.513999936Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.1 claimed by 60:ff:dd:7c:af:6a then 34:bc:a6:2f:92:e4",
+       "note": "ArpSpoof::Conflict",
+       "sub": "60:ff:dd:7c:af:6a -> 34:bc:a6:2f:92:e4",
+       "src": "10.1.1.1"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202638513
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-AiHoiu-NDQ6mPu5CaUbEpA",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:37:20.370999872Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.1 claimed by 34:bc:a6:2f:92:e4 then 60:ff:dd:7c:af:6a",
+       "note": "ArpSpoof::Conflict",
+       "sub": "34:bc:a6:2f:92:e4 -> 60:ff:dd:7c:af:6a",
+       "src": "10.1.1.1"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202640370
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-oH4GWTqG2WePxQnSg-bwzg",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:37:33.460Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.101 claimed by 60:ff:dd:7c:af:6a then 14:5a:83:db:7d:05",
+       "note": "ArpSpoof::Conflict",
+       "sub": "60:ff:dd:7c:af:6a -> 14:5a:83:db:7d:05",
+       "src": "10.1.1.101"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202653460
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-0SGuzprV0uFRsganbNZlMg",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:37:40.391000064Z",
+     "zeek": {
+      "notice": {
+       "msg": "ARP spoofing: 10.1.1.101 claimed by 14:5a:83:db:7d:05 then 60:ff:dd:7c:af:6a",
+       "note": "ArpSpoof::Conflict",
+       "sub": "14:5a:83:db:7d:05 -> 60:ff:dd:7c:af:6a",
+       "src": "10.1.1.101"
+      }
+     },
+     "event": {
+      "dataset": "notice"
+     }
+    },
+    "sort": [
+     1794202660391
+    ]
+   }
+  ]
+ }
+}
