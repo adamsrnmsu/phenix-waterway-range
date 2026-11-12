@@ -1,0 +1,21 @@
+# sids are 9100001+: Malcolm ships nsacyber ELITEWOLF OT rules using sid 1000001-1001025 ("Duplicate signature" and the rule is dropped).
+# Local Suricata rules for the waterway/mitm range (ww-ebo.10). Install: suricata/rules/ in the Malcolm tree
+# (images/malcolm-stage.sh). Rules cannot see ARP (Suricata has no arp/ethernet protocol: "protocol arp cannot be used
+# in a signature"; ARP spoofing is caught by images/malcolm-zeek/arp-spoof.zeek). These catch what an on-path attacker
+# does with its position. Range facts: RTUs 10.1.1.101 (rtu-1) and 10.1.1.102 (rtu-2); the only legitimate Modbus
+# writer is the OPC gateway 10.1.2.50 (which only reads in waterway/mitm). sids 1000001-1000099 are ours.
+# MITM relays at L3, so a relayed write keeps the original source IP; a forged write comes from the attacker's own IP.
+# (a) write function codes 5, 6, 15, 16, 22, 23 ("modbus: access write" matches all six; tested) from anyone but the OPC gateway
+alert modbus !10.1.2.50 any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus write to RTU from non-OPC host"; flow:established,to_server; modbus: access write; classtype:attempted-admin; sid:9100001; rev:1; metadata:created_at 2026_11_09;)
+# (b) diagnostics (8), encapsulated interface/device id (43), report server id (17), read exception status (7), and
+# unassigned/reserved/user-defined function codes, from any source
+alert modbus any any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus diagnostics (FC 8) to RTU"; flow:established,to_server; modbus: function 8; classtype:attempted-admin; sid:9100010; rev:1;)
+alert modbus any any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus encapsulated interface (FC 43) to RTU"; flow:established,to_server; modbus: function 43; classtype:attempted-recon; sid:9100011; rev:1;)
+alert modbus any any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus report server id (FC 17) to RTU"; flow:established,to_server; modbus: function 17; classtype:attempted-recon; sid:9100012; rev:1;)
+alert modbus any any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus read exception status (FC 7) to RTU"; flow:established,to_server; modbus: function 7; classtype:attempted-recon; sid:9100013; rev:1;)
+alert modbus any any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus unassigned function code to RTU"; flow:established,to_server; modbus: function unassigned; classtype:bad-unknown; sid:9100014; rev:1;)
+alert modbus any any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus reserved function code to RTU"; flow:established,to_server; modbus: function reserved; classtype:bad-unknown; sid:9100015; rev:1;)
+alert modbus any any -> [10.1.1.101,10.1.1.102] 502 (msg:"WATERWAY Modbus user-defined function code to RTU"; flow:established,to_server; modbus: function user; classtype:bad-unknown; sid:9100016; rev:1;)
+# (c) exception response from an RTU: MBAP protocol id 0, 9-byte frame, function code (byte 7) has the 0x80 bit set.
+# Suricata's modbus keywords match requests only, so this is a plain TCP payload match.
+alert tcp [10.1.1.101,10.1.1.102] 502 -> any any (msg:"WATERWAY Modbus exception response from RTU"; flow:established,to_client; dsize:9; content:"|00 00|"; offset:2; depth:2; byte_test:1,&,0x80,7; classtype:protocol-command-decode; sid:9100020; rev:1;)

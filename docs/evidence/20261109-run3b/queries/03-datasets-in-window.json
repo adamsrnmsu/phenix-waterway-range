@@ -1,0 +1,1 @@
+{"size":0,"query":{"bool":{"filter":[{"range":{"@timestamp":{"gte":"2026-11-09T05:34:30Z","lte":"2026-11-09T05:42:00Z"}}}]}},"aggs":{"dataset":{"terms":{"field":"event.dataset","size":50}}}}

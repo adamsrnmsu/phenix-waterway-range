@@ -1,0 +1,62 @@
+{
+ "took": 2,
+ "timed_out": false,
+ "_shards": {
+  "total": 2,
+  "successful": 2,
+  "skipped": 0,
+  "failed": 0
+ },
+ "hits": {
+  "total": {
+   "value": 2818,
+   "relation": "eq"
+  },
+  "max_score": null,
+  "hits": []
+ },
+ "aggregations": {
+  "dataset": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 0,
+   "buckets": [
+    {
+     "key": "modbus",
+     "doc_count": 1830
+    },
+    {
+     "key": "modbus_detailed",
+     "doc_count": 928
+    },
+    {
+     "key": "session",
+     "doc_count": 26
+    },
+    {
+     "key": "conn",
+     "doc_count": 16
+    },
+    {
+     "key": "notice",
+     "doc_count": 8
+    },
+    {
+     "key": "known_modbus",
+     "doc_count": 5
+    },
+    {
+     "key": "known_hosts",
+     "doc_count": 2
+    },
+    {
+     "key": "known_services",
+     "doc_count": 2
+    },
+    {
+     "key": "alert",
+     "doc_count": 1
+    }
+   ]
+  }
+ }
+}

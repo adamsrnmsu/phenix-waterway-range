@@ -1,0 +1,2 @@
+{"size":0,"query":{"bool":{"filter":[{"range":{"@timestamp":{"gte":"2026-11-09T05:34:30Z","lte":"2026-11-09T05:42:00Z"}}},{"term":{"event.dataset":"modbus"}}]}},
+ "aggs":{"src":{"terms":{"field":"source.ip","size":20},"aggs":{"dst":{"terms":{"field":"destination.ip","size":20}}}}}}

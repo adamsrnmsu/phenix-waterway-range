@@ -1,0 +1,45 @@
+lima-phenix: 9/67a92389-19b8-4298-8d08-629c6d4918c8/stdout:
+3f173bbebdcc21c0b9f49b3039c6b2fb  /etc/telegraf/telegraf.conf
+a5f3ea6ece87f4c68fa0bfb89932ac5f  /etc/phenix/startup/influx-setup.sh
+active
+active
+Result: _result
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z                 Quality                         432
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z          boat.direction                          24
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z           boat.location                          24
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z             lock.height                          48
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z       locksensor.active                          48
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z    locksensor.direction                          48
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z          lowergate.open                          24
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z      lowersensor.active                          24
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------
+2026-11-10T00:45:25.598881044Z  2026-11-10T00:47:25.598881044Z   lowersensor.direction                          24
+Table: keys: [_start, _stop, _field]
+                   _start:time                      _stop:time           _field:string                  _value:int
+------------------------------  ------------------------------  ----------------------  --------------------------

@@ -1,0 +1,23 @@
+apiVersion: phenix.sandia.gov/v2
+kind: Scenario
+metadata:
+  name: caldera-test
+  annotations:
+    topology: caldera-test
+spec:
+  apps:
+  - name: caldera
+    metadata:
+      servers:
+      - hostname: caldera
+        memory: 4096
+        image: caldera-arm64.qc2
+        config: /phenix/topologies/caldera-test/caldera-config.yml
+        interfaces:
+        - address: 10.9.9.10/24
+          gateway: 10.9.9.1
+          vlan: CTEST
+    hosts:
+    - hostname: target
+      metadata:
+        server: caldera

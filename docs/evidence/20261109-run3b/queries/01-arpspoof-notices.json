@@ -1,0 +1,2 @@
+{"size":100,"sort":[{"@timestamp":"asc"}],"_source":["@timestamp","event.dataset","zeek.notice.note","zeek.notice.msg","zeek.notice.sub","zeek.notice.src"],
+ "query":{"bool":{"filter":[{"range":{"@timestamp":{"gte":"2026-11-09T05:34:30Z","lte":"2026-11-09T05:42:00Z"}}},{"query_string":{"query":"event.dataset:notice AND zeek.notice.note:\"ArpSpoof::Conflict\""}}]}}}

@@ -1,0 +1,1022 @@
+From f0ae88f48886e7607b09209dca15a71a28c11ecc Mon Sep 17 00:00:00 2001
+From: Ryan Adams <adamsrnmsu@gmail.com>
+Date: Sun, 8 Nov 2026 22:24:47 -0700
+Subject: [PATCH 1/2] feat(waterway-arm64): add arm64 waterway topology with
+ Linux SCADA stack
+
+Static topology, scenario and injects for the waterway lock model on arm64
+hosts. Windows roles (OPC TOP Server, mySCADA, Wonderware, Win7 HMI and
+engineer workstation) are replaced by a Python OPC UA gateway, FUXA,
+InfluxDB/Telegraf and xfce desktops. The aarch64 simulinksolver binary is
+not included; the README says how to build it.
+---
+ README.md                                |   2 +
+ waterway-arm64/README.md                 |  65 +++++
+ waterway-arm64/injects/10-noblank.conf   |   9 +
+ waterway-arm64/injects/fuxa_project.json |  60 ++++
+ waterway-arm64/injects/hmi_url           |   1 +
+ waterway-arm64/injects/influx-setup.sh   |  19 ++
+ waterway-arm64/injects/opc_gateway.json  | 182 ++++++++++++
+ waterway-arm64/injects/publishPoints.txt |  15 +
+ waterway-arm64/injects/rtus.txt          |   2 +
+ waterway-arm64/injects/telegraf.conf     | 148 ++++++++++
+ waterway-arm64/waterway-scenario.yaml    |  58 ++++
+ waterway-arm64/waterway-topology.yaml    | 350 +++++++++++++++++++++++
+ 12 files changed, 911 insertions(+)
+ create mode 100644 waterway-arm64/README.md
+ create mode 100644 waterway-arm64/injects/10-noblank.conf
+ create mode 100644 waterway-arm64/injects/fuxa_project.json
+ create mode 100644 waterway-arm64/injects/hmi_url
+ create mode 100755 waterway-arm64/injects/influx-setup.sh
+ create mode 100644 waterway-arm64/injects/opc_gateway.json
+ create mode 100644 waterway-arm64/injects/publishPoints.txt
+ create mode 100644 waterway-arm64/injects/rtus.txt
+ create mode 100644 waterway-arm64/injects/telegraf.conf
+ create mode 100644 waterway-arm64/waterway-scenario.yaml
+ create mode 100644 waterway-arm64/waterway-topology.yaml
+
+diff --git a/README.md b/README.md
+index b8cffd3..52c5c69 100644
+--- a/README.md
++++ b/README.md
+@@ -35,3 +35,5 @@ phenix experiment start hello-world
+ - [soap](./soap) - Complete example topology demonstrating the Hardware-In-the-Loop (HIL) capabilities of SCEPTRE.
+ - [soap-legacy](./soap-legacy) - The SOAP topology models a notional SCADA system for a 300 bus microgrid system.
+ - [waterway](./waterway) - The waterway topology models a notional SCADA system for a waterway lock system.
++- [waterway-arm64](./waterway-arm64) - `waterway` for arm64 hosts, with Linux replacements for the Windows SCADA software.
++- [mitm-arm64](./mitm-arm64) - arm64 counterpart of the ARP man-in-the-middle topology (`mitm`).
+diff --git a/waterway-arm64/README.md b/waterway-arm64/README.md
+new file mode 100644
+index 0000000..41eea06
+--- /dev/null
++++ b/waterway-arm64/README.md
+@@ -0,0 +1,65 @@
++# waterway-arm64
++
++The [waterway](../waterway) lock model on an arm64 host (for example an Apple Silicon Mac running Linux KVM guests under nested virtualization), with the Windows SCADA stack replaced by Linux software. The physics, RTUs, router and addressing are the same as `waterway`; everything is static YAML plus injects, nothing is generated at run time.
++
++## What differs from `waterway`
++
++### Node block
++
++Every VM uses an aarch64 `virt` machine instead of the x86 defaults phenix writes:
++
++```yaml
++hardware:
++  cpu: host                     # phenix default (Broadwell) is invalid on aarch64
++  drives:
++  - image: <name>-arm64.qc2
++    interface: virtio
++    inject_partition: 2         # images are GPT with an ESP; the root fs is partition 2
++advanced:
++  machine: virt
++  vga: virtio
++  qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd   # UEFI firmware; replaces phenix's "-vga qxl"
++overrides:
++  bus=usb-bus.0: bus=xhci.0     # minimega's usb-tablet device names the x86-only usb-bus.0
++```
++
++GUI nodes (`hmi`, `engineer-workstation`) append `-device virtio-gpu-pci -device usb-kbd,bus=xhci.0` to `qemu-append`: `virt` has no VGA, so without a GPU the console is black and has no keyboard.
++
++### Linux replacements for the Windows roles
++
++| Host | Original | Here | Image |
++| --- | --- | --- | --- |
++| `waterway-provider` | bennu + x86 `simulinksolver` | bennu-simulink-provider + an aarch64 `simulinksolver` | `bennu-arm64.qc2` |
++| `rtu-1`, `rtu-2` | bennu field device | same, native arm64 build; `rtu-1` also carries a `boat` device | `bennu-arm64.qc2` |
++| `opc` | Kepware OPC TOP Server | Python gateway: Modbus master (pymodbus) -> OPC UA server on `10.1.2.50:4840` (asyncua), configured by `injects/opc_gateway.json` | `opc-arm64.qc2` |
++| `historian` | Wonderware | InfluxDB 2 + Telegraf (OPC UA input), `injects/telegraf.conf`, `injects/influx-setup.sh` | `historian-arm64.qc2` |
++| `scada-server` | mySCADA | FUXA with an OPC UA client device, `injects/fuxa_project.json` (HTTP 1881) | `scada-arm64.qc2` |
++| `hmi` | Win7 mySCADA HMI | xfce autologin, Firefox kiosk on `http://10.1.2.71:1881/` | `hmi-arm64.qc2` |
++| `engineer-workstation` | Win7 | xfce plus brash terminals; `injects/rtus.txt` lists the RTUs | `engineer-arm64.qc2` |
++| `router` | minirouter | same | `minirouter-arm64.qc2` |
++
++## Prerequisites
++
++- An arm64 host with KVM, minimega with `qemu-system-aarch64` and the AAVMF firmware (`/usr/share/AAVMF/AAVMF_CODE.fd`), and a phenix that supports the `advanced`, `overrides` and `inject_partition` node fields.
++- minimega starts guests with `-vga <type>`, which `virt` ignores. The `advanced.qemu-append` above works around that for GUI nodes; the `kvm` binary minimega runs also needs to be a `qemu-system-aarch64` launcher that supplies `-M virt` (aarch64 has no default machine).
++- The images in the table. This repository has no arm64 recipes yet; they were built with the recipes of the [phenix-waterway-range](https://github.com/adamsrnmsu/phenix-waterway-range) repository (`images/recipes/*.env`, `images/build.sh <name>`).
++- `injects/simulinksolver`: an aarch64 build of the Simulink solver, NOT included here (it is a binary). It is built from [ferrofire](https://github.com/adamsrnmsu/ferrofire) (`build-linux.sh`; the range repository wraps it as `provider/build-simulinksolver.sh`). Copy the result to `/phenix/topologies/waterway-arm64/injects/simulinksolver`; `waterway-scenario.yaml` points the provider at it.
++
++## Run
++
++The YAML paths assume the directory is installed at `/phenix/topologies/waterway-arm64`:
++
++```
++cp -r waterway-arm64 /phenix/topologies/.
++phenix config create /phenix/topologies/waterway-arm64/waterway-topology.yaml
++phenix config create /phenix/topologies/waterway-arm64/waterway-scenario.yaml
++phenix exp create waterway-arm64 -t waterway-arm64 -s waterway-arm64
++phenix exp start waterway-arm64
++```
++
++The HMI is served on `http://10.1.2.71:1881/` (SCADA VLAN) and shown full-screen on the `hmi` VM.
++
++## Notes
++
++- Lab defaults only: InfluxDB admin password `waterway-admin-pass`, token `waterway-historian-token` (`injects/influx-setup.sh`, `injects/telegraf.conf`).
++- Addressing matches `waterway`: ICS `10.1.1.0/24`, SCADA `10.1.2.0/24`, MGMT `172.16.0.0/16`.
+diff --git a/waterway-arm64/injects/10-noblank.conf b/waterway-arm64/injects/10-noblank.conf
+new file mode 100644
+index 0000000..9f48559
+--- /dev/null
++++ b/waterway-arm64/injects/10-noblank.conf
+@@ -0,0 +1,9 @@
++Section "ServerFlags"
++    Option "BlankTime" "0"
++    Option "StandbyTime" "0"
++    Option "SuspendTime" "0"
++    Option "OffTime" "0"
++EndSection
++Section "Extensions"
++    Option "DPMS" "Disable"
++EndSection
+diff --git a/waterway-arm64/injects/fuxa_project.json b/waterway-arm64/injects/fuxa_project.json
+new file mode 100644
+index 0000000..4f0f292
+--- /dev/null
++++ b/waterway-arm64/injects/fuxa_project.json
+@@ -0,0 +1,60 @@
++{
++  "devices": {
++    "0": {"id": "0", "name": "FUXA Server", "enabled": true, "type": "FuxaServer", "property": {}, "tags": {}},
++    "d_opc": {
++      "id": "d_opc", "name": "opc", "enabled": true, "type": "OPCUA", "polling": 1000,
++      "property": {"address": "opc.tcp://10.1.2.50:4840"},
++      "tags": {
++        "t1": {"id": "t1", "name": "rtu-1.boat.direction", "type": "number",
++          "address": "ns=2;s=rtu-1.boat.direction", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t2": {"id": "t2", "name": "rtu-1.boat.location", "type": "number",
++          "address": "ns=2;s=rtu-1.boat.location", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t3": {"id": "t3", "name": "rtu-1.lock.height", "type": "number",
++          "address": "ns=2;s=rtu-1.lock.height", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t4": {"id": "t4", "name": "rtu-1.locksensor.active", "type": "number",
++          "address": "ns=2;s=rtu-1.locksensor.active", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t5": {"id": "t5", "name": "rtu-1.locksensor.direction", "type": "number",
++          "address": "ns=2;s=rtu-1.locksensor.direction", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t6": {"id": "t6", "name": "rtu-1.lowergate.open", "type": "number",
++          "address": "ns=2;s=rtu-1.lowergate.open", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t7": {"id": "t7", "name": "rtu-1.lowersensor.active", "type": "number",
++          "address": "ns=2;s=rtu-1.lowersensor.active", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t8": {"id": "t8", "name": "rtu-1.lowersensor.direction", "type": "number",
++          "address": "ns=2;s=rtu-1.lowersensor.direction", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t9": {"id": "t9", "name": "rtu-1.lowervalve.open", "type": "number",
++          "address": "ns=2;s=rtu-1.lowervalve.open", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t10": {"id": "t10", "name": "rtu-1.lowerwater.height", "type": "number",
++          "address": "ns=2;s=rtu-1.lowerwater.height", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t11": {"id": "t11", "name": "rtu-2.lock.height", "type": "number",
++          "address": "ns=2;s=rtu-2.lock.height", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t12": {"id": "t12", "name": "rtu-2.locksensor.active", "type": "number",
++          "address": "ns=2;s=rtu-2.locksensor.active", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t13": {"id": "t13", "name": "rtu-2.locksensor.direction", "type": "number",
++          "address": "ns=2;s=rtu-2.locksensor.direction", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t14": {"id": "t14", "name": "rtu-2.uppergate.open", "type": "number",
++          "address": "ns=2;s=rtu-2.uppergate.open", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t15": {"id": "t15", "name": "rtu-2.uppersensor.active", "type": "number",
++          "address": "ns=2;s=rtu-2.uppersensor.active", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t16": {"id": "t16", "name": "rtu-2.uppersensor.direction", "type": "number",
++          "address": "ns=2;s=rtu-2.uppersensor.direction", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t17": {"id": "t17", "name": "rtu-2.uppervalve.open", "type": "number",
++          "address": "ns=2;s=rtu-2.uppervalve.open", "daq": {"enabled": false, "interval": 60, "restored": false}},
++        "t18": {"id": "t18", "name": "rtu-2.upperwater.height", "type": "number",
++          "address": "ns=2;s=rtu-2.upperwater.height", "daq": {"enabled": false, "interval": 60, "restored": false}}
++      }
++    }
++  },
++  "hmi": {
++    "views": [
++      {
++        "id": "v_lock", "name": "Lock", "profile": {"width": 1280, "height": 720, "bkcolor": "#ffffffff"},
++        "variables": {},
++        "items": {"BOATX_chamber": {"id": "BOATX_chamber", "label": "Shapes", "name": "BOATX_chamber", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 199.999, "min": 100.001}, "type": "show", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 100.0, "min": -1000000.0}, "type": "hide", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 200.001}, "type": "hide", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 288, "toY": 0}, "range": {"max": 102.4999, "min": -1000000.0}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 301, "toY": 0}, "range": {"max": 107.4999, "min": 102.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 314, "toY": 0}, "range": {"max": 112.4999, "min": 107.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 327, "toY": 0}, "range": {"max": 117.4999, "min": 112.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 340, "toY": 0}, "range": {"max": 122.4999, "min": 117.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 353, "toY": 0}, "range": {"max": 127.4999, "min": 122.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 366, "toY": 0}, "range": {"max": 132.4999, "min": 127.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 379, "toY": 0}, "range": {"max": 137.4999, "min": 132.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 392, "toY": 0}, "range": {"max": 142.4999, "min": 137.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 405, "toY": 0}, "range": {"max": 147.4999, "min": 142.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 418, "toY": 0}, "range": {"max": 152.4999, "min": 147.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 431, "toY": 0}, "range": {"max": 157.4999, "min": 152.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 444, "toY": 0}, "range": {"max": 162.4999, "min": 157.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 457, "toY": 0}, "range": {"max": 167.4999, "min": 162.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 470, "toY": 0}, "range": {"max": 172.4999, "min": 167.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 483, "toY": 0}, "range": {"max": 177.4999, "min": 172.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 496, "toY": 0}, "range": {"max": 182.4999, "min": 177.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 509, "toY": 0}, "range": {"max": 187.4999, "min": 182.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 522, "toY": 0}, "range": {"max": 192.4999, "min": 187.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 535, "toY": 0}, "range": {"max": 197.4999, "min": 192.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 548, "toY": 0}, "range": {"max": 1000000.0, "min": 197.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "BOATX_lower": {"id": "BOATX_lower", "label": "Shapes", "name": "BOATX_lower", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 100.0, "min": -1000000.0}, "type": "show", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 100.001}, "type": "hide", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 28, "toY": 0}, "range": {"max": 2.4999, "min": -1000000.0}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 41, "toY": 0}, "range": {"max": 7.4999, "min": 2.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 54, "toY": 0}, "range": {"max": 12.4999, "min": 7.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 67, "toY": 0}, "range": {"max": 17.4999, "min": 12.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 80, "toY": 0}, "range": {"max": 22.4999, "min": 17.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 93, "toY": 0}, "range": {"max": 27.4999, "min": 22.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 106, "toY": 0}, "range": {"max": 32.4999, "min": 27.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 119, "toY": 0}, "range": {"max": 37.4999, "min": 32.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 132, "toY": 0}, "range": {"max": 42.4999, "min": 37.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 145, "toY": 0}, "range": {"max": 47.4999, "min": 42.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 158, "toY": 0}, "range": {"max": 52.4999, "min": 47.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 171, "toY": 0}, "range": {"max": 57.4999, "min": 52.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 184, "toY": 0}, "range": {"max": 62.4999, "min": 57.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 197, "toY": 0}, "range": {"max": 67.4999, "min": 62.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 210, "toY": 0}, "range": {"max": 72.4999, "min": 67.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 223, "toY": 0}, "range": {"max": 77.4999, "min": 72.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 236, "toY": 0}, "range": {"max": 82.4999, "min": 77.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 249, "toY": 0}, "range": {"max": 87.4999, "min": 82.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 262, "toY": 0}, "range": {"max": 92.4999, "min": 87.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 275, "toY": 0}, "range": {"max": 97.4999, "min": 92.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 288, "toY": 0}, "range": {"max": 1000000.0, "min": 97.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "BOATX_upper": {"id": "BOATX_upper", "label": "Shapes", "name": "BOATX_upper", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 200.0}, "type": "show", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 199.999, "min": -1000000.0}, "type": "hide", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 548, "toY": 0}, "range": {"max": 202.4999, "min": -1000000.0}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 561, "toY": 0}, "range": {"max": 207.4999, "min": 202.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 574, "toY": 0}, "range": {"max": 212.4999, "min": 207.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 587, "toY": 0}, "range": {"max": 217.4999, "min": 212.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 600, "toY": 0}, "range": {"max": 222.4999, "min": 217.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 613, "toY": 0}, "range": {"max": 227.4999, "min": 222.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 626, "toY": 0}, "range": {"max": 232.4999, "min": 227.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 639, "toY": 0}, "range": {"max": 237.4999, "min": 232.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 652, "toY": 0}, "range": {"max": 242.4999, "min": 237.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 665, "toY": 0}, "range": {"max": 247.4999, "min": 242.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 678, "toY": 0}, "range": {"max": 252.4999, "min": 247.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 691, "toY": 0}, "range": {"max": 257.4999, "min": 252.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 704, "toY": 0}, "range": {"max": 262.4999, "min": 257.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 717, "toY": 0}, "range": {"max": 267.4999, "min": 262.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 730, "toY": 0}, "range": {"max": 272.4999, "min": 267.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 743, "toY": 0}, "range": {"max": 277.4999, "min": 272.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 756, "toY": 0}, "range": {"max": 282.4999, "min": 277.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 769, "toY": 0}, "range": {"max": 287.4999, "min": 282.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 782, "toY": 0}, "range": {"max": 292.4999, "min": 287.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 795, "toY": 0}, "range": {"max": 297.4999, "min": 292.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 808, "toY": 0}, "range": {"max": 1000000.0, "min": 297.5}, "type": "move", "variableId": "t2", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "BOATY_chamber": {"id": "BOATY_chamber", "label": "Shapes", "name": "BOATY_chamber", "property": {"actions": [{"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 448.0}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 436.0}, "range": {"max": 1.4999, "min": 0.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 424.0}, "range": {"max": 2.4999, "min": 1.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 412.0}, "range": {"max": 3.4999, "min": 2.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 400.0}, "range": {"max": 4.4999, "min": 3.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 388.0}, "range": {"max": 5.4999, "min": 4.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 376.0}, "range": {"max": 6.4999, "min": 5.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 364.0}, "range": {"max": 7.4999, "min": 6.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 352.0}, "range": {"max": 8.4999, "min": 7.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 340.0}, "range": {"max": 9.4999, "min": 8.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 328.0}, "range": {"max": 10.4999, "min": 9.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 316.0}, "range": {"max": 11.4999, "min": 10.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 304.0}, "range": {"max": 12.4999, "min": 11.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 292.0}, "range": {"max": 13.4999, "min": 12.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 280.0}, "range": {"max": 14.4999, "min": 13.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 268.0}, "range": {"max": 15.4999, "min": 14.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 256.0}, "range": {"max": 16.4999, "min": 15.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 244.0}, "range": {"max": 17.4999, "min": 16.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 232.0}, "range": {"max": 18.4999, "min": 17.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 220.0}, "range": {"max": 19.4999, "min": 18.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 208.0}, "range": {"max": 1000000.0, "min": 19.5}, "type": "move", "variableId": "t3", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "BOATY_lower": {"id": "BOATY_lower", "label": "Shapes", "name": "BOATY_lower", "property": {"actions": [{"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 448.0}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 436.0}, "range": {"max": 1.4999, "min": 0.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 424.0}, "range": {"max": 2.4999, "min": 1.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 412.0}, "range": {"max": 3.4999, "min": 2.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 400.0}, "range": {"max": 4.4999, "min": 3.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 388.0}, "range": {"max": 5.4999, "min": 4.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 376.0}, "range": {"max": 6.4999, "min": 5.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 364.0}, "range": {"max": 7.4999, "min": 6.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 352.0}, "range": {"max": 8.4999, "min": 7.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 340.0}, "range": {"max": 9.4999, "min": 8.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 328.0}, "range": {"max": 10.4999, "min": 9.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 316.0}, "range": {"max": 11.4999, "min": 10.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 304.0}, "range": {"max": 12.4999, "min": 11.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 292.0}, "range": {"max": 13.4999, "min": 12.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 280.0}, "range": {"max": 14.4999, "min": 13.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 268.0}, "range": {"max": 15.4999, "min": 14.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 256.0}, "range": {"max": 16.4999, "min": 15.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 244.0}, "range": {"max": 17.4999, "min": 16.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 232.0}, "range": {"max": 18.4999, "min": 17.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 220.0}, "range": {"max": 19.4999, "min": 18.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 208.0}, "range": {"max": 1000000.0, "min": 19.5}, "type": "move", "variableId": "t10", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "BOATY_upper": {"id": "BOATY_upper", "label": "Shapes", "name": "BOATY_upper", "property": {"actions": [{"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 448.0}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 436.0}, "range": {"max": 1.4999, "min": 0.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 424.0}, "range": {"max": 2.4999, "min": 1.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 412.0}, "range": {"max": 3.4999, "min": 2.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 400.0}, "range": {"max": 4.4999, "min": 3.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 388.0}, "range": {"max": 5.4999, "min": 4.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 376.0}, "range": {"max": 6.4999, "min": 5.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 364.0}, "range": {"max": 7.4999, "min": 6.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 352.0}, "range": {"max": 8.4999, "min": 7.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 340.0}, "range": {"max": 9.4999, "min": 8.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 328.0}, "range": {"max": 10.4999, "min": 9.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 316.0}, "range": {"max": 11.4999, "min": 10.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 304.0}, "range": {"max": 12.4999, "min": 11.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 292.0}, "range": {"max": 13.4999, "min": 12.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 280.0}, "range": {"max": 14.4999, "min": 13.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 268.0}, "range": {"max": 15.4999, "min": 14.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 256.0}, "range": {"max": 16.4999, "min": 15.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 244.0}, "range": {"max": 17.4999, "min": 16.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 232.0}, "range": {"max": 18.4999, "min": 17.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 220.0}, "range": {"max": 19.4999, "min": 18.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1000, "toX": 0, "toY": 208.0}, "range": {"max": 1000000.0, "min": 19.5}, "type": "move", "variableId": "t18", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "FLOW_lower": {"id": "FLOW_lower", "label": "Shapes", "name": "FLOW_lower", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "show", "variableId": "t9", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"fillA": "#ffffff", "fillB": "#8ec5ff", "interval": 600, "strokeA": "none", "strokeB": "none"}, "range": {"max": 1000000.0, "min": 0.5}, "type": "blink", "variableId": "t9", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "hide", "variableId": "t9", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "FLOW_upper": {"id": "FLOW_upper", "label": "Shapes", "name": "FLOW_upper", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "show", "variableId": "t17", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"fillA": "#ffffff", "fillB": "#8ec5ff", "interval": 600, "strokeA": "none", "strokeB": "none"}, "range": {"max": 1000000.0, "min": 0.5}, "type": "blink", "variableId": "t17", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "hide", "variableId": "t17", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "GATEC_lower": {"id": "GATEC_lower", "label": "Shapes", "name": "GATEC_lower", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "show", "variableId": "t6", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "hide", "variableId": "t6", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "GATEC_upper": {"id": "GATEC_upper", "label": "Shapes", "name": "GATEC_upper", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "show", "variableId": "t14", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "hide", "variableId": "t14", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "GATEO_lower": {"id": "GATEO_lower", "label": "Shapes", "name": "GATEO_lower", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "show", "variableId": "t6", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "hide", "variableId": "t6", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "GATEO_upper": {"id": "GATEO_upper", "label": "Shapes", "name": "GATEO_upper", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "show", "variableId": "t14", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "hide", "variableId": "t14", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "GATE_lower": {"id": "GATE_lower", "label": "Shapes", "name": "GATE_lower", "property": {"actions": [{"bitmask": null, "options": {"duration": 1200, "toX": 316, "toY": 470}, "range": {"max": 1000000.0, "min": 0.5}, "type": "move", "variableId": "t6", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1200, "toX": 316, "toY": 220}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "move", "variableId": "t6", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "GATE_upper": {"id": "GATE_upper", "label": "Shapes", "name": "GATE_upper", "property": {"actions": [{"bitmask": null, "options": {"duration": 1200, "toX": 574, "toY": 470}, "range": {"max": 1000000.0, "min": 0.5}, "type": "move", "variableId": "t14", "variableSrc": "d_opc"}, {"bitmask": null, "options": {"duration": 1200, "toX": 574, "toY": 220}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "move", "variableId": "t14", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "GXP_chamber": {"id": "GXP_chamber", "label": "HtmlProgress", "name": "rtu-1.lock.height", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"color": "#4a90d9", "max": "20", "min": 0, "style": [true, true], "type": "minmax"}], "variable": "rtu-1.lock.height", "variableId": "t3", "variableSrc": "d_opc"}, "type": "svg-ext-gauge_progress"}, "GXP_lower": {"id": "GXP_lower", "label": "HtmlProgress", "name": "rtu-1.lowerwater.height", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"color": "#4a90d9", "max": "20", "min": 0, "style": [true, true], "type": "minmax"}], "variable": "rtu-1.lowerwater.height", "variableId": "t10", "variableSrc": "d_opc"}, "type": "svg-ext-gauge_progress"}, "GXP_upper": {"id": "GXP_upper", "label": "HtmlProgress", "name": "rtu-2.upperwater.height", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"color": "#4a90d9", "max": "20", "min": 0, "style": [true, true], "type": "minmax"}], "variable": "rtu-2.upperwater.height", "variableId": "t18", "variableSrc": "d_opc"}, "type": "svg-ext-gauge_progress"}, "PIPE_lower": {"id": "PIPE_lower", "label": "Shapes", "name": "PIPE_lower", "property": {"actions": [], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"color": "#cfd8dc", "max": 0.4999, "min": -1000000.0, "stroke": "#222", "type": "range"}, {"color": "#4a90d9", "max": 1000000.0, "min": 0.5, "stroke": "#222", "type": "range"}], "variable": "rtu-1.lowervalve.open", "variableId": "t9", "variableSrc": "d_opc"}, "type": "svg-ext-shapes"}, "PIPE_upper": {"id": "PIPE_upper", "label": "Shapes", "name": "PIPE_upper", "property": {"actions": [], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"color": "#cfd8dc", "max": 0.4999, "min": -1000000.0, "stroke": "#222", "type": "range"}, {"color": "#4a90d9", "max": 1000000.0, "min": 0.5, "stroke": "#222", "type": "range"}], "variable": "rtu-2.uppervalve.open", "variableId": "t17", "variableSrc": "d_opc"}, "type": "svg-ext-shapes"}, "VALC_lower": {"id": "VALC_lower", "label": "Shapes", "name": "VALC_lower", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "show", "variableId": "t9", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "hide", "variableId": "t9", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "VALC_upper": {"id": "VALC_upper", "label": "Shapes", "name": "VALC_upper", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "show", "variableId": "t17", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "hide", "variableId": "t17", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "VALO_lower": {"id": "VALO_lower", "label": "Shapes", "name": "VALO_lower", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "show", "variableId": "t9", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "hide", "variableId": "t9", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "VALO_upper": {"id": "VALO_upper", "label": "Shapes", "name": "VALO_upper", "property": {"actions": [{"bitmask": null, "options": {}, "range": {"max": 1000000.0, "min": 0.5}, "type": "show", "variableId": "t17", "variableSrc": "d_opc"}, {"bitmask": null, "options": {}, "range": {"max": 0.4999, "min": -1000000.0}, "type": "hide", "variableId": "t17", "variableSrc": "d_opc"}], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": []}, "type": "svg-ext-shapes"}, "VALVE_lower": {"id": "VALVE_lower", "label": "Shapes", "name": "VALVE_lower", "property": {"actions": [], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"color": "#d03a3a", "max": 0.4999, "min": -1000000.0, "stroke": "#222", "type": "range"}, {"color": "#2e9e4f", "max": 1000000.0, "min": 0.5, "stroke": "#222", "type": "range"}], "variable": "rtu-1.lowervalve.open", "variableId": "t9", "variableSrc": "d_opc"}, "type": "svg-ext-shapes"}, "VALVE_upper": {"id": "VALVE_upper", "label": "Shapes", "name": "VALVE_upper", "property": {"actions": [], "alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"color": "#d03a3a", "max": 0.4999, "min": -1000000.0, "stroke": "#222", "type": "range"}, {"color": "#2e9e4f", "max": 1000000.0, "min": 0.5, "stroke": "#222", "type": "range"}], "variable": "rtu-2.uppervalve.open", "variableId": "t17", "variableSrc": "d_opc"}, "type": "svg-ext-shapes"}, "VAL_rtu-1.boat.direction": {"id": "VAL_rtu-1.boat.direction", "label": "Value", "name": "rtu-1.boat.direction", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.boat.direction", "variableId": "t1", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.boat.location": {"id": "VAL_rtu-1.boat.location", "label": "Value", "name": "rtu-1.boat.location", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.boat.location", "variableId": "t2", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.lock.height": {"id": "VAL_rtu-1.lock.height", "label": "Value", "name": "rtu-1.lock.height", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.lock.height", "variableId": "t3", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.locksensor.active": {"id": "VAL_rtu-1.locksensor.active", "label": "Value", "name": "rtu-1.locksensor.active", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.locksensor.active", "variableId": "t4", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.locksensor.direction": {"id": "VAL_rtu-1.locksensor.direction", "label": "Value", "name": "rtu-1.locksensor.direction", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.locksensor.direction", "variableId": "t5", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.lowergate.open": {"id": "VAL_rtu-1.lowergate.open", "label": "Value", "name": "rtu-1.lowergate.open", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.lowergate.open", "variableId": "t6", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.lowersensor.active": {"id": "VAL_rtu-1.lowersensor.active", "label": "Value", "name": "rtu-1.lowersensor.active", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.lowersensor.active", "variableId": "t7", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.lowersensor.direction": {"id": "VAL_rtu-1.lowersensor.direction", "label": "Value", "name": "rtu-1.lowersensor.direction", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.lowersensor.direction", "variableId": "t8", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.lowervalve.open": {"id": "VAL_rtu-1.lowervalve.open", "label": "Value", "name": "rtu-1.lowervalve.open", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.lowervalve.open", "variableId": "t9", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-1.lowerwater.height": {"id": "VAL_rtu-1.lowerwater.height", "label": "Value", "name": "rtu-1.lowerwater.height", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-1.lowerwater.height", "variableId": "t10", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-2.lock.height": {"id": "VAL_rtu-2.lock.height", "label": "Value", "name": "rtu-2.lock.height", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-2.lock.height", "variableId": "t11", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-2.uppergate.open": {"id": "VAL_rtu-2.uppergate.open", "label": "Value", "name": "rtu-2.uppergate.open", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-2.uppergate.open", "variableId": "t14", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-2.uppersensor.active": {"id": "VAL_rtu-2.uppersensor.active", "label": "Value", "name": "rtu-2.uppersensor.active", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-2.uppersensor.active", "variableId": "t15", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-2.uppersensor.direction": {"id": "VAL_rtu-2.uppersensor.direction", "label": "Value", "name": "rtu-2.uppersensor.direction", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-2.uppersensor.direction", "variableId": "t16", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-2.uppervalve.open": {"id": "VAL_rtu-2.uppervalve.open", "label": "Value", "name": "rtu-2.uppervalve.open", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-2.uppervalve.open", "variableId": "t17", "variableSrc": "d_opc"}, "type": "svg-ext-value"}, "VAL_rtu-2.upperwater.height": {"id": "VAL_rtu-2.upperwater.height", "label": "Value", "name": "rtu-2.upperwater.height", "property": {"alarm": "", "alarmColor": "", "alarmId": "", "alarmSrc": "", "events": [], "ranges": [{"max": 1000000, "min": 0, "text": "", "type": "unit"}], "variable": "rtu-2.upperwater.height", "variableId": "t18", "variableSrc": "d_opc"}, "type": "svg-ext-value"}},
++        "svgcontent": "\u003csvg xmlns=\u0027http://www.w3.org/2000/svg\u0027 width=\u00271280\u0027 height=\u0027720\u0027\u003e\u003crect x=\u00270\u0027 y=\u00270\u0027 width=\u00271280\u0027 height=\u0027720\u0027 fill=\u0027#f4f6f8\u0027/\u003e\u003ctext x=\u002740\u0027 y=\u002740\u0027 font-size=\u002726\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#16324f\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027bold\u0027 \u003eWaterway Lock - live process view\u003c/text\u003e\u003ctext x=\u002740\u0027 y=\u002762\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#5a6b7b\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003eOPC UA via scada-server (polled 1 s)\u003c/text\u003e\u003crect x=\u002740\u0027 y=\u0027200\u0027 width=\u002720\u0027 height=\u0027270\u0027 fill=\u0027#6b6f73\u0027/\u003e\u003crect x=\u0027840\u0027 y=\u0027200\u0027 width=\u002720\u0027 height=\u0027270\u0027 fill=\u0027#6b6f73\u0027/\u003e\u003cline x1=\u002762\u0027 y1=\u0027470\u0027 x2=\u0027838\u0027 y2=\u0027470\u0027 stroke=\u0027#b9c4cf\u0027 stroke-dasharray=\u00273 5\u0027/\u003e\u003ctext x=\u002734\u0027 y=\u0027474\u0027 font-size=\u002711\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#5a6b7b\u0027 text-anchor=\u0027end\u0027 font-weight=\u0027normal\u0027 \u003e0\u003c/text\u003e\u003cline x1=\u002762\u0027 y1=\u0027410\u0027 x2=\u0027838\u0027 y2=\u0027410\u0027 stroke=\u0027#b9c4cf\u0027 stroke-dasharray=\u00273 5\u0027/\u003e\u003ctext x=\u002734\u0027 y=\u0027414\u0027 font-size=\u002711\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#5a6b7b\u0027 text-anchor=\u0027end\u0027 font-weight=\u0027normal\u0027 \u003e5\u003c/text\u003e\u003cline x1=\u002762\u0027 y1=\u0027350\u0027 x2=\u0027838\u0027 y2=\u0027350\u0027 stroke=\u0027#b9c4cf\u0027 stroke-dasharray=\u00273 5\u0027/\u003e\u003ctext x=\u002734\u0027 y=\u0027354\u0027 font-size=\u002711\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#5a6b7b\u0027 text-anchor=\u0027end\u0027 font-weight=\u0027normal\u0027 \u003e10\u003c/text\u003e\u003cline x1=\u002762\u0027 y1=\u0027290\u0027 x2=\u0027838\u0027 y2=\u0027290\u0027 stroke=\u0027#b9c4cf\u0027 stroke-dasharray=\u00273 5\u0027/\u003e\u003ctext x=\u002734\u0027 y=\u0027294\u0027 font-size=\u002711\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#5a6b7b\u0027 text-anchor=\u0027end\u0027 font-weight=\u0027normal\u0027 \u003e15\u003c/text\u003e\u003cline x1=\u002762\u0027 y1=\u0027230\u0027 x2=\u0027838\u0027 y2=\u0027230\u0027 stroke=\u0027#b9c4cf\u0027 stroke-dasharray=\u00273 5\u0027/\u003e\u003ctext x=\u002734\u0027 y=\u0027234\u0027 font-size=\u002711\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#5a6b7b\u0027 text-anchor=\u0027end\u0027 font-weight=\u0027normal\u0027 \u003e20\u003c/text\u003e\u003cg id=\u0027GXP_lower\u0027 type=\u0027svg-ext-gauge_progress\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002714\u0027 stroke=\u0027null\u0027\u003e\u003crect id=\u0027A-GXP_lower\u0027 fill=\u0027#e9f1f8\u0027 x=\u002760\u0027 y=\u0027230.0\u0027 width=\u0027260\u0027 height=\u0027240.0\u0027 stroke=\u0027null\u0027/\u003e\u003crect id=\u0027B-GXP_lower\u0027 fill=\u0027#4a90d9\u0027 x=\u002760\u0027 y=\u0027350.0\u0027 width=\u0027260\u0027 height=\u0027120.0\u0027 stroke=\u0027null\u0027/\u003e\u003cforeignObject id=\u0027H-GXP_lower\u0027 font-size=\u002714\u0027 x=\u002760\u0027 y=\u0027230.0\u0027 width=\u0027260\u0027 height=\u0027240.0\u0027/\u003e\u003c/g\u003e\u003cg id=\u0027GXP_chamber\u0027 type=\u0027svg-ext-gauge_progress\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002714\u0027 stroke=\u0027null\u0027\u003e\u003crect id=\u0027A-GXP_chamber\u0027 fill=\u0027#e9f1f8\u0027 x=\u0027326\u0027 y=\u0027230.0\u0027 width=\u0027248\u0027 height=\u0027240.0\u0027 stroke=\u0027null\u0027/\u003e\u003crect id=\u0027B-GXP_chamber\u0027 fill=\u0027#4a90d9\u0027 x=\u0027326\u0027 y=\u0027350.0\u0027 width=\u0027248\u0027 height=\u0027120.0\u0027 stroke=\u0027null\u0027/\u003e\u003cforeignObject id=\u0027H-GXP_chamber\u0027 font-size=\u002714\u0027 x=\u0027326\u0027 y=\u0027230.0\u0027 width=\u0027248\u0027 height=\u0027240.0\u0027/\u003e\u003c/g\u003e\u003cg id=\u0027GXP_upper\u0027 type=\u0027svg-ext-gauge_progress\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002714\u0027 stroke=\u0027null\u0027\u003e\u003crect id=\u0027A-GXP_upper\u0027 fill=\u0027#e9f1f8\u0027 x=\u0027584\u0027 y=\u0027230.0\u0027 width=\u0027256\u0027 height=\u0027240.0\u0027 stroke=\u0027null\u0027/\u003e\u003crect id=\u0027B-GXP_upper\u0027 fill=\u0027#4a90d9\u0027 x=\u0027584\u0027 y=\u0027350.0\u0027 width=\u0027256\u0027 height=\u0027120.0\u0027 stroke=\u0027null\u0027/\u003e\u003cforeignObject id=\u0027H-GXP_upper\u0027 font-size=\u002714\u0027 x=\u0027584\u0027 y=\u0027230.0\u0027 width=\u0027256\u0027 height=\u0027240.0\u0027/\u003e\u003c/g\u003e\u003ctext x=\u0027190\u0027 y=\u0027252\u0027 font-size=\u002715\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#16324f\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eLOWER POOL\u003c/text\u003e\u003ctext x=\u0027450\u0027 y=\u0027252\u0027 font-size=\u002715\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#16324f\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eLOCK CHAMBER\u003c/text\u003e\u003ctext x=\u0027712\u0027 y=\u0027252\u0027 font-size=\u002715\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#16324f\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eUPPER POOL\u003c/text\u003e\u003cg id=\u0027GATE_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 \u003e\u003crect x=\u0027316\u0027 y=\u0027220\u0027 width=\u002710\u0027 height=\u0027250\u0027 fill=\u0027#8a5a2b\u0027 stroke=\u0027#222\u0027/\u003e\u003c/g\u003e\u003ctext x=\u0027321\u0027 y=\u0027178\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#222\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eLOWER GATE\u003c/text\u003e\u003cg id=\u0027GATEO_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027display:none\u0027 \u003e\u003ctext x=\u0027321\u0027 y=\u0027194\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#2e9e4f\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eOPEN\u003c/text\u003e\u003c/g\u003e\u003cg id=\u0027GATEC_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 \u003e\u003ctext x=\u0027321\u0027 y=\u0027194\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#d03a3a\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eCLOSED\u003c/text\u003e\u003c/g\u003e\u003cg id=\u0027GATE_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 \u003e\u003crect x=\u0027574\u0027 y=\u0027220\u0027 width=\u002710\u0027 height=\u0027250\u0027 fill=\u0027#8a5a2b\u0027 stroke=\u0027#222\u0027/\u003e\u003c/g\u003e\u003ctext x=\u0027579\u0027 y=\u0027178\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#222\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eUPPER GATE\u003c/text\u003e\u003cg id=\u0027GATEO_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027display:none\u0027 \u003e\u003ctext x=\u0027579\u0027 y=\u0027194\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#2e9e4f\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eOPEN\u003c/text\u003e\u003c/g\u003e\u003cg id=\u0027GATEC_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 \u003e\u003ctext x=\u0027579\u0027 y=\u0027194\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#d03a3a\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eCLOSED\u003c/text\u003e\u003c/g\u003e\u003crect x=\u0027310\u0027 y=\u0027200\u0027 width=\u00276\u0027 height=\u0027270\u0027 fill=\u0027#3d4348\u0027/\u003e\u003crect x=\u0027326\u0027 y=\u0027200\u0027 width=\u00276\u0027 height=\u0027270\u0027 fill=\u0027#3d4348\u0027/\u003e\u003crect x=\u0027568\u0027 y=\u0027200\u0027 width=\u00276\u0027 height=\u0027270\u0027 fill=\u0027#3d4348\u0027/\u003e\u003crect x=\u0027584\u0027 y=\u0027200\u0027 width=\u00276\u0027 height=\u0027270\u0027 fill=\u0027#3d4348\u0027/\u003e\u003csvg id=\u0027BOATX_lower\u0027 type=\u0027svg-ext-shapes\u0027 x=\u00270\u0027 y=\u00270\u0027 width=\u002764\u0027 height=\u002734\u0027 overflow=\u0027visible\u0027 style=\u0027\u0027\u003e\u003csvg id=\u0027BOATY_lower\u0027 type=\u0027svg-ext-shapes\u0027 x=\u00270\u0027 y=\u00270\u0027 width=\u002764\u0027 height=\u002734\u0027 overflow=\u0027visible\u0027\u003e\u003cpolygon points=\u00270,18 64,18 56,34 8,34\u0027 fill=\u0027#b23b2e\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u002720\u0027 y=\u00274\u0027 width=\u002726\u0027 height=\u002714\u0027 fill=\u0027#f2f2f2\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u002724\u0027 y=\u00278\u0027 width=\u00276\u0027 height=\u00276\u0027 fill=\u0027#4a90d9\u0027/\u003e\u003crect x=\u002734\u0027 y=\u00278\u0027 width=\u00276\u0027 height=\u00276\u0027 fill=\u0027#4a90d9\u0027/\u003e\u003crect x=\u002744\u0027 y=\u00270\u0027 width=\u00273\u0027 height=\u002718\u0027 fill=\u0027#222\u0027/\u003e\u003c/svg\u003e\u003c/svg\u003e\u003csvg id=\u0027BOATX_chamber\u0027 type=\u0027svg-ext-shapes\u0027 x=\u00270\u0027 y=\u00270\u0027 width=\u002764\u0027 height=\u002734\u0027 overflow=\u0027visible\u0027 style=\u0027display:none\u0027\u003e\u003csvg id=\u0027BOATY_chamber\u0027 type=\u0027svg-ext-shapes\u0027 x=\u00270\u0027 y=\u00270\u0027 width=\u002764\u0027 height=\u002734\u0027 overflow=\u0027visible\u0027\u003e\u003cpolygon points=\u00270,18 64,18 56,34 8,34\u0027 fill=\u0027#b23b2e\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u002720\u0027 y=\u00274\u0027 width=\u002726\u0027 height=\u002714\u0027 fill=\u0027#f2f2f2\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u002724\u0027 y=\u00278\u0027 width=\u00276\u0027 height=\u00276\u0027 fill=\u0027#4a90d9\u0027/\u003e\u003crect x=\u002734\u0027 y=\u00278\u0027 width=\u00276\u0027 height=\u00276\u0027 fill=\u0027#4a90d9\u0027/\u003e\u003crect x=\u002744\u0027 y=\u00270\u0027 width=\u00273\u0027 height=\u002718\u0027 fill=\u0027#222\u0027/\u003e\u003c/svg\u003e\u003c/svg\u003e\u003csvg id=\u0027BOATX_upper\u0027 type=\u0027svg-ext-shapes\u0027 x=\u00270\u0027 y=\u00270\u0027 width=\u002764\u0027 height=\u002734\u0027 overflow=\u0027visible\u0027 style=\u0027display:none\u0027\u003e\u003csvg id=\u0027BOATY_upper\u0027 type=\u0027svg-ext-shapes\u0027 x=\u00270\u0027 y=\u00270\u0027 width=\u002764\u0027 height=\u002734\u0027 overflow=\u0027visible\u0027\u003e\u003cpolygon points=\u00270,18 64,18 56,34 8,34\u0027 fill=\u0027#b23b2e\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u002720\u0027 y=\u00274\u0027 width=\u002726\u0027 height=\u002714\u0027 fill=\u0027#f2f2f2\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u002724\u0027 y=\u00278\u0027 width=\u00276\u0027 height=\u00276\u0027 fill=\u0027#4a90d9\u0027/\u003e\u003crect x=\u002734\u0027 y=\u00278\u0027 width=\u00276\u0027 height=\u00276\u0027 fill=\u0027#4a90d9\u0027/\u003e\u003crect x=\u002744\u0027 y=\u00270\u0027 width=\u00273\u0027 height=\u002718\u0027 fill=\u0027#222\u0027/\u003e\u003c/svg\u003e\u003c/svg\u003e\u003crect x=\u002740\u0027 y=\u0027470\u0027 width=\u0027820\u0027 height=\u0027250\u0027 fill=\u0027#4b4f53\u0027/\u003e\u003cg id=\u0027PIPE_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 fill=\u0027#cfd8dc\u0027 stroke=\u0027#222\u0027\u003e\u003crect x=\u0027250\u0027 y=\u0027503\u0027 width=\u0027150\u0027 height=\u002718\u0027/\u003e\u003c/g\u003e\u003crect x=\u0027250\u0027 y=\u0027470\u0027 width=\u002710\u0027 height=\u002733\u0027 fill=\u0027#cfd8dc\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u0027390\u0027 y=\u0027470\u0027 width=\u002710\u0027 height=\u002733\u0027 fill=\u0027#cfd8dc\u0027 stroke=\u0027#222\u0027/\u003e\u003cg id=\u0027VALVE_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 fill=\u0027#d03a3a\u0027 stroke=\u0027#222\u0027\u003e\u003cpolygon points=\u0027313,500 337,524 337,500 313,524\u0027/\u003e\u003c/g\u003e\u003cg id=\u0027FLOW_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027display:none\u0027 \u003e\u003cpolygon points=\u0027264,507 307,507 307,503 317,512 307,521 307,517 264,517\u0027 fill=\u0027#fff\u0027 stroke=\u0027none\u0027 opacity=\u00270.9\u0027/\u003e\u003cpolygon points=\u0027343,507 386,507 386,503 396,512 386,521 386,517 343,517\u0027 fill=\u0027#fff\u0027 stroke=\u0027none\u0027 opacity=\u00270.9\u0027/\u003e\u003c/g\u003e\u003ctext x=\u0027325\u0027 y=\u0027560\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#fff\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eLOWER VALVE\u003c/text\u003e\u003cg id=\u0027VALO_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027display:none\u0027 \u003e\u003ctext x=\u0027325\u0027 y=\u0027577\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#7fe39c\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eOPEN\u003c/text\u003e\u003c/g\u003e\u003cg id=\u0027VALC_lower\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 \u003e\u003ctext x=\u0027325\u0027 y=\u0027577\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#ff8a8a\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eCLOSED\u003c/text\u003e\u003c/g\u003e\u003cg id=\u0027PIPE_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 fill=\u0027#cfd8dc\u0027 stroke=\u0027#222\u0027\u003e\u003crect x=\u0027500\u0027 y=\u0027503\u0027 width=\u0027150\u0027 height=\u002718\u0027/\u003e\u003c/g\u003e\u003crect x=\u0027500\u0027 y=\u0027470\u0027 width=\u002710\u0027 height=\u002733\u0027 fill=\u0027#cfd8dc\u0027 stroke=\u0027#222\u0027/\u003e\u003crect x=\u0027640\u0027 y=\u0027470\u0027 width=\u002710\u0027 height=\u002733\u0027 fill=\u0027#cfd8dc\u0027 stroke=\u0027#222\u0027/\u003e\u003cg id=\u0027VALVE_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 fill=\u0027#d03a3a\u0027 stroke=\u0027#222\u0027\u003e\u003cpolygon points=\u0027563,500 587,524 587,500 563,524\u0027/\u003e\u003c/g\u003e\u003cg id=\u0027FLOW_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027display:none\u0027 \u003e\u003cpolygon points=\u0027514,507 557,507 557,503 567,512 557,521 557,517 514,517\u0027 fill=\u0027#fff\u0027 stroke=\u0027none\u0027 opacity=\u00270.9\u0027/\u003e\u003cpolygon points=\u0027593,507 636,507 636,503 646,512 636,521 636,517 593,517\u0027 fill=\u0027#fff\u0027 stroke=\u0027none\u0027 opacity=\u00270.9\u0027/\u003e\u003c/g\u003e\u003ctext x=\u0027575\u0027 y=\u0027560\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#fff\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eUPPER VALVE\u003c/text\u003e\u003cg id=\u0027VALO_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027display:none\u0027 \u003e\u003ctext x=\u0027575\u0027 y=\u0027577\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#7fe39c\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eOPEN\u003c/text\u003e\u003c/g\u003e\u003cg id=\u0027VALC_upper\u0027 type=\u0027svg-ext-shapes\u0027 style=\u0027\u0027 \u003e\u003ctext x=\u0027575\u0027 y=\u0027577\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#ff8a8a\u0027 text-anchor=\u0027middle\u0027 font-weight=\u0027bold\u0027 \u003eCLOSED\u003c/text\u003e\u003c/g\u003e\u003crect x=\u0027900\u0027 y=\u002776\u0027 width=\u0027350\u0027 height=\u0027354\u0027 rx=\u00276\u0027 fill=\u0027#fff\u0027 stroke=\u0027#c6d0da\u0027/\u003e\u003ctext x=\u0027912\u0027 y=\u002794\u0027 font-size=\u002715\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#16324f\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027bold\u0027 \u003eTelemetry\u003c/text\u003e\u003ctext x=\u0027912\u0027 y=\u0027120\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.lowerwater.height\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.lowerwater.height\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.lowerwater.height\u0027 x=\u00271236\u0027 y=\u0027120\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027140\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.lock.height\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.lock.height\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.lock.height\u0027 x=\u00271236\u0027 y=\u0027140\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027160\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-2.lock.height\u003c/text\u003e\u003cg id=\u0027VAL_rtu-2.lock.height\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-2.lock.height\u0027 x=\u00271236\u0027 y=\u0027160\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027180\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-2.upperwater.height\u003c/text\u003e\u003cg id=\u0027VAL_rtu-2.upperwater.height\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-2.upperwater.height\u0027 x=\u00271236\u0027 y=\u0027180\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027200\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.lowergate.open\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.lowergate.open\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.lowergate.open\u0027 x=\u00271236\u0027 y=\u0027200\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027220\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-2.uppergate.open\u003c/text\u003e\u003cg id=\u0027VAL_rtu-2.uppergate.open\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-2.uppergate.open\u0027 x=\u00271236\u0027 y=\u0027220\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027240\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.lowervalve.open\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.lowervalve.open\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.lowervalve.open\u0027 x=\u00271236\u0027 y=\u0027240\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027260\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-2.uppervalve.open\u003c/text\u003e\u003cg id=\u0027VAL_rtu-2.uppervalve.open\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-2.uppervalve.open\u0027 x=\u00271236\u0027 y=\u0027260\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027280\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.boat.location\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.boat.location\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.boat.location\u0027 x=\u00271236\u0027 y=\u0027280\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027300\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.boat.direction\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.boat.direction\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.boat.direction\u0027 x=\u00271236\u0027 y=\u0027300\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027320\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.lowersensor.active\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.lowersensor.active\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.lowersensor.active\u0027 x=\u00271236\u0027 y=\u0027320\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027340\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.locksensor.active\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.locksensor.active\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.locksensor.active\u0027 x=\u00271236\u0027 y=\u0027340\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027360\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-2.uppersensor.active\u003c/text\u003e\u003cg id=\u0027VAL_rtu-2.uppersensor.active\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-2.uppersensor.active\u0027 x=\u00271236\u0027 y=\u0027360\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027380\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.lowersensor.direction\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.lowersensor.direction\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.lowersensor.direction\u0027 x=\u00271236\u0027 y=\u0027380\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027400\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-1.locksensor.direction\u003c/text\u003e\u003cg id=\u0027VAL_rtu-1.locksensor.direction\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-1.locksensor.direction\u0027 x=\u00271236\u0027 y=\u0027400\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003ctext x=\u0027912\u0027 y=\u0027420\u0027 font-size=\u002713\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#3f4a55\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ertu-2.uppersensor.direction\u003c/text\u003e\u003cg id=\u0027VAL_rtu-2.uppersensor.direction\u0027 type=\u0027svg-ext-value\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027none\u0027 stroke-width=\u00270\u0027\u003e\u003ctext id=\u0027VALT_rtu-2.uppersensor.direction\u0027 x=\u00271236\u0027 y=\u0027420\u0027 text-anchor=\u0027end\u0027 font-family=\u0027sans-serif\u0027 font-size=\u002713\u0027 fill=\u0027#000\u0027 stroke-width=\u00270\u0027\u003e##.##\u003c/text\u003e\u003c/g\u003e\u003crect x=\u002760\u0027 y=\u0027611\u0027 width=\u002714\u0027 height=\u002714\u0027 fill=\u0027#4a90d9\u0027/\u003e\u003ctext x=\u002780\u0027 y=\u0027622\u0027 font-size=\u002712\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#fff\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003ewater (fill = level 0-20)\u003c/text\u003e\u003crect x=\u0027260\u0027 y=\u0027611\u0027 width=\u002710\u0027 height=\u002714\u0027 fill=\u0027#8a5a2b\u0027/\u003e\u003ctext x=\u0027278\u0027 y=\u0027622\u0027 font-size=\u002712\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#fff\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003egate (up = closed, sunk = open)\u003c/text\u003e\u003cpolygon points=\u0027520,611 536,625 536,611 520,625\u0027 fill=\u0027#2e9e4f\u0027/\u003e\u003ctext x=\u0027542\u0027 y=\u0027622\u0027 font-size=\u002712\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#fff\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003evalve open\u003c/text\u003e\u003cpolygon points=\u0027620,611 636,625 636,611 620,625\u0027 fill=\u0027#d03a3a\u0027/\u003e\u003ctext x=\u0027642\u0027 y=\u0027622\u0027 font-size=\u002712\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#fff\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003eclosed\u003c/text\u003e\u003cpolygon points=\u0027700,618 720,618 716,626 704,626\u0027 fill=\u0027#b23b2e\u0027/\u003e\u003ctext x=\u0027726\u0027 y=\u0027622\u0027 font-size=\u002712\u0027 font-family=\u0027sans-serif\u0027 fill=\u0027#fff\u0027 text-anchor=\u0027start\u0027 font-weight=\u0027normal\u0027 \u003eboat (x = boat.location)\u003c/text\u003e\u003c/svg\u003e"
++      }
++    ],
++    "layout": {"start": "v_lock", "navigation": {"mode": "void", "type": "inline", "items": []}, "header": {}}
++  },
++  "version": "1.01", "name": "waterway", "server": {"id": "0", "name": "FUXA Server", "type": "FuxaServer", "property": {}},
++  "texts": [], "alarms": [], "recipes": []
++}
+diff --git a/waterway-arm64/injects/hmi_url b/waterway-arm64/injects/hmi_url
+new file mode 100644
+index 0000000..d39c138
+--- /dev/null
++++ b/waterway-arm64/injects/hmi_url
+@@ -0,0 +1 @@
++http://10.1.2.71:1881/
+diff --git a/waterway-arm64/injects/influx-setup.sh b/waterway-arm64/injects/influx-setup.sh
+new file mode 100755
+index 0000000..3fe82fa
+--- /dev/null
++++ b/waterway-arm64/injects/influx-setup.sh
+@@ -0,0 +1,19 @@
++#!/bin/bash
++# Injected to /etc/phenix/startup/influx-setup.sh on the historian; runs every boot (idempotent).
++# Creates org/bucket/token once, then restarts telegraf so it picks up the injected telegraf.conf.
++# Token/org/bucket must match telegraf.conf.
++INFLUX_ORG=sceptre
++INFLUX_BUCKET=waterway
++INFLUX_TOKEN=waterway-historian-token
++INFLUX_PASS=waterway-admin-pass   # lab range, not a secret
++
++systemctl start influxdb
++for _ in $(seq 1 60); do influx ping >/dev/null 2>&1 && break; sleep 1; done
++if ! influx ping >/dev/null 2>&1; then echo "influxd not up" >&2; exit 1; fi
++if influx setup --skip-verify --force --username admin --password "$INFLUX_PASS" \
++     --org "$INFLUX_ORG" --bucket "$INFLUX_BUCKET" --token "$INFLUX_TOKEN" --retention 0 >/dev/null 2>&1; then
++  echo "influx: initial setup done"
++else
++  echo "influx: already set up"   # setup fails once an instance is initialised
++fi
++systemctl restart telegraf
+diff --git a/waterway-arm64/injects/opc_gateway.json b/waterway-arm64/injects/opc_gateway.json
+new file mode 100644
+index 0000000..f0ead3e
+--- /dev/null
++++ b/waterway-arm64/injects/opc_gateway.json
+@@ -0,0 +1,182 @@
++{
++  "opc_endpoint": "opc.tcp://0.0.0.0:4840",
++  "poll_interval": 1.0,
++  "scale": [
++    0,
++    1000
++  ],
++  "rtus": [
++    {
++      "name": "rtu-1",
++      "host": "10.1.1.101",
++      "port": 502,
++      "unit": 1,
++      "points": [
++        {
++          "node": "rtu-1.boat.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30009
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.boat.location",
++          "read": {
++            "type": "input-register",
++            "address": 30008
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lock.height",
++          "read": {
++            "type": "input-register",
++            "address": 30001
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.locksensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30006
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.locksensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30007
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lowergate.open",
++          "read": {
++            "type": "input-register",
++            "address": 30002
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40000
++          }
++        },
++        {
++          "node": "rtu-1.lowersensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30004
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lowersensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30005
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lowervalve.open",
++          "read": {
++            "type": "input-register",
++            "address": 30003
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40001
++          }
++        },
++        {
++          "node": "rtu-1.lowerwater.height",
++          "read": {
++            "type": "input-register",
++            "address": 30000
++          },
++          "write": null
++        }
++      ]
++    },
++    {
++      "name": "rtu-2",
++      "host": "10.1.1.102",
++      "port": 502,
++      "unit": 1,
++      "points": [
++        {
++          "node": "rtu-2.lock.height",
++          "read": {
++            "type": "input-register",
++            "address": 30001
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.locksensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30006
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.locksensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30007
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.uppergate.open",
++          "read": {
++            "type": "input-register",
++            "address": 30002
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40000
++          }
++        },
++        {
++          "node": "rtu-2.uppersensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30004
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.uppersensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30005
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.uppervalve.open",
++          "read": {
++            "type": "input-register",
++            "address": 30003
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40001
++          }
++        },
++        {
++          "node": "rtu-2.upperwater.height",
++          "read": {
++            "type": "input-register",
++            "address": 30000
++          },
++          "write": null
++        }
++      ]
++    }
++  ]
++}
+diff --git a/waterway-arm64/injects/publishPoints.txt b/waterway-arm64/injects/publishPoints.txt
+new file mode 100644
+index 0000000..9530a56
+--- /dev/null
++++ b/waterway-arm64/injects/publishPoints.txt
+@@ -0,0 +1,15 @@
++lowerwater.height
++lock.height
++upperwater.height
++lowergate.open
++lowervalve.open
++uppergate.open
++uppervalve.open
++boat.direction
++lowersensor.direction
++locksensor.direction
++uppersensor.direction
++boat.location
++lowersensor.active
++locksensor.active
++uppersensor.active
+diff --git a/waterway-arm64/injects/rtus.txt b/waterway-arm64/injects/rtus.txt
+new file mode 100644
+index 0000000..c322601
+--- /dev/null
++++ b/waterway-arm64/injects/rtus.txt
+@@ -0,0 +1,2 @@
++rtu-1 10.1.1.101
++rtu-2 10.1.1.102
+diff --git a/waterway-arm64/injects/telegraf.conf b/waterway-arm64/injects/telegraf.conf
+new file mode 100644
+index 0000000..e5d0a67
+--- /dev/null
++++ b/waterway-arm64/injects/telegraf.conf
+@@ -0,0 +1,148 @@
++# Telegraf config for the historian (injected to /etc/telegraf/telegraf.conf); token/org/bucket match influx-setup.sh.
++[agent]
++  interval = "5s"
++  round_interval = true
++  flush_interval = "10s"
++  omit_hostname = false
++
++[[inputs.opcua]]
++  name = "waterway"
++  endpoint = "opc.tcp://10.1.2.50:4840"
++  connect_timeout = "10s"
++  request_timeout = "5s"
++  security_policy = "None"
++  security_mode = "None"
++  auth_method = "Anonymous"
++
++  [[inputs.opcua.nodes]]
++    name = "boat.direction"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.boat.direction"
++    default_tags = { rtu = "rtu-1", device = "boat", field = "direction" }
++
++  [[inputs.opcua.nodes]]
++    name = "boat.location"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.boat.location"
++    default_tags = { rtu = "rtu-1", device = "boat", field = "location" }
++
++  [[inputs.opcua.nodes]]
++    name = "lock.height"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.lock.height"
++    default_tags = { rtu = "rtu-1", device = "lock", field = "height" }
++
++  [[inputs.opcua.nodes]]
++    name = "locksensor.active"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.locksensor.active"
++    default_tags = { rtu = "rtu-1", device = "locksensor", field = "active" }
++
++  [[inputs.opcua.nodes]]
++    name = "locksensor.direction"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.locksensor.direction"
++    default_tags = { rtu = "rtu-1", device = "locksensor", field = "direction" }
++
++  [[inputs.opcua.nodes]]
++    name = "lowergate.open"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.lowergate.open"
++    default_tags = { rtu = "rtu-1", device = "lowergate", field = "open" }
++
++  [[inputs.opcua.nodes]]
++    name = "lowersensor.active"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.lowersensor.active"
++    default_tags = { rtu = "rtu-1", device = "lowersensor", field = "active" }
++
++  [[inputs.opcua.nodes]]
++    name = "lowersensor.direction"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.lowersensor.direction"
++    default_tags = { rtu = "rtu-1", device = "lowersensor", field = "direction" }
++
++  [[inputs.opcua.nodes]]
++    name = "lowervalve.open"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.lowervalve.open"
++    default_tags = { rtu = "rtu-1", device = "lowervalve", field = "open" }
++
++  [[inputs.opcua.nodes]]
++    name = "lowerwater.height"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-1.lowerwater.height"
++    default_tags = { rtu = "rtu-1", device = "lowerwater", field = "height" }
++
++  [[inputs.opcua.nodes]]
++    name = "lock.height"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.lock.height"
++    default_tags = { rtu = "rtu-2", device = "lock", field = "height" }
++
++  [[inputs.opcua.nodes]]
++    name = "locksensor.active"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.locksensor.active"
++    default_tags = { rtu = "rtu-2", device = "locksensor", field = "active" }
++
++  [[inputs.opcua.nodes]]
++    name = "locksensor.direction"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.locksensor.direction"
++    default_tags = { rtu = "rtu-2", device = "locksensor", field = "direction" }
++
++  [[inputs.opcua.nodes]]
++    name = "uppergate.open"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.uppergate.open"
++    default_tags = { rtu = "rtu-2", device = "uppergate", field = "open" }
++
++  [[inputs.opcua.nodes]]
++    name = "uppersensor.active"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.uppersensor.active"
++    default_tags = { rtu = "rtu-2", device = "uppersensor", field = "active" }
++
++  [[inputs.opcua.nodes]]
++    name = "uppersensor.direction"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.uppersensor.direction"
++    default_tags = { rtu = "rtu-2", device = "uppersensor", field = "direction" }
++
++  [[inputs.opcua.nodes]]
++    name = "uppervalve.open"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.uppervalve.open"
++    default_tags = { rtu = "rtu-2", device = "uppervalve", field = "open" }
++
++  [[inputs.opcua.nodes]]
++    name = "upperwater.height"
++    namespace = "2"
++    identifier_type = "s"
++    identifier = "rtu-2.upperwater.height"
++    default_tags = { rtu = "rtu-2", device = "upperwater", field = "height" }
++
++
++[[outputs.influxdb_v2]]
++  urls = ["http://127.0.0.1:8086"]
++  token = "waterway-historian-token"
++  organization = "sceptre"
++  bucket = "waterway"
+diff --git a/waterway-arm64/waterway-scenario.yaml b/waterway-arm64/waterway-scenario.yaml
+new file mode 100644
+index 0000000..a5db5ee
+--- /dev/null
++++ b/waterway-arm64/waterway-scenario.yaml
+@@ -0,0 +1,58 @@
++apiVersion: phenix.sandia.gov/v2
++kind: Scenario
++metadata:
++  name: waterway-arm64
++  annotations:
++    topology: waterway-arm64
++spec:
++  apps:
++  - name: sceptre
++    assetDir: /phenix/topologies/waterway-arm64
++    hosts:
++    - hostname: waterway-provider
++      metadata:
++        type: provider
++        simulator: Simulink
++        publish_endpoint: udp://*;239.0.0.1:40000
++        publish_points: /phenix/topologies/waterway-arm64/injects/publishPoints.txt
++        solver: /phenix/topologies/waterway-arm64/injects/simulinksolver
++    - hostname: rtu-1
++      metadata:
++        modbus:
++        - name: lowerwater
++          type: water
++        - name: lock
++          type: water
++        - name: lowergate
++          type: gate
++        - name: lowervalve
++          type: valve
++        - name: lowersensor
++          type: boat-sensor
++        - name: locksensor
++          type: boat-sensor
++        - name: boat
++          type: boat
++        infrastructure: waterway
++        logic: lowergate.open = 1*((lowersensor.direction == 1) && (lowersensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 0*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 1*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 0*((lowersensor.direction == -1) && (lowersensor.active == 1)); lowervalve.open = 1*((lowersensor.direction == 1) && (lowersensor.active == 1) && (lock.height > lowerwater.height)) + 0*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= lowerwater.height)) + 1*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height > lowerwater.height)) + 0*((lowersensor.direction == -1) && (lowersensor.active == 1))
++        provider: waterway-provider
++        type: fd-server
++    - hostname: rtu-2
++      metadata:
++        modbus:
++        - name: upperwater
++          type: water
++        - name: lock
++          type: water
++        - name: uppergate
++          type: gate
++        - name: uppervalve
++          type: valve
++        - name: uppersensor
++          type: boat-sensor
++        - name: locksensor
++          type: boat-sensor
++        infrastructure: waterway
++        logic: uppergate.open = 1*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1)) + 0*((uppersensor.direction == 1) && (uppersensor.active == 1)) + 1*((uppersensor.direction == -1) && (uppersensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1)) + 0*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1)); uppervalve.open = 1*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height < upperwater.height)) + 0*((uppersensor.direction == 1) && (uppersensor.active == 1)) + 1*((uppersensor.direction == -1) && (uppersensor.active == 1) && (lock.height < upperwater.height)) + 0*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1))
++        provider: waterway-provider
++        type: fd-server
+diff --git a/waterway-arm64/waterway-topology.yaml b/waterway-arm64/waterway-topology.yaml
+new file mode 100644
+index 0000000..594f787
+--- /dev/null
++++ b/waterway-arm64/waterway-topology.yaml
+@@ -0,0 +1,350 @@
++apiVersion: phenix.sandia.gov/v1
++kind: Topology
++metadata:
++  name: waterway-arm64
++spec:
++  nodes:
++  - general:
++      hostname: waterway-provider
++      description: SCEPTRE Simulink provider (Rust simulinksolver)
++    hardware:
++      cpu: host
++      memory: 2048
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: bennu-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: mgmt
++        address: 172.16.1.2
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++        gateway: 172.16.1.1
++    type: VirtualMachine
++  - general:
++      hostname: opc
++      description: OPC UA gateway
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: opc-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.50
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++        gateway: 10.1.2.1
++      - name: mgmt
++        address: 172.16.2.50
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++    injections:
++    - src: /phenix/topologies/waterway-arm64/injects/opc_gateway.json
++      dst: /etc/sceptre/opc_gateway.json
++      description: opc_gateway.json
++      permissions: '0644'
++  - general:
++      hostname: historian
++      description: InfluxDB + telegraf
++    hardware:
++      cpu: host
++      memory: 2048
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: historian-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.60
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++        gateway: 10.1.2.1
++      - name: mgmt
++        address: 172.16.2.60
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++    injections:
++    - src: /phenix/topologies/waterway-arm64/injects/telegraf.conf
++      dst: /etc/telegraf/telegraf.conf
++      description: telegraf.conf
++      permissions: '0644'
++    - src: /phenix/topologies/waterway-arm64/injects/influx-setup.sh
++      dst: /etc/phenix/startup/influx-setup.sh
++      description: influx-setup.sh
++      permissions: '0644'
++  - general:
++      hostname: hmi
++      description: Firefox kiosk on FUXA
++    hardware:
++      cpu: host
++      memory: 2048
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: hmi-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device
++        usb-kbd,bus=xhci.0
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.70
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++        gateway: 10.1.2.1
++      - name: mgmt
++        address: 172.16.2.70
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++    injections:
++    - src: /phenix/topologies/waterway-arm64/injects/hmi_url
++      dst: /etc/sceptre/hmi_url
++      description: hmi_url
++      permissions: '0644'
++    - src: /phenix/topologies/waterway-arm64/injects/10-noblank.conf
++      dst: /etc/X11/xorg.conf.d/10-noblank.conf
++      description: 10-noblank.conf
++      permissions: '0644'
++  - general:
++      hostname: scada-server
++      description: FUXA
++    hardware:
++      cpu: host
++      memory: 2048
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: scada-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.71
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++        gateway: 10.1.2.1
++      - name: mgmt
++        address: 172.16.2.71
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++    injections:
++    - src: /phenix/topologies/waterway-arm64/injects/fuxa_project.json
++      dst: /etc/sceptre/fuxa_project.json
++      description: fuxa_project.json
++      permissions: '0644'
++  - general:
++      hostname: engineer-workstation
++      description: xfce + brash terminals
++    hardware:
++      cpu: host
++      memory: 2048
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: engineer-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device
++        usb-kbd,bus=xhci.0
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.72
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++        gateway: 10.1.2.1
++      - name: mgmt
++        address: 172.16.2.72
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++    injections:
++    - src: /phenix/topologies/waterway-arm64/injects/rtus.txt
++      dst: /etc/sceptre/rtus.txt
++      description: rtus.txt
++      permissions: '0644'
++    - src: /phenix/topologies/waterway-arm64/injects/10-noblank.conf
++      dst: /etc/X11/xorg.conf.d/10-noblank.conf
++      description: 10-noblank.conf
++      permissions: '0644'
++  - general:
++      hostname: rtu-1
++      description: SCEPTRE RTU
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: bennu-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.1.101
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: ICS
++        gateway: 10.1.1.1
++      - name: mgmt
++        address: 172.16.1.101
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++  - general:
++      hostname: rtu-2
++      description: SCEPTRE RTU
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: bennu-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.1.102
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: ICS
++        gateway: 10.1.1.1
++      - name: mgmt
++        address: 172.16.1.102
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++  - general:
++      hostname: router
++      description: Router
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: minirouter
++      drives:
++      - image: minirouter-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.1
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++      - name: IF1
++        address: 10.1.1.1
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: ICS
++      - name: mgmt
++        address: 172.16.1.1
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: Router

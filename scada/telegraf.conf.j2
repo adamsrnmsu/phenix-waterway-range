@@ -1,0 +1,30 @@
+# Rendered by scada/gen_configs.py -> /etc/telegraf/telegraf.conf on the historian.
+# Variables: opc_endpoint, nodes [{rtu, device, field, ns, id}], influx_url, influx_token, influx_org, influx_bucket
+[agent]
+  interval = "5s"
+  round_interval = true
+  flush_interval = "10s"
+  omit_hostname = false
+
+[[inputs.opcua]]
+  name = "waterway"
+  endpoint = "{{ opc_endpoint }}"
+  connect_timeout = "10s"
+  request_timeout = "5s"
+  security_policy = "None"
+  security_mode = "None"
+  auth_method = "Anonymous"
+{% for n in nodes %}
+  [[inputs.opcua.nodes]]
+    name = "{{ n.device }}.{{ n.field }}"
+    namespace = "{{ n.ns }}"
+    identifier_type = "s"
+    identifier = "{{ n.id }}"
+    default_tags = { rtu = "{{ n.rtu }}", device = "{{ n.device }}", field = "{{ n.field }}" }
+{% endfor %}
+
+[[outputs.influxdb_v2]]
+  urls = ["{{ influx_url }}"]
+  token = "{{ influx_token }}"
+  organization = "{{ influx_org }}"
+  bucket = "{{ influx_bucket }}"

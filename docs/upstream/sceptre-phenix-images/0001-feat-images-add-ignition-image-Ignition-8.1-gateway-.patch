@@ -1,0 +1,171 @@
+From d893dee7cfe74f8d823e70931a630c89b3a700ba Mon Sep 17 00:00:00 2001
+From: Ryan Adams <radams2@unm.edu>
+Date: Sun, 8 Nov 2026 22:22:08 -0700
+Subject: [PATCH] feat(images): add ignition image (Ignition 8.1 gateway for
+ SOAP)
+
+make ignition builds ignition.qc2 (Ubuntu noble) from the official
+inductiveautomation/ignition tree. With IGNITION_ACCEPT_EULA=1 the image
+commissions headlessly (pre-start staging of /phenix/ignition.gwbk plus an
+env drop-in), so the soap topology's gwcmd restore works.
+---
+ .gitignore          |  1 +
+ Makefile            | 22 ++++++++++-
+ scripts/ignition.sh | 95 +++++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 117 insertions(+), 1 deletion(-)
+ create mode 100755 scripts/ignition.sh
+
+diff --git a/.gitignore b/.gitignore
+index c357020..d533d33 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -48,3 +48,4 @@ cursor_mcp.json
+ # Windsurf
+ .windsurf/
+ .windsurfrules
++overlays/ignition/
+diff --git a/Makefile b/Makefile
+index d3e773f..44c7f58 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,4 +1,4 @@
+-.PHONY: help check_clean bookworm kali kali-harmonie jammy noble bennu minirouter _minirouter_img docker-hello-world ntp vyos ubuntu-soaptools clean ot-sim lint install-dev update-actions
++.PHONY: help check_clean bookworm kali kali-harmonie jammy noble bennu minirouter _minirouter_img docker-hello-world ntp vyos ubuntu-soaptools ignition clean ot-sim lint install-dev update-actions
+ 
+ .ONESHELL: # for heredoc and exit
+ 
+@@ -20,6 +20,10 @@ UBUNTU_MIRROR=
+ VYOSTMP?=$(WORKDIR)/vyostmp/
+ # Default directory for bennu source code to be located.
+ BENNU_DIR=
++# Ignition gateway tree: tag of the official inductiveautomation/ignition image (8.1.x; the SOAP .gwbk is an 8.1 backup)
++IGNITION_VERSION?=8.1.55
++# Set IGNITION_ACCEPT_EULA=1 to accept Inductive Automation's EULA for headless commissioning (see scripts/ignition.sh)
++IGNITION_ACCEPT_EULA?=
+ 
+ # Show this help
+ help:
+@@ -140,6 +144,22 @@ ubuntu-soaptools:
+ 	@$(PHENIX_IMAGE_BUILD)
+ 	@$(INJECT_MINICCC)
+ 
++# Build ignition.qc2		-- Ubuntu Noble, Ignition 8.1 gateway (needs docker to stage the tree; IGNITION_ACCEPT_EULA=1 to commission)
++ignition:
++	@$(CHECK_IMAGE)
++	@$(CHECK_TAR)
++	@set -e
++	@OV=$(WORKDIR)/overlays/ignition/opt
++	@rm -rf $$OV; mkdir -p $$OV
++	@docker rm -f ignition-stage >/dev/null 2>&1 || true
++	@docker create --platform linux/amd64 --name ignition-stage inductiveautomation/ignition:$(IGNITION_VERSION) >/dev/null
++	@T=`mktemp -d`; docker cp ignition-stage:/usr/local/bin/ignition $$T/ && tar -C $$T -cf $$OV/ignition-tree.tar ignition && rm -rf $$T
++	@docker rm ignition-stage >/dev/null
++	@if [ "$(IGNITION_ACCEPT_EULA)" = 1 ]; then touch $$OV/ignition-eula-accepted; else echo "NOTE: IGNITION_ACCEPT_EULA not set: the gateway will start uncommissioned and ignore gwcmd --restore"; fi
++	@$(PHENIX) image create -r noble -s 12G -P ca-certificates,curl,fontconfig,iproute2,iputils-ping,openssh-server,libfreetype6,locales,tzdata,libxext6,libxrender1,libxtst6,libxi6 -O $(WORKDIR)/overlays/ignition -T $(WORKDIR)/scripts/ignition.sh $(UBUNTU_MIRROR) $(COMPRESS) $(@)
++	@$(PHENIX_IMAGE_BUILD)
++	@$(INJECT_MINICCC)
++
+ # Build bennu-dev.qc2			-- Ubuntu Jammy, bennu-dev, bennu, brash, GUI
+ bennu-dev:
+ 	@$(CHECK_IMAGE)
+diff --git a/scripts/ignition.sh b/scripts/ignition.sh
+new file mode 100755
+index 0000000..ab27763
+--- /dev/null
++++ b/scripts/ignition.sh
+@@ -0,0 +1,95 @@
++#!/bin/sh
++# Ignition 8.1 gateway image for the SOAP topology (sceptre-phenix-topologies/soap).
++#
++# The Ignition tree is staged by `make ignition` into overlays/ignition/opt/ignition-tree.tar (one tar, because the
++# tree contains logs/wrapper.log -> /dev/stdout and vmdb2's copy-dir hangs on that symlink) and arrives in the
++# rootfs through the overlay. This script runs in the chroot: it unpacks the tree, adds a systemd unit, and, only when
++# the operator opted in to Inductive Automation's EULA (`make ignition IGNITION_ACCEPT_EULA=1`, which drops
++# /opt/ignition-eula-accepted into the overlay), sets up headless commissioning.
++#
++# Why commissioning matters: a fresh 8.1 gateway starts uncommissioned (StatusPing says COMMISSIONING) and silently
++# ignores `gwcmd --restore`. SOAP injects /phenix/ignition.gwbk and restores it from a command, so the gateway has to
++# be commissioned first. Same method as the official inductiveautomation/ignition image's docker-entrypoint.sh.
++set -eu
++
++IG=/usr/local/bin/ignition
++mkdir -p /usr/local/sbin /usr/local/bin
++tar -C /usr/local/bin -xf /opt/ignition-tree.tar
++rm -f /opt/ignition-tree.tar
++test -x $IG/ignition-gateway
++
++# aarch64 trees ship jre-aarch64 but the wrapper conf asks for jre-nix (the x86_64 name); no-op on amd64
++[ -e $IG/lib/runtime/jre-nix ] || ln -s jre-aarch64 $IG/lib/runtime/jre-nix
++
++if [ -e /opt/ignition-eula-accepted ]; then
++rm -f /opt/ignition-eula-accepted
++
++# Pre-start: if a backup was injected (SOAP: /phenix/ignition.gwbk) and the data dir is still empty, stage it before the
++# first start (gwcmd -s <gwbk> -m -y, then the Upgrader). The backup carries a commissioned config, so the first-start
++# wizard never appears.
++cat > /usr/local/sbin/ignition-prestage <<'EOS'
++#!/bin/sh
++IG=/usr/local/bin/ignition
++B=${IGNITION_RESTORE:-/phenix/ignition.gwbk}
++[ -f "$IG/data/db/config.idb" ] && exit 0   # already configured
++[ -f "$B" ] || exit 0                       # nothing injected: leave the clean gateway alone
++cd "$IG" || exit 1
++./gwcmd.sh -s "$B" -m -y
++exec "$IG/lib/runtime/jre-nix/bin/java" -classpath lib/core/common/common.jar \
++  com.inductiveautomation.ignition.common.upgrader.Upgrader "$IG" "$IG/data" "$IG/logs" file=ignition.conf
++EOS
++chmod +x /usr/local/sbin/ignition-prestage
++
++# The gateway reads these on start (same variables as the official container): accepts the EULA and commissions the
++# ports and an admin user. Default login admin / password: change GATEWAY_ADMIN_PASSWORD for anything non-throwaway.
++mkdir -p /etc/systemd/system/ignition.service.d
++cat > /etc/systemd/system/ignition.service.d/commission.conf <<'UNIT'
++[Service]
++Environment=ACCEPT_IGNITION_EULA=Y
++Environment=GATEWAY_ADMIN_USERNAME=admin
++Environment=GATEWAY_ADMIN_PASSWORD=password
++Environment=IGNITION_EDITION=standard
++Environment=GATEWAY_HTTP_PORT=8088
++Environment=GATEWAY_HTTPS_PORT=8043
++Environment=GATEWAY_GAN_PORT=8060
++UNIT
++fi
++
++# The SOAP topology calls `gwcmd --restore ...` right after boot. The tree ships gwcmd.sh; wait (max 30 min) until the
++# gateway is commissioned and RUNNING, then hand over to the real script.
++cat > $IG/gwcmd <<'EOS'
++#!/bin/bash
++i=0
++until s=$(curl -s -m 5 http://localhost:8088/StatusPing) && [[ $s == *RUNNING* && $s != *COMMISSIONING* ]]; do
++  i=$((i+1)); [ $i -gt 360 ] && break; sleep 5
++done
++exec /usr/local/bin/ignition/gwcmd.sh "$@"
++EOS
++chmod +x $IG/gwcmd
++
++# Docker-image leftovers: wrapper.log is a /dev/stdout symlink; keystore links need data/local
++rm -f $IG/logs/wrapper.log
++mkdir -p $IG/logs $IG/data/local $IG/temp
++# Heap sized for the 8 GiB VM in the SOAP topology
++sed -i 's/^wrapper.java.initmemory=.*/wrapper.java.initmemory=512/;s/^wrapper.java.maxmemory=.*/wrapper.java.maxmemory=2048/' $IG/data/ignition.conf
++
++cat > /etc/systemd/system/ignition.service <<'UNIT'
++[Unit]
++Description=Ignition Gateway
++After=network.target
++
++[Service]
++Type=forking
++WorkingDirectory=/usr/local/bin/ignition
++ExecStartPre=-/bin/sh -c '[ -x /usr/local/sbin/ignition-prestage ] && /usr/local/sbin/ignition-prestage || true'
++ExecStart=/usr/local/bin/ignition/ignition.sh start
++ExecStop=/usr/local/bin/ignition/ignition.sh stop
++PIDFile=/usr/local/bin/ignition/Ignition-Gateway.pid
++TimeoutStartSec=600
++Restart=on-failure
++
++[Install]
++WantedBy=multi-user.target
++UNIT
++mkdir -p /etc/systemd/system/multi-user.target.wants
++ln -sf /etc/systemd/system/ignition.service /etc/systemd/system/multi-user.target.wants/ignition.service

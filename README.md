@@ -2,6 +2,14 @@
 
 SCEPTRE / phenix waterway lock range on Apple Silicon. arm64 guests run under nested KVM inside a Lima VM; no x86 emulation of the range itself.
 
+## What we are doing
+
+We run a model river lock as a small, repeatable ICS range and attack and defend it. Three pieces make that work:
+
+- **A simple provider.** One process simulates the lock physics (15 tags) and nothing else. It is `simulinksolver`, built from [ferrofire](https://github.com/adamsrnmsu/ferrofire), run behind the stock `bennu-simulink-provider`. It publishes the current tag values and accepts writes; everything else on the range reads and writes through it.
+- **bennu, which is the field-device layer.** A field device (RTU, PLC) is a box that holds a process's I/O points and serves them to a master over an ICS protocol. `bennu-field-device` does exactly that: it takes the provider's tag values and exposes them as a Modbus, DNP3 or IEC 60870-5-104 server, and turns a master's writes back into provider writes. The two RTU VMs run it, so SCADA, the OPC gateway and the attacker's tools see ordinary Modbus devices whose values come from the simulation.
+- **A bennu update.** Because bennu is the part that parses bytes from the network, it is also the part an attacker or a flaky client reaches first. Our update is [sceptre-bennu #81](https://github.com/sandialabs/sceptre-bennu/pull/81), alongside the earlier fd-leak fix #79: the servers now drop a truncated or oversized Modbus request instead of answering it from a stale buffer, the DNP3 outstation keeps accepting after an `accept()` error, and the IEC-104 server keeps polling the active master when other clients connect. The arm64 build of bennu and the live checks that exercise these cases on this range live in [everything-burger-with-extra-sauce](https://github.com/adamsrnmsu/everything-burger) (boards `fdleak` and `robust`).
+
 ## What it is
 
 - A [phenix](https://github.com/sandialabs/sceptre-phenix) + minimega testbed that models a river lock (the "waterway"): physics provider, two RTUs, OPC UA gateway, historian, SCADA/HMI, engineer workstation, router.
@@ -97,6 +105,13 @@ Recipes live in `images/recipes/*.env` (format: `images/recipes/README.md`); ins
 | --- | --- |
 | ![Zeek](docs/shots/malcolm-live-zeek-modbus.png) | ![Arkime](docs/shots/malcolm-live-arkime-sessions.png) |
 
+## Evidence capture (Playwright)
+`scripts/evidence/run_all.sh` regenerates the screenshots/GIFs in `docs/shots/playwright/` (idempotent). Playwright runs in the
+`mcr.microsoft.com/playwright/python:v1.49.0-noble` container and GIFs are made with `lscr.io/linuxserver/ffmpeg`; nothing is installed on the Mac.
+Needs: Docker, the Lima VM + `waterway` experiment running, parseus on `:8080` (State tab needs sandialabs/parseus#6), Kibana `:5601` with data view
+`parseus-zeek`, phenix UI `:3000`. Override with `PARSEUS_URL` / `KIBANA_URL` / `PHENIX_URL`, or `ONLY=a,b,c,d ./scripts/evidence/capture.sh` for one flow.
+Output: `registers-chart.{png,gif}`, `state-tab.png`, `kibana-dnp3-points.png`, `kibana-dnp3-chart.png` (creates saved Vega vis `dnp3-rtu1-values`), `phenix-waterway.png`, `hmi-transit.gif` (`hmi_gif.sh`, ~60 s of `mm vm screenshot hmi`).
+
 ## Related
 
 - [ferrofire](https://github.com/adamsrnmsu/ferrofire): the physics engine behind `provider/waterway-sim`.
@@ -165,6 +180,13 @@ mm namespace waterway clear cc filter       # a stale cc filter silently swallow
 px exp stop waterway                        # repeatable: px exp start waterway again
 ```
 Boot takes ~2 min; `mm namespace waterway cc clients` should list 9 arm64 clients.
+
+**DNP3 variant** (ferrofire field device on rtu-1/rtu-2 serving Modbus 502 + DNP3 20000; the OPC gateway polls over DNP3):
+`cd ~/git/ferrofire && make linux && cp dist/ferrofire <repo>/topologies/waterway-arm64/injects/`, rebuild `images/build.sh opc-arm64`
+(gateway with dnp3py), then run the generators above with `--dnp3` added to `gen_topology.py`, `gen_scenario.py` and
+`gen_configs.py` (`gen_configs.py --from-dry-run <phenix-app-sceptre> --scenario ... --topology ...` first refreshes
+`reg_addrs.json` and `reg_addrs_dnp3.json`). `injects/ferrofire-fd-shim.sh` is injected as `bennu-field-deviced` so
+`bennu-watcherd` starts ferrofire (log `/var/log/ferrofire-field-device.log`). Without the flags the output is unchanged.
 
 ## 4. Verify a boat transit end to end
 GUI nodes need `-device virtio-gpu-pci` (already in the topology) for screenshots.

@@ -1,0 +1,6 @@
+opc_gateway.json BYTE-IDENTICAL
+fuxa_project.json EQUAL after normalisation
+hmi_url BYTE-IDENTICAL
+telegraf.conf EQUAL after normalisation
+influx-setup.sh EQUAL after normalisation
+rtus.txt BYTE-IDENTICAL

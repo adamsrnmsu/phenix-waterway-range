@@ -1,0 +1,622 @@
+From 4145d9447621629d51593a4be5c109d54a6db9aa Mon Sep 17 00:00:00 2001
+From: Ryan Adams <adamsrnmsu@gmail.com>
+Date: Sun, 8 Nov 2026 22:24:47 -0700
+Subject: [PATCH 2/2] feat(mitm-arm64): add arm64 counterpart of the mitm
+ topology
+
+Same node set and ettercap ARP MITM as mitm (#31) on the arm64 images of
+waterway-arm64, with the scorch ettercap/tcpdump components wired into the
+scenario and an optional Kali Purple + Malcolm blue node.
+---
+ mitm-arm64/README.md                 |  42 +++++
+ mitm-arm64/injects/opc_gateway.json  | 182 ++++++++++++++++++++
+ mitm-arm64/injects/publishPoints.txt |  15 ++
+ mitm-arm64/mitm-scenario.yaml        |  84 +++++++++
+ mitm-arm64/mitm-topology.yaml        | 247 +++++++++++++++++++++++++++
+ 5 files changed, 570 insertions(+)
+ create mode 100644 mitm-arm64/README.md
+ create mode 100644 mitm-arm64/injects/opc_gateway.json
+ create mode 100644 mitm-arm64/injects/publishPoints.txt
+ create mode 100644 mitm-arm64/mitm-scenario.yaml
+ create mode 100644 mitm-arm64/mitm-topology.yaml
+
+diff --git a/mitm-arm64/README.md b/mitm-arm64/README.md
+new file mode 100644
+index 0000000..89d53e7
+--- /dev/null
++++ b/mitm-arm64/README.md
+@@ -0,0 +1,42 @@
++# mitm-arm64
++
++The arm64, all-Linux counterpart of [mitm](../mitm) (PR #31): a lean waterway derivative for ARP man-in-the-middle testing on the ICS segment. Both are published: `mitm` is the original x86 topology (Windows `opc.qc2`, `bennu.qc2`, `kali.qc2`); `mitm-arm64` keeps the same node set, names, addressing and attack and swaps in the arm64 images from [waterway-arm64](../waterway-arm64), including a Linux OPC UA gateway in place of the Windows OPC server. It adds an optional blue-team node.
++
++## Nodes
++
++| Host | Image | Address | Role |
++| --- | --- | --- | --- |
++| `simulink-provider` | bennu-arm64.qc2 | MGMT 172.16.1.2 | Simulink provider (aarch64 `simulinksolver`) |
++| `opc` | opc-arm64.qc2 | SCADA 10.1.2.50 | Modbus master polling rtu-1/rtu-2, OPC UA server |
++| `rtu-1`, `rtu-2` | bennu-arm64.qc2 | ICS 10.1.1.101 / .102 | SCEPTRE RTUs (Modbus 502) |
++| `router` | minirouter-arm64.qc2 | ICS 10.1.1.1 | ICS/SCADA/MGMT router |
++| `kali` | kali-arm64.qc2 | ICS 10.1.1.200 | attacker; ettercap |
++| `blue` | kali-purple-arm64.qc2 | MGMT 172.16.1.250, second NIC `capture` on VLAN `MIRROR` (placeholder 192.0.2.250/24; phenix requires an address) | Kali Purple + Malcolm (Zeek, Suricata, Arkime); optional |
++
++Delete the `blue` node from `mitm-topology.yaml` if you do not have that image (it needs 24 GiB and an 80 GiB disk). Its capture NIC (eth1) only sees traffic if you mirror the experiment's OVS ports to it, for example with an `ovs-vsctl` mirror on the `phenix` bridge selecting the ICS/SCADA taps and outputting to blue's second tap.
++
++## Attack
++
++`mitm-scenario.yaml` has the `sceptre` app plus a `scorch` app with two components and two runs:
++
++- `ettercap` on `kali` (`iface: eth0`, the guest's NIC name; `IF0` is only phenix's label): `ettercap -Tq -i eth0 -M arp /10.1.1.101// /10.1.1.1//`, poisoning `rtu-1` <-> `router`.
++- `mitm-capture`: tcpdump on `kali`, `tcp port 502`.
++- run `mitm-start` starts both, `mitm-stop` stops them, so the attack can be observed in between.
++
++```
++cp -r mitm-arm64 /phenix/topologies/.
++phenix config create /phenix/topologies/mitm-arm64/mitm-topology.yaml
++phenix config create /phenix/topologies/mitm-arm64/mitm-scenario.yaml
++phenix exp create mitm -t mitm-arm64 -s mitm-arm64
++phenix exp start mitm
++phenix experiment scorch mitm -r 0     # mitm-start
++phenix experiment scorch mitm -r 1     # mitm-stop, collects the pcap
++```
++
++## Relationship to PR #31 (`mitm`)
++
++Same experiment, different guests; use `mitm` on x86 hosts and `mitm-arm64` on arm64 hosts. Differences: the arm64 node block described in [waterway-arm64](../waterway-arm64/README.md), a Linux `opc`, the `scorch` ettercap/tcpdump components already wired into the scenario, and the optional `blue` node. This directory has no dependency on the `mitm/` checkout.
++
++## Prerequisites
++
++Same as [waterway-arm64](../waterway-arm64/README.md#prerequisites), plus `kali-arm64.qc2` (and `kali-purple-arm64.qc2` for `blue`) built with the range repository's recipes, and the aarch64 `simulinksolver` copied to `/phenix/topologies/mitm-arm64/injects/simulinksolver` (not included, see that README).
+diff --git a/mitm-arm64/injects/opc_gateway.json b/mitm-arm64/injects/opc_gateway.json
+new file mode 100644
+index 0000000..f0ead3e
+--- /dev/null
++++ b/mitm-arm64/injects/opc_gateway.json
+@@ -0,0 +1,182 @@
++{
++  "opc_endpoint": "opc.tcp://0.0.0.0:4840",
++  "poll_interval": 1.0,
++  "scale": [
++    0,
++    1000
++  ],
++  "rtus": [
++    {
++      "name": "rtu-1",
++      "host": "10.1.1.101",
++      "port": 502,
++      "unit": 1,
++      "points": [
++        {
++          "node": "rtu-1.boat.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30009
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.boat.location",
++          "read": {
++            "type": "input-register",
++            "address": 30008
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lock.height",
++          "read": {
++            "type": "input-register",
++            "address": 30001
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.locksensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30006
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.locksensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30007
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lowergate.open",
++          "read": {
++            "type": "input-register",
++            "address": 30002
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40000
++          }
++        },
++        {
++          "node": "rtu-1.lowersensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30004
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lowersensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30005
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-1.lowervalve.open",
++          "read": {
++            "type": "input-register",
++            "address": 30003
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40001
++          }
++        },
++        {
++          "node": "rtu-1.lowerwater.height",
++          "read": {
++            "type": "input-register",
++            "address": 30000
++          },
++          "write": null
++        }
++      ]
++    },
++    {
++      "name": "rtu-2",
++      "host": "10.1.1.102",
++      "port": 502,
++      "unit": 1,
++      "points": [
++        {
++          "node": "rtu-2.lock.height",
++          "read": {
++            "type": "input-register",
++            "address": 30001
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.locksensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30006
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.locksensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30007
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.uppergate.open",
++          "read": {
++            "type": "input-register",
++            "address": 30002
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40000
++          }
++        },
++        {
++          "node": "rtu-2.uppersensor.active",
++          "read": {
++            "type": "input-register",
++            "address": 30004
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.uppersensor.direction",
++          "read": {
++            "type": "input-register",
++            "address": 30005
++          },
++          "write": null
++        },
++        {
++          "node": "rtu-2.uppervalve.open",
++          "read": {
++            "type": "input-register",
++            "address": 30003
++          },
++          "write": {
++            "type": "holding-register",
++            "address": 40001
++          }
++        },
++        {
++          "node": "rtu-2.upperwater.height",
++          "read": {
++            "type": "input-register",
++            "address": 30000
++          },
++          "write": null
++        }
++      ]
++    }
++  ]
++}
+diff --git a/mitm-arm64/injects/publishPoints.txt b/mitm-arm64/injects/publishPoints.txt
+new file mode 100644
+index 0000000..9530a56
+--- /dev/null
++++ b/mitm-arm64/injects/publishPoints.txt
+@@ -0,0 +1,15 @@
++lowerwater.height
++lock.height
++upperwater.height
++lowergate.open
++lowervalve.open
++uppergate.open
++uppervalve.open
++boat.direction
++lowersensor.direction
++locksensor.direction
++uppersensor.direction
++boat.location
++lowersensor.active
++locksensor.active
++uppersensor.active
+diff --git a/mitm-arm64/mitm-scenario.yaml b/mitm-arm64/mitm-scenario.yaml
+new file mode 100644
+index 0000000..f931822
+--- /dev/null
++++ b/mitm-arm64/mitm-scenario.yaml
+@@ -0,0 +1,84 @@
++apiVersion: phenix.sandia.gov/v2
++kind: Scenario
++metadata:
++  name: mitm-arm64
++  annotations:
++    topology: mitm-arm64
++spec:
++  apps:
++  - name: sceptre
++    assetDir: /phenix/topologies/mitm-arm64
++    hosts:
++    - hostname: simulink-provider
++      metadata:
++        type: provider
++        simulator: Simulink
++        publish_endpoint: udp://*;239.0.0.1:40000
++        publish_points: /phenix/topologies/mitm-arm64/injects/publishPoints.txt
++        solver: /phenix/topologies/mitm-arm64/injects/simulinksolver
++    - hostname: rtu-1
++      metadata:
++        modbus:
++        - name: lowerwater
++          type: water
++        - name: lock
++          type: water
++        - name: lowergate
++          type: gate
++        - name: lowervalve
++          type: valve
++        - name: lowersensor
++          type: boat-sensor
++        - name: locksensor
++          type: boat-sensor
++        - name: boat
++          type: boat
++        infrastructure: waterway
++        logic: lowergate.open = 1*((lowersensor.direction == 1) && (lowersensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 0*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 1*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 0*((lowersensor.direction == -1) && (lowersensor.active == 1)); lowervalve.open = 1*((lowersensor.direction == 1) && (lowersensor.active == 1) && (lock.height > lowerwater.height)) + 0*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= lowerwater.height)) + 1*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height > lowerwater.height)) + 0*((lowersensor.direction == -1) && (lowersensor.active == 1))
++        provider: simulink-provider
++        type: fd-server
++    - hostname: rtu-2
++      metadata:
++        modbus:
++        - name: upperwater
++          type: water
++        - name: lock
++          type: water
++        - name: uppergate
++          type: gate
++        - name: uppervalve
++          type: valve
++        - name: uppersensor
++          type: boat-sensor
++        - name: locksensor
++          type: boat-sensor
++        infrastructure: waterway
++        logic: uppergate.open = 1*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1)) + 0*((uppersensor.direction == 1) && (uppersensor.active == 1)) + 1*((uppersensor.direction == -1) && (uppersensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1)) + 0*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1)); uppervalve.open = 1*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height < upperwater.height)) + 0*((uppersensor.direction == 1) && (uppersensor.active == 1)) + 1*((uppersensor.direction == -1) && (uppersensor.active == 1) && (lock.height < upperwater.height)) + 0*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height >= upperwater.height - 0.1) && (lock.height <= upperwater.height + 0.1))
++        provider: simulink-provider
++        type: fd-server
++  - name: scorch
++    metadata:
++      components:
++      - name: ettercap
++        type: ettercap
++        metadata:
++          vms:
++          - hostname: kali
++            iface: eth0
++            targets: /10.1.1.101// /10.1.1.1//
++      - name: mitm-capture
++        type: tcpdump
++        metadata:
++          vms:
++          - hostname: kali
++            iface: eth0
++            filter: tcp port 502
++      runs:
++      - name: mitm-start
++        start:
++        - mitm-capture
++        - ettercap
++      - name: mitm-stop
++        stop:
++        - ettercap
++        - mitm-capture
+diff --git a/mitm-arm64/mitm-topology.yaml b/mitm-arm64/mitm-topology.yaml
+new file mode 100644
+index 0000000..fe01478
+--- /dev/null
++++ b/mitm-arm64/mitm-topology.yaml
+@@ -0,0 +1,247 @@
++apiVersion: phenix.sandia.gov/v1
++kind: Topology
++metadata:
++  name: mitm-arm64
++spec:
++  nodes:
++  - general:
++      hostname: simulink-provider
++      description: SCEPTRE Simulink provider (Rust simulinksolver)
++    hardware:
++      cpu: host
++      memory: 2048
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: bennu-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: mgmt
++        address: 172.16.1.2
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++        gateway: 172.16.1.1
++    type: VirtualMachine
++  - general:
++      hostname: opc
++      description: OPC UA gateway
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: opc-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.50
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++        gateway: 10.1.2.1
++      - name: mgmt
++        address: 172.16.2.50
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++    injections:
++    - src: /phenix/topologies/mitm-arm64/injects/opc_gateway.json
++      dst: /etc/sceptre/opc_gateway.json
++      description: opc_gateway.json
++      permissions: '0644'
++  - general:
++      hostname: rtu-1
++      description: SCEPTRE RTU
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: bennu-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.1.101
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: ICS
++        gateway: 10.1.1.1
++      - name: mgmt
++        address: 172.16.1.101
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++  - general:
++      hostname: rtu-2
++      description: SCEPTRE RTU
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: bennu-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.1.102
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: ICS
++        gateway: 10.1.1.1
++      - name: mgmt
++        address: 172.16.1.102
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++  - general:
++      hostname: router
++      description: Router
++    hardware:
++      cpu: host
++      memory: 1024
++      vcpus: 2
++      os_type: minirouter
++      drives:
++      - image: minirouter-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.2.1
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: SCADA
++      - name: IF1
++        address: 10.1.1.1
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: ICS
++      - name: mgmt
++        address: 172.16.1.1
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: Router
++  - general:
++      hostname: kali
++      description: Kali attacker (ettercap MITM)
++    hardware:
++      cpu: host
++      memory: 4096
++      vcpus: 2
++      os_type: linux
++      drives:
++      - image: kali-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: IF0
++        address: 10.1.1.200
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: ICS
++        gateway: 10.1.1.1
++      - name: mgmt
++        address: 172.16.1.200
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++    type: VirtualMachine
++  - general:
++      hostname: blue
++      description: 'Blue team: Kali Purple + Malcolm (eth0 mgmt, eth1 capture NIC fed by OVS mirror)'
++    hardware:
++      cpu: host
++      memory: 24576
++      vcpus: 8
++      os_type: linux
++      drives:
++      - image: kali-purple-arm64.qc2
++        interface: virtio
++        inject_partition: 2
++    advanced:
++      machine: virt
++      vga: virtio
++      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
++    overrides:
++      bus=usb-bus.0: bus=xhci.0
++    network:
++      interfaces:
++      - name: mgmt
++        address: 172.16.1.250
++        mask: 16
++        proto: static
++        type: ethernet
++        vlan: MGMT
++      - name: capture
++        address: 192.0.2.250
++        mask: 24
++        proto: static
++        type: ethernet
++        vlan: MIRROR
++    type: VirtualMachine
