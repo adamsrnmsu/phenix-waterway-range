@@ -1,0 +1,171 @@
+apiVersion: phenix.sandia.gov/v1
+kind: Topology
+metadata:
+  name: control-bench-arm64
+spec:
+  nodes:
+  - general:
+      hostname: provider
+      description: provider + SCADA driver of the control bench
+    hardware:
+      cpu: host
+      memory: 3072
+      vcpus: 4
+      os_type: linux
+      drives:
+      - image: bennu-ferrofire-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.10
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: ICS
+    type: VirtualMachine
+  - general:
+      hostname: rtu-1
+      description: RTU of the control bench
+    hardware:
+      cpu: host
+      memory: 1024
+      vcpus: 2
+      os_type: linux
+      drives:
+      - image: bennu-ferrofire-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.101
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: ICS
+    type: VirtualMachine
+  - general:
+      hostname: rtu-2
+      description: RTU of the control bench
+    hardware:
+      cpu: host
+      memory: 1024
+      vcpus: 2
+      os_type: linux
+      drives:
+      - image: bennu-ferrofire-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.102
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: ICS
+    type: VirtualMachine
+  - general:
+      hostname: rtu-3
+      description: RTU of the control bench
+      do_not_boot: true
+    hardware:
+      cpu: host
+      memory: 1024
+      vcpus: 2
+      os_type: linux
+      drives:
+      - image: bennu-ferrofire-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.103
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: ICS
+    type: VirtualMachine
+  - general:
+      hostname: rtu-4
+      description: RTU of the control bench
+      do_not_boot: true
+    hardware:
+      cpu: host
+      memory: 1024
+      vcpus: 2
+      os_type: linux
+      drives:
+      - image: bennu-ferrofire-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.104
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: ICS
+    type: VirtualMachine
+  - general:
+      hostname: rtu-5
+      description: RTU of the control bench
+      do_not_boot: true
+    hardware:
+      cpu: host
+      memory: 1024
+      vcpus: 2
+      os_type: linux
+      drives:
+      - image: bennu-ferrofire-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.105
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: ICS
+    type: VirtualMachine
