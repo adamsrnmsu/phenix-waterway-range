@@ -64,6 +64,22 @@ ExecStart=/usr/local/sbin/malcolm-firstboot
 [Install]
 WantedBy=multi-user.target
 X
+cat > /usr/local/sbin/malcolm-start <<'X'
+#!/bin/bash
+# Staged `compose up` (ww-otj.51): starting all 22 containers at once on 8 vCPU pushed the guest to load 100-200 (healthchecks
+# and JVM starts pile up, miniccc drops) on a reboot; in stages it settles at load ~4 within ~4 min.
+cd /opt/malcolm
+echo never > /sys/kernel/mm/transparent_hugepage/enabled 2>/dev/null || true
+up() { docker compose --profile malcolm up -d "$@"; }
+healthy() { for i in $(seq ${2:-90}); do docker ps --format '{{.Names}} {{.Status}}' | grep -q "malcolm-$1-1 .*(healthy)" && return 0; sleep 10; done; return 0; }
+up opensearch valkey valkey-cache; healthy opensearch
+up dashboards-helper arkime dashboards nginx-proxy
+for i in $(seq 90); do curl -sk -m 20 --config /opt/malcolm/.opensearch.primary.curlrc https://127.0.0.1:9200/_index_template/malcolm_template | grep -q composed_of && break; sleep 10; done
+up logstash filebeat; healthy logstash
+up zeek zeek-live pcap-monitor upload api freq htadmin filescan strelka-frontend strelka-manager; sleep 45
+up
+X
+chmod +x /usr/local/sbin/malcolm-start
 cat > /etc/systemd/system/malcolm.service <<'X'
 [Unit]
 Description=Malcolm (docker compose, live capture on eth1)
@@ -76,7 +92,7 @@ RemainAfterExit=yes
 WorkingDirectory=/opt/malcolm
 ExecStartPre=-/bin/sh -c 'ip addr flush dev eth1'
 TimeoutStartSec=1800
-ExecStart=/usr/bin/docker compose --profile malcolm up -d
+ExecStart=/usr/local/sbin/malcolm-start
 ExecStop=/usr/bin/docker compose --profile malcolm stop
 [Install]
 WantedBy=multi-user.target

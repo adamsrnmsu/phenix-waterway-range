@@ -76,6 +76,8 @@ sudo rmdir $S/opensearch/certs 2>/dev/null || true
 mkdir -p zeek/intel zeek/custom; touch zeek/intel/__load__.zeek zeek/custom/__load__.zeek
 # ww-ebo.8: ARP-spoof notice (ArpSpoof::Conflict); local.zeek does `@load custom` -> custom/__load__.zeek
 cp "$SD/malcolm-zeek/arp-spoof.zeek" zeek/custom/arp-spoof.zeek; echo '@load ./arp-spoof' >> zeek/custom/__load__.zeek
+# ww-otj.51: ICCP/TASE.2 (mms.log, iccp.log): Zeek analyzer + Logstash parse + OpenSearch mapping (also runnable alone on a staged tree)
+bash "$SD/malcolm-iccp.sh" "$S"
 docker compose --profile malcolm config | awk -v s="$S/" 'index($2,s)==1 && $1=="source:" {print $2}' | while read -r d; do [ -e "$d" ] || mkdir -p "$d"; done
 sudo rm -rf .git docs _includes _layouts malcolm-iso hedgehog-raspi kubernetes
 mkdir -p $O/opt
