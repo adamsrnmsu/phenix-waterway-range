@@ -1,0 +1,46 @@
+apiVersion: phenix.sandia.gov/v2
+kind: Scenario
+metadata:
+  name: pump-station-arm64
+  annotations:
+    topology: pump-station-arm64
+spec:
+  apps:
+  - name: sceptre
+    assetDir: /phenix/topologies/pump-station-arm64
+    hosts:
+    - hostname: pump-provider
+      metadata:
+        type: provider
+        simulator: Simulink
+        publish_endpoint: udp://*;239.0.0.1:40000
+        publish_points: /phenix/topologies/pump-station-arm64/injects/publishPoints.txt
+        solver: /phenix/topologies/pump-station-arm64/injects/simulinksolver
+    - hostname: rtu-1
+      metadata:
+        type: fd-server
+        provider: pump-provider
+        infrastructure: batch-process
+        modbus:
+        - name: pump
+          type: pump
+        - name: valve
+          type: valve
+        - name: storagetank
+          type: storagetank
+    - hostname: rtu-2
+      metadata:
+        type: fd-server
+        provider: pump-provider
+        infrastructure: power-transmission
+        modbus:
+        - name: bus-1
+          type: bus
+        - name: bus-3
+          type: bus
+        - name: branch-1_2-3
+          type: branch
+        - name: load-1_bus-3
+          type: load
+        - name: generator-1_bus-1
+          type: generator

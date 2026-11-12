@@ -16,7 +16,7 @@ DNP3 rtu ("protocol": "dnp3"): {"name": "rtu-1", "host": "10.1.1.101", "port": 2
                             "write": {"type": "analog-output", "address": 3}}]}
   Each cycle is one integrity poll (g30 analog inputs, already engineering units: no scaling); writes are g41v3
   (float32) direct operates, the only variation ferrofire's outstation applies. One persistent connection per RTU.
-Modbus register <-> engineering units: bennu scales to 16 bit linearly over `scale`
+Modbus register <-> engineering units: bennu scales to 16 bit linearly over `scale` (an rtu entry may carry its own `scale`: the infrastructure's register range, e.g. power-transmission [-600, 1800])
 (Server.cpp: raw = 65535*(v-min)/(max-min)), identical to the Kepware tag scaling.
 
 Run:   opcua_gateway.py --config FILE      Self-test: python3 -I opcua_gateway.py --self-test
@@ -130,7 +130,13 @@ class Gateway:
                 await self.dnp3_write(rtu, w["address"], val)
             else:
                 c = await self.client(rtu)
-                r = await c.write_register(w["address"], to_raw(val, self.lo, self.hi), device_id=rtu.get("unit", 1))
+                if w["type"] == "coil":
+                    r = await c.write_coil(w["address"], bool(val), device_id=rtu.get("unit", 1))
+                    if r.isError():
+                        raise IOError(str(r))
+                    log.info("%s <- %s (coil %d)", nid, val, w["address"])
+                    return
+                r = await c.write_register(w["address"], to_raw(val, *rtu.get("scale", (self.lo, self.hi))), device_id=rtu.get("unit", 1))
                 if r.isError():
                     raise IOError(str(r))
             log.info("%s <- %s (%s %d)", nid, val, w["type"], w["address"])
@@ -188,12 +194,17 @@ class Gateway:
             r = p["read"]
             want.setdefault(r["type"], []).append(r["address"])
         for typ, addrs in want.items():
-            fn = c.read_input_registers if typ == "input-register" else c.read_holding_registers
+            bits = typ in ("discrete-input", "coil")   # binary fields (pump.control, branch.active ...): 1.0 / 0.0, never scaled
+            fn = {"input-register": c.read_input_registers, "holding-register": c.read_holding_registers,
+                  "discrete-input": c.read_discrete_inputs, "coil": c.read_coils}[typ]
             for start, count in runs(addrs):
                 r = await fn(start, count=count, device_id=unit)
                 if r.isError():
                     raise IOError(str(r))
-                regs.update({(typ, start + i): to_eng(v, self.lo, self.hi) for i, v in enumerate(r.registers)})
+                if bits:
+                    regs.update({(typ, start + i): float(b) for i, b in enumerate(r.bits[:count])})
+                    continue
+                regs.update({(typ, start + i): to_eng(v, *rtu.get("scale", (self.lo, self.hi))) for i, v in enumerate(r.registers)})
         return regs
 
     async def poll_rtu(self, rtu):

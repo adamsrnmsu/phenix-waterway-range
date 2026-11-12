@@ -1,0 +1,437 @@
+{
+  "opc_endpoint": "opc.tcp://0.0.0.0:4840",
+  "poll_interval": 1.0,
+  "scale": [
+    0,
+    1000
+  ],
+  "rtus": [
+    {
+      "name": "rtu-1",
+      "host": "10.1.1.101",
+      "port": 502,
+      "unit": 1,
+      "points": [
+        {
+          "node": "rtu-1.pump.active",
+          "read": {
+            "type": "discrete-input",
+            "address": 10000
+          },
+          "write": {
+            "type": "coil",
+            "address": 0
+          }
+        },
+        {
+          "node": "rtu-1.pump.control",
+          "read": {
+            "type": "discrete-input",
+            "address": 10001
+          },
+          "write": {
+            "type": "coil",
+            "address": 1
+          }
+        },
+        {
+          "node": "rtu-1.pump.flow",
+          "read": {
+            "type": "input-register",
+            "address": 30000
+          },
+          "write": {
+            "type": "holding-register",
+            "address": 40000
+          }
+        },
+        {
+          "node": "rtu-1.pump.temperature",
+          "read": {
+            "type": "input-register",
+            "address": 30001
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.storagetank.emergency_shutoff",
+          "read": {
+            "type": "discrete-input",
+            "address": 10005
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.storagetank.empty_control",
+          "read": {
+            "type": "discrete-input",
+            "address": 10004
+          },
+          "write": {
+            "type": "coil",
+            "address": 4
+          }
+        },
+        {
+          "node": "rtu-1.storagetank.fill_control",
+          "read": {
+            "type": "discrete-input",
+            "address": 10003
+          },
+          "write": {
+            "type": "coil",
+            "address": 3
+          }
+        },
+        {
+          "node": "rtu-1.storagetank.flow_in",
+          "read": {
+            "type": "input-register",
+            "address": 30003
+          },
+          "write": {
+            "type": "holding-register",
+            "address": 40001
+          }
+        },
+        {
+          "node": "rtu-1.storagetank.flow_out",
+          "read": {
+            "type": "input-register",
+            "address": 30004
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.storagetank.level_setpoint",
+          "read": {
+            "type": "input-register",
+            "address": 30002
+          },
+          "write": {
+            "type": "holding-register",
+            "address": 40002
+          }
+        },
+        {
+          "node": "rtu-1.storagetank.tank_level",
+          "read": {
+            "type": "input-register",
+            "address": 30005
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.storagetank.tank_volume",
+          "read": {
+            "type": "input-register",
+            "address": 30006
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.storagetank.temperature",
+          "read": {
+            "type": "input-register",
+            "address": 30007
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.storagetank.volume_to_drain",
+          "read": {
+            "type": "input-register",
+            "address": 30008
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.valve.open",
+          "read": {
+            "type": "discrete-input",
+            "address": 10002
+          },
+          "write": {
+            "type": "coil",
+            "address": 2
+          }
+        }
+      ]
+    },
+    {
+      "name": "rtu-2",
+      "host": "10.1.1.102",
+      "port": 502,
+      "unit": 1,
+      "scale": [
+        -600.0,
+        1800.0
+      ],
+      "points": [
+        {
+          "node": "rtu-2.branch-1_2-3.active",
+          "read": {
+            "type": "discrete-input",
+            "address": 10004
+          },
+          "write": {
+            "type": "coil",
+            "address": 2
+          }
+        },
+        {
+          "node": "rtu-2.branch-1_2-3.charging",
+          "read": {
+            "type": "input-register",
+            "address": 30014
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.branch-1_2-3.current",
+          "read": {
+            "type": "input-register",
+            "address": 30015
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.branch-1_2-3.phase_angle",
+          "read": {
+            "type": "input-register",
+            "address": 30018
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.branch-1_2-3.source_mw",
+          "read": {
+            "type": "input-register",
+            "address": 30016
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.branch-1_2-3.target_mw",
+          "read": {
+            "type": "input-register",
+            "address": 30017
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.active",
+          "read": {
+            "type": "discrete-input",
+            "address": 10000
+          },
+          "write": {
+            "type": "coil",
+            "address": 0
+          }
+        },
+        {
+          "node": "rtu-2.bus-1.angle",
+          "read": {
+            "type": "input-register",
+            "address": 30001
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.gen_mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30003
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.gen_mw",
+          "read": {
+            "type": "input-register",
+            "address": 30002
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.load_mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30005
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.load_mw",
+          "read": {
+            "type": "input-register",
+            "address": 30004
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.shunt_mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30006
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.slack",
+          "read": {
+            "type": "discrete-input",
+            "address": 10001
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-1.voltage",
+          "read": {
+            "type": "input-register",
+            "address": 30000
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.active",
+          "read": {
+            "type": "discrete-input",
+            "address": 10002
+          },
+          "write": {
+            "type": "coil",
+            "address": 1
+          }
+        },
+        {
+          "node": "rtu-2.bus-3.angle",
+          "read": {
+            "type": "input-register",
+            "address": 30008
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.gen_mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30010
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.gen_mw",
+          "read": {
+            "type": "input-register",
+            "address": 30009
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.load_mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30012
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.load_mw",
+          "read": {
+            "type": "input-register",
+            "address": 30011
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.shunt_mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30013
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.slack",
+          "read": {
+            "type": "discrete-input",
+            "address": 10003
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.bus-3.voltage",
+          "read": {
+            "type": "input-register",
+            "address": 30007
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.generator-1_bus-1.active",
+          "read": {
+            "type": "discrete-input",
+            "address": 10006
+          },
+          "write": {
+            "type": "coil",
+            "address": 4
+          }
+        },
+        {
+          "node": "rtu-2.generator-1_bus-1.mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30023
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.generator-1_bus-1.mw",
+          "read": {
+            "type": "input-register",
+            "address": 30022
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.generator-1_bus-1.voltage",
+          "read": {
+            "type": "input-register",
+            "address": 30021
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.load-1_bus-3.active",
+          "read": {
+            "type": "discrete-input",
+            "address": 10005
+          },
+          "write": {
+            "type": "coil",
+            "address": 3
+          }
+        },
+        {
+          "node": "rtu-2.load-1_bus-3.mvar",
+          "read": {
+            "type": "input-register",
+            "address": 30020
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.load-1_bus-3.mw",
+          "read": {
+            "type": "input-register",
+            "address": 30019
+          },
+          "write": null
+        }
+      ]
+    }
+  ]
+}

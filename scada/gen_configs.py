@@ -39,6 +39,8 @@ import yaml
 HERE = pathlib.Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))  # python -I drops the script dir
 import lock_view  # noqa: E402
+import pump_view  # noqa: E402
+VIEWS = {'lock': lock_view, 'pump': pump_view}
 REPO = HERE.parent
 RANGE_DIR = REPO / "topologies" / "waterway-arm64"
 UPSTREAM = pathlib.Path.home() / "git" / "sceptre-phenix-topologies" / "waterway"
@@ -48,7 +50,7 @@ OVERLAY_GW = REPO / "images/overlays/opc-arm64/opt/opcua-gateway/opcua_gateway.p
 SCALE = [0, 1000]
 INFLUX = dict(influx_url="http://127.0.0.1:8086", influx_org="sceptre", influx_bucket="waterway",
               influx_token="waterway-historian-token")  # same values as influx-setup.sh
-TYPES = {"input-register", "holding-register"}
+TYPES = {"input-register", "holding-register", "discrete-input", "coil"}
 DNP3_TYPES = {"analog-input", "analog-output"}
 DNP3 = {"protocol": "dnp3", "port": 20000, "master": 1, "outstation": 10}  # ferrofire outstation answers master 1 only
 
@@ -72,11 +74,11 @@ def data_ip(nodes, host):
     raise KeyError(f"no data-plane address for {host}")
 
 
-def build(regs, nodes, dnp3=False):
+def build(regs, nodes, dnp3=False, rtu_scale=None):
     """-> (rtus, points); rtus = gateway-config rtu list, points = flat [(rtu, device, field)].
     dnp3: regs are analog-input/analog-output rows (dnp3_rows) and the gateway talks DNP3 instead of Modbus."""
     types = DNP3_TYPES if dnp3 else TYPES
-    out_type = "analog-output" if dnp3 else "holding-register"
+    out_type = {"analog-output"} if dnp3 else {"holding-register", "coil"}
     ip2host = {i["address"]: n["general"]["hostname"] for n in nodes for i in ifaces(n)}
     rtus = {}
     for r in regs:
@@ -84,8 +86,10 @@ def build(regs, nodes, dnp3=False):
             raise NotImplementedError(f"{r['register_type']}: waterway only has {sorted(types)}")
         host = ip2host[r["ip"]]
         rtu = rtus.setdefault(host, {"name": host, "host": r["ip"], **(DNP3 if dnp3 else {"port": 502, "unit": 1}), "pts": {}})
+        if host in (rtu_scale or {}):  # infrastructure register range differs from the gateway default (power-transmission)
+            rtu["scale"] = rtu_scale[host]
         pt = rtu["pts"].setdefault((r["name"], r["field"]), {})
-        pt["write" if r["register_type"] == out_type else "read"] = {
+        pt["write" if r["register_type"] in out_type else "read"] = {
             "type": r["register_type"], "address": r["address"]}
     out, flat = [], []
     for host in sorted(rtus):
@@ -99,17 +103,17 @@ def build(regs, nodes, dnp3=False):
     return out, flat
 
 
-def render(regs, nodes, tpl_dir=HERE, dnp3=False):
+def render(regs, nodes, tpl_dir=HERE, dnp3=False, view=lock_view, rtu_scale=None):
     opc_ip = data_ip(nodes, "opc")
     gw = {"opc_endpoint": "opc.tcp://0.0.0.0:4840", "poll_interval": 1.0, "scale": SCALE}
-    rtus, flat = build(regs, nodes, dnp3)
+    rtus, flat = build(regs, nodes, dnp3, rtu_scale)
     gw["rtus"] = rtus
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(tpl_dir), keep_trailing_newline=True)
     endpoint = f"opc.tcp://{opc_ip}:4840"
     ftags = [{"rtu": r, "point": f"{d}.{f}"} for r, d, f in flat]
     fuxa = env.get_template("fuxa_project.json.j2").render(
         opc_endpoint=endpoint, tags=ftags,
-        view=lock_view.build({f"{t['rtu']}.{t['point']}": f"t{i}" for i, t in enumerate(ftags, 1)}))
+        view=view.build({f"{t['rtu']}.{t['point']}": f"t{i}" for i, t in enumerate(ftags, 1)}))
     json.loads(fuxa)  # fail here, not at FUXA import
     tele = env.get_template("telegraf.conf.j2").render(
         opc_endpoint=endpoint, nodes=[{"rtu": r, "device": d, "field": f, "ns": 2, "id": f"{r}.{d}.{f}"} for r, d, f in flat],
@@ -237,6 +241,8 @@ def main():
     ap.add_argument("--out", default=str(RANGE_DIR / "injects"))
     ap.add_argument("--from-dry-run", metavar="PHENIX_APP_SCEPTRE")
     ap.add_argument("--dnp3", action="store_true", help="gateway polls the RTUs over DNP3 (reg_addrs_dnp3.json)")
+    ap.add_argument("--view", choices=sorted(VIEWS), default="lock", help="FUXA process view (pump: ww-1df.10)")
+    ap.add_argument("--rtu-scale", action="append", default=[], metavar="RTU=LO,HI", help="per-RTU register range, e.g. rtu-2=-600,1800")
     ap.add_argument("--self-test", action="store_true")
     a = ap.parse_args()
     if a.self_test:
@@ -246,7 +252,8 @@ def main():
         from_dry_run(a.from_dry_run, a.scenario, a.topology, a.reg_addrs)
         print(f"wrote {a.reg_addrs}")
     src = pathlib.Path(a.reg_addrs).with_name("reg_addrs_dnp3.json") if a.dnp3 else a.reg_addrs
-    files = render(json.load(open(src)), load_nodes(a.topology), dnp3=a.dnp3)
+    scales = {k: [float(x) for x in v.split(',')] for k, v in (s.split('=') for s in a.rtu_scale)}
+    files = render(json.load(open(src)), load_nodes(a.topology), dnp3=a.dnp3, view=VIEWS[a.view], rtu_scale=scales)
     write(a.out, files)
     print(f"wrote {', '.join(files)}, influx-setup.sh to {a.out}")
 
