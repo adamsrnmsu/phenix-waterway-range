@@ -14,13 +14,14 @@ all: up
 .DELETE_ON_ERROR:
 phenix-arm64.Dockerfile: $(PHENIX_SRC)/docker/Dockerfile phenix-arm64.sed
 	sed -f phenix-arm64.sed $< > $@
-	grep -q 'minimega:arm64' $@ && grep -q Linux_arm64 $@ && grep -q filebeat-7.17.5-arm64 $@
+	grep -q 'minimega:arm64' $@ && grep -q Linux_arm64 $@ && grep -qF 'filebeat-$${FILEBEAT_VERSION}-arm64' $@ \
+	  && grep -q 810c39f4691feb75 $@ && grep -q ac30514a352d1649 $@ && ! grep -qE 'x86_64|amd64' $@
 
 minimega-ctx:
-	mkdir -p $(MM_CTX) && rsync -a --exclude 'fsmonitor--daemon*' $(MM_SRC)/ $(MM_CTX)/
+	mkdir -p $(MM_CTX) && rsync -a --delete --exclude 'fsmonitor--daemon*' $(MM_SRC)/ $(MM_CTX)/
 
 phenix-ctx:
-	mkdir -p $(PHENIX_CTX) && rsync -a --exclude 'fsmonitor--daemon*' $(PHENIX_SRC)/ $(PHENIX_CTX)/
+	mkdir -p $(PHENIX_CTX) && rsync -a --delete --exclude 'fsmonitor--daemon*' $(PHENIX_SRC)/ $(PHENIX_CTX)/
 
 minimega-base: minimega-ctx
 	docker build -t minimega:arm64 -f $(MM_CTX)/docker/Dockerfile $(MM_CTX)
