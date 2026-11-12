@@ -1,0 +1,186 @@
+{
+  "opc_endpoint": "opc.tcp://0.0.0.0:4840",
+  "poll_interval": 1.0,
+  "scale": [
+    0,
+    1000
+  ],
+  "rtus": [
+    {
+      "name": "rtu-1",
+      "host": "10.1.1.101",
+      "protocol": "dnp3",
+      "port": 20000,
+      "master": 1,
+      "outstation": 10,
+      "points": [
+        {
+          "node": "rtu-1.boat.direction",
+          "read": {
+            "type": "analog-input",
+            "address": 11
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.boat.location",
+          "read": {
+            "type": "analog-input",
+            "address": 10
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.lock.height",
+          "read": {
+            "type": "analog-input",
+            "address": 1
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.locksensor.active",
+          "read": {
+            "type": "analog-input",
+            "address": 8
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.locksensor.direction",
+          "read": {
+            "type": "analog-input",
+            "address": 9
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.lowergate.open",
+          "read": {
+            "type": "analog-input",
+            "address": 2
+          },
+          "write": {
+            "type": "analog-output",
+            "address": 3
+          }
+        },
+        {
+          "node": "rtu-1.lowersensor.active",
+          "read": {
+            "type": "analog-input",
+            "address": 6
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.lowersensor.direction",
+          "read": {
+            "type": "analog-input",
+            "address": 7
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-1.lowervalve.open",
+          "read": {
+            "type": "analog-input",
+            "address": 4
+          },
+          "write": {
+            "type": "analog-output",
+            "address": 5
+          }
+        },
+        {
+          "node": "rtu-1.lowerwater.height",
+          "read": {
+            "type": "analog-input",
+            "address": 0
+          },
+          "write": null
+        }
+      ]
+    },
+    {
+      "name": "rtu-2",
+      "host": "10.1.1.102",
+      "protocol": "dnp3",
+      "port": 20000,
+      "master": 1,
+      "outstation": 10,
+      "points": [
+        {
+          "node": "rtu-2.lock.height",
+          "read": {
+            "type": "analog-input",
+            "address": 1
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.locksensor.active",
+          "read": {
+            "type": "analog-input",
+            "address": 8
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.locksensor.direction",
+          "read": {
+            "type": "analog-input",
+            "address": 9
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.uppergate.open",
+          "read": {
+            "type": "analog-input",
+            "address": 2
+          },
+          "write": {
+            "type": "analog-output",
+            "address": 3
+          }
+        },
+        {
+          "node": "rtu-2.uppersensor.active",
+          "read": {
+            "type": "analog-input",
+            "address": 6
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.uppersensor.direction",
+          "read": {
+            "type": "analog-input",
+            "address": 7
+          },
+          "write": null
+        },
+        {
+          "node": "rtu-2.uppervalve.open",
+          "read": {
+            "type": "analog-input",
+            "address": 4
+          },
+          "write": {
+            "type": "analog-output",
+            "address": 5
+          }
+        },
+        {
+          "node": "rtu-2.upperwater.height",
+          "read": {
+            "type": "analog-input",
+            "address": 0
+          },
+          "write": null
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+# dnp3_points.log (Zeek + parseus.zeek), one integrity-poll response from rtu-1 (10.1.1.101:20000 -> master 10.1.2.50)
+ts                fc       obj     idx     value  flags  tag (from reg_addrs_dnp3.json)
+1794457089.388    RESPONSE g32v6   10     11.750  1      boat.location
+1794457089.388    RESPONSE g30v6   0       5.000  1      lowerwater.height
+1794457089.388    RESPONSE g30v6   1       5.000  1      lock.height
+1794457089.388    RESPONSE g30v6   2       1.000  1      lowergate.open
+1794457089.388    RESPONSE g30v1   3       1.000  1      lowergate.open
+1794457089.388    RESPONSE g30v6   4       0.000  1      lowervalve.open
+1794457089.388    RESPONSE g30v1   5       0.000  1      lowervalve.open
+1794457089.388    RESPONSE g30v6   6       1.000  1      lowersensor.active
+1794457089.388    RESPONSE g30v6   7       1.000  1      lowersensor.direction
+1794457089.388    RESPONSE g30v6   8       0.000  1      locksensor.active
+1794457089.388    RESPONSE g30v6   9       0.000  1      locksensor.direction
+1794457089.388    RESPONSE g30v6   10     11.750  1      boat.location
+1794457089.388    RESPONSE g30v6   11      1.000  1      boat.direction

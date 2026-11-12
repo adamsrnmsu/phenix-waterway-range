@@ -1,0 +1,15 @@
+[package]
+name = "waterway-sim"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "simulinksolver"
+path = "src/main.rs"
+
+[dependencies]
+libc = "0.2"
+
+[profile.release]
+opt-level = 2
+strip = true

@@ -1,0 +1,136 @@
+apiVersion: phenix.sandia.gov/v1
+kind: Topology
+metadata:
+  name: roles-arm64
+spec:
+  nodes:
+  - general:
+      hostname: opc
+    hardware:
+      cpu: host
+      memory: 2048
+      vcpus: 2
+      drives:
+      - image: opc-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+      os_type: linux
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - address: 10.5.0.1
+        mask: 24
+        name: if0
+        proto: static
+        type: ethernet
+        vlan: SW1
+    type: VirtualMachine
+  - general:
+      hostname: scada
+    hardware:
+      cpu: host
+      memory: 2048
+      vcpus: 2
+      drives:
+      - image: scada-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+      os_type: linux
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - address: 10.5.0.2
+        mask: 24
+        name: if0
+        proto: static
+        type: ethernet
+        vlan: SW1
+    type: VirtualMachine
+  - general:
+      hostname: hist
+    hardware:
+      cpu: host
+      memory: 2048
+      vcpus: 2
+      drives:
+      - image: historian-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+      os_type: linux
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - address: 10.5.0.3
+        mask: 24
+        name: if0
+        proto: static
+        type: ethernet
+        vlan: SW1
+    type: VirtualMachine
+  - general:
+      hostname: hmi
+    hardware:
+      cpu: host
+      memory: 3072
+      vcpus: 2
+      drives:
+      - image: hmi-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+      os_type: linux
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - address: 10.5.0.4
+        mask: 24
+        name: if0
+        proto: static
+        type: ethernet
+        vlan: SW1
+    type: VirtualMachine
+  - general:
+      hostname: eng
+    hardware:
+      cpu: host
+      memory: 3072
+      vcpus: 2
+      drives:
+      - image: engineer-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+      os_type: linux
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - address: 10.5.0.5
+        mask: 24
+        name: if0
+        proto: static
+        type: ethernet
+        vlan: SW1
+    type: VirtualMachine

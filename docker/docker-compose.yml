@@ -1,0 +1,64 @@
+# Upstream sceptre-phenix/docker/docker-compose.yml with local arm64 image names; es/kibana dropped (not needed for the spike).
+x-common: &common
+  init: true
+  network_mode: host
+  restart: always
+  logging:
+    driver: "json-file"
+    options:
+      max-file: "5"
+      max-size: "10m"
+
+services:
+  phenix:
+    image: phenix:arm64
+    command:
+      - phenix
+      - ui
+      - --hostname-suffixes=-minimega,-phenix
+      - --minimega-console
+    container_name: phenix
+    privileged: true
+    pid: host
+    <<: *common
+    volumes:
+      - /dev:/dev
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/phenix:/var/log/phenix
+      - /etc/phenix:/etc/phenix
+      - /var/run/netns:/var/run/netns:shared
+      - /phenix:/phenix:shared
+      - ./tmp/minimega:/tmp/minimega
+      - ./tmp/phenix:/tmp/phenix
+    depends_on:
+      - minimega
+    healthcheck:
+      test: phenix version
+  minimega:
+    image: minimega:arm64-kvm
+    container_name: minimega
+    privileged: true
+    cap_add:
+      - ALL
+    tty: true
+    <<: *common
+    volumes:
+      - /dev:/dev
+      - /lib/modules:/lib/modules:ro
+      - /etc/localtime:/etc/localtime:ro
+      - /var/log/phenix:/var/log/phenix
+      - /var/run/netns:/var/run/netns:shared
+      - /phenix:/phenix:shared
+      - ./tmp/minimega:/tmp/minimega
+      - ./tmp/phenix:/tmp/phenix
+    healthcheck:
+      test: minimega -e version
+    environment:
+      MM_BASE: /tmp/minimega
+      MM_FILEPATH: /phenix/images
+      MM_PORT: 9000
+      MM_DEGREE: 0
+      MM_CONTEXT: ${CONTEXT:-phenix}
+      MM_LOGLEVEL: info
+      MM_LOGFILE: /var/log/phenix/minimega.log
+      MM_ABSSNAPSHOT: true

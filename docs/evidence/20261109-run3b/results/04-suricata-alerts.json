@@ -1,0 +1,53 @@
+{
+ "took": 13,
+ "timed_out": false,
+ "_shards": {
+  "total": 2,
+  "successful": 2,
+  "skipped": 1,
+  "failed": 0
+ },
+ "hits": {
+  "total": {
+   "value": 1,
+   "relation": "eq"
+  },
+  "max_score": null,
+  "hits": [
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-Pnq9pJZ_kMtJOi-145YKuA",
+    "_score": null,
+    "_source": {
+     "@timestamp": "2026-11-09T05:36:04.130941Z",
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "rule": {
+      "name": "WATERWAY Modbus write to RTU from non-OPC host",
+      "id": 9100001
+     },
+     "source": {
+      "ip": "10.1.1.200"
+     }
+    },
+    "sort": [
+     1794202564130
+    ]
+   }
+  ]
+ },
+ "aggregations": {
+  "rule": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 0,
+   "buckets": [
+    {
+     "key": "WATERWAY Modbus write to RTU from non-OPC host",
+     "doc_count": 1
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,746 @@
+{
+ "window": {
+  "start": 1794456984.4687595,
+  "end": 1794457328.0632882,
+  "duration_s": 343.6
+ },
+ "pcap": {
+  "first": 1794456969.178735,
+  "last": 1794457347.345102,
+  "file_bytes": 644395,
+  "duration_s": 378.1663670539856,
+  "packets": 5439,
+  "analysis_window_note": "pcap clipped to the interval covered by both the provider sampler and the Modbus poller"
+ },
+ "clock_offsets": {
+  "rtu-1_host_minus_guest_s": 1.0431879758834839,
+  "opc_host_minus_guest_s": 2.876359462738037,
+  "rtu1_spread_s": 0.0036971569061279297,
+  "opc_spread_s": 0.00022792816162109375,
+  "method": "guests send UDP datagrams to 10.1.1.102:9 and log time.time() before sending; host tcpdump on monitor0 timestamps the same datagrams (includes <1 ms path delay)"
+ },
+ "continuous_tags_vs_linearly_interpolated_provider": {
+  "dnp3_zeek:boat.location": {
+   "n": 682,
+   "median_abs_err": 1.2076,
+   "p95_abs_err": 2.4914,
+   "max_abs_err": 3.0086
+  },
+  "dnp3_zeek:lock.height": {
+   "n": 929,
+   "median_abs_err": 0.0083,
+   "p95_abs_err": 0.1814,
+   "max_abs_err": 0.2542
+  },
+  "modbus_zeek:boat.location": {
+   "n": 338,
+   "median_abs_err": 0.2216,
+   "p95_abs_err": 0.5204,
+   "max_abs_err": 0.6587
+  },
+  "modbus_zeek:lock.height": {
+   "n": 676,
+   "median_abs_err": 0.0103,
+   "p95_abs_err": 0.0441,
+   "max_abs_err": 0.0776
+  }
+ },
+ "dnp3": {
+  "transactions": 678,
+  "tx_per_s": 1.973,
+  "fc_pairs": {
+   "READ->RESPONSE": 678
+  },
+  "points_rows": 8169,
+  "points_per_s": 23.775,
+  "points_per_response_median": 13.0,
+  "groups_variations_fc": {
+   "g32v6 RESPONSE": 711,
+   "g30v6 RESPONSE": 6102,
+   "g30v1 RESPONSE": 1356
+  },
+  "poll_intervals_by_rtu": {
+   "10.1.1.101": {
+    "n_polls": 339,
+    "median_interval_s": 1.0107,
+    "p95_interval_s": 1.0235,
+    "p99_interval_s": 1.0301,
+    "max_interval_s": 1.0391
+   },
+   "10.1.1.102": {
+    "n_polls": 339,
+    "median_interval_s": 1.0107,
+    "p95_interval_s": 1.0222,
+    "p99_interval_s": 1.0287,
+    "max_interval_s": 1.034
+   }
+  }
+ },
+ "modbus": {
+  "zeek_modbus_log_rows": 1352,
+  "rows_per_s": 3.935,
+  "detailed_rows": 1352,
+  "functions": {
+   "READ_INPUT_REGISTERS": 1352
+  },
+  "register_values_extracted": 6084,
+  "exception_rows": 0
+ },
+ "ground_truth_dnp3": {
+  "time_offset_search_s": {
+   "best_lag_s": 0.6,
+   "mean_abs_diff_by_lag": {
+    "-3.0": 1.592521238829722,
+    "-2.8": 1.5122915901579141,
+    "-2.6": 1.4254721508140533,
+    "-2.4": 1.337973680989105,
+    "-2.2": 1.2470659811482432,
+    "-2.0": 1.1595124250214226,
+    "-1.8": 1.0734742318521238,
+    "-1.6": 0.9840842208348636,
+    "-1.4": 0.8958755049577671,
+    "-1.2": 0.8000689190843432,
+    "-1.0": 0.7117966703390869,
+    "-0.8": 0.627919084343249,
+    "-0.6": 0.5357625168319256,
+    "-0.4": 0.448658587342392,
+    "-0.2": 0.34860680621863144,
+    "0.0": 0.2601871710123638,
+    "0.2": 0.183097441547313,
+    "0.4": 0.12951352674745992,
+    "0.6": 0.12390696535683683,
+    "0.8": 0.151572530297466,
+    "1.0": 0.21366189252050435,
+    "1.2": 0.30304198800342763,
+    "1.4": 0.3976310441914555,
+    "1.6": 0.4897353409230016,
+    "1.8": 0.5865398457583548,
+    "2.0": 0.6700996449993879,
+    "2.2": 0.7579498102582936,
+    "2.4": 0.8480031827641081,
+    "2.6": 0.9352047986289632,
+    "2.8": 1.0282761659933897,
+    "3.0": 1.1140705104663975
+   }
+  },
+  "all_points": {
+   "n": 8169,
+   "exact_match_nearest": 0.8569,
+   "match_within_0.6s_window": 0.8842,
+   "max_abs_diff": 3.25,
+   "mean_abs_diff": 0.12391,
+   "median_nearest_sample_gap_s": 0.063
+  },
+  "all_points_no_lag": {
+   "n": 8169,
+   "exact_match_nearest": 0.8515,
+   "match_within_0.6s_window": 0.8707,
+   "max_abs_diff": 6.000000000000002,
+   "mean_abs_diff": 0.26019,
+   "median_nearest_sample_gap_s": 0.073
+  },
+  "per_tag": {
+   "boat.direction": {
+    "n": 344,
+    "exact_match_nearest": 0.9797,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 2.0,
+    "mean_abs_diff": 0.0407,
+    "median_nearest_sample_gap_s": 0.061
+   },
+   "boat.location": {
+    "n": 682,
+    "exact_match_nearest": 0.0381,
+    "match_within_0.6s_window": 0.1877,
+    "max_abs_diff": 3.25,
+    "mean_abs_diff": 1.29582,
+    "median_nearest_sample_gap_s": 0.062
+   },
+   "lock.height": {
+    "n": 929,
+    "exact_match_nearest": 0.5178,
+    "match_within_0.6s_window": 0.578,
+    "max_abs_diff": 0.27500000000000036,
+    "mean_abs_diff": 0.05646,
+    "median_nearest_sample_gap_s": 0.066
+   },
+   "locksensor.active": {
+    "n": 702,
+    "exact_match_nearest": 0.9815,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 1.0,
+    "mean_abs_diff": 0.01852,
+    "median_nearest_sample_gap_s": 0.063
+   },
+   "locksensor.direction": {
+    "n": 702,
+    "exact_match_nearest": 0.9872,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 1.0,
+    "mean_abs_diff": 0.01282,
+    "median_nearest_sample_gap_s": 0.061
+   },
+   "lowergate.open": {
+    "n": 689,
+    "exact_match_nearest": 0.9913,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 1.0,
+    "mean_abs_diff": 0.00871,
+    "median_nearest_sample_gap_s": 0.062
+   },
+   "lowersensor.active": {
+    "n": 345,
+    "exact_match_nearest": 1.0,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 0.0,
+    "mean_abs_diff": 0.0,
+    "median_nearest_sample_gap_s": 0.061
+   },
+   "lowersensor.direction": {
+    "n": 347,
+    "exact_match_nearest": 0.9885,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 2.0,
+    "mean_abs_diff": 0.01729,
+    "median_nearest_sample_gap_s": 0.061
+   },
+   "lowervalve.open": {
+    "n": 684,
+    "exact_match_nearest": 0.9956,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 1.0,
+    "mean_abs_diff": 0.00439,
+    "median_nearest_sample_gap_s": 0.062
+   },
+   "lowerwater.height": {
+    "n": 339,
+    "exact_match_nearest": 1.0,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 0.0,
+    "mean_abs_diff": 0.0,
+    "median_nearest_sample_gap_s": 0.066
+   },
+   "uppergate.open": {
+    "n": 690,
+    "exact_match_nearest": 0.9841,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 1.0,
+    "mean_abs_diff": 0.01594,
+    "median_nearest_sample_gap_s": 0.061
+   },
+   "uppersensor.active": {
+    "n": 345,
+    "exact_match_nearest": 0.9942,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 1.0,
+    "mean_abs_diff": 0.0058,
+    "median_nearest_sample_gap_s": 0.061
+   },
+   "uppersensor.direction": {
+    "n": 348,
+    "exact_match_nearest": 0.9885,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 2.0,
+    "mean_abs_diff": 0.01724,
+    "median_nearest_sample_gap_s": 0.061
+   },
+   "uppervalve.open": {
+    "n": 684,
+    "exact_match_nearest": 0.9912,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 1.0,
+    "mean_abs_diff": 0.00877,
+    "median_nearest_sample_gap_s": 0.06
+   },
+   "upperwater.height": {
+    "n": 339,
+    "exact_match_nearest": 1.0,
+    "match_within_0.6s_window": 1.0,
+    "max_abs_diff": 0.0,
+    "mean_abs_diff": 0.0,
+    "median_nearest_sample_gap_s": 0.062
+   }
+  }
+ },
+ "ground_truth_modbus": {
+  "zeek_vs_client_poller": {
+   "n": 6084,
+   "exact_match_rate": 1.0,
+   "opc_clock_minus_host_s_mod_period": 0.003,
+   "poll_index_shift_chosen": 0,
+   "note": "client poller timestamps are guest-clock and known only modulo its ~1 s period; the poll-index shift with the best value agreement is used (values pair 1:1 by order)"
+  },
+  "zeek_vs_provider": {
+   "lag_s": 0.0,
+   "n": 6084,
+   "mean_abs_diff": 0.0954,
+   "median_abs_diff": 0.0004,
+   "max_abs_diff": 1.2464,
+   "exact_nearest": 0.872,
+   "match_in_0.6s_window": 0.8784,
+   "tol": 0.05,
+   "mean_abs_diff_by_lag": {
+    "-3.0": 0.9938,
+    "-2.8": 0.9308,
+    "-2.6": 0.8736,
+    "-2.4": 0.8162,
+    "-2.2": 0.7567,
+    "-2.0": 0.6966,
+    "-1.8": 0.6342,
+    "-1.6": 0.5745,
+    "-1.4": 0.5172,
+    "-1.2": 0.4546,
+    "-1.0": 0.3944,
+    "-0.8": 0.3333,
+    "-0.6": 0.2694,
+    "-0.4": 0.211,
+    "-0.2": 0.1489,
+    "0.0": 0.0954,
+    "0.2": 0.1177,
+    "0.4": 0.1814,
+    "0.6": 0.2399,
+    "0.8": 0.3022,
+    "1.0": 0.3655,
+    "1.2": 0.4257,
+    "1.4": 0.4856,
+    "1.6": 0.544,
+    "1.8": 0.605,
+    "2.0": 0.6673,
+    "2.2": 0.7287,
+    "2.4": 0.7877,
+    "2.6": 0.8442,
+    "2.8": 0.9041,
+    "3.0": 0.9667
+   },
+   "scale": "register = value * 65.535 (0..1000 -> 0..65535); tolerance 0.05 unit = 3 register LSB"
+  },
+  "per_tag": {
+   "boat.direction": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.5305,
+    "median_abs_diff": 1.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.4734,
+    "match_in_0.6s_window": 0.4734,
+    "tol": 0.05
+   },
+   "boat.location": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.4004,
+    "median_abs_diff": 0.2629,
+    "max_abs_diff": 1.2464,
+    "exact_nearest": 0.1775,
+    "match_in_0.6s_window": 0.1775,
+    "tol": 0.05
+   },
+   "lock.height": {
+    "lag_s": 0.0,
+    "n": 676,
+    "mean_abs_diff": 0.0176,
+    "median_abs_diff": 0.0103,
+    "max_abs_diff": 0.1396,
+    "exact_nearest": 0.8817,
+    "match_in_0.6s_window": 0.9231,
+    "tol": 0.05
+   },
+   "locksensor.active": {
+    "lag_s": 0.0,
+    "n": 676,
+    "mean_abs_diff": 0.0029,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.0082,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "locksensor.direction": {
+    "lag_s": 0.0,
+    "n": 676,
+    "mean_abs_diff": 0.1849,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.8166,
+    "match_in_0.6s_window": 0.8254,
+    "tol": 0.05
+   },
+   "lowergate.open": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0011,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.0082,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "lowersensor.active": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0024,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.0082,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "lowersensor.direction": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.1726,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.8284,
+    "match_in_0.6s_window": 0.8314,
+    "tol": 0.05
+   },
+   "lowervalve.open": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0044,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.997,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "lowerwater.height": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0103,
+    "median_abs_diff": 0.0103,
+    "max_abs_diff": 0.0103,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "uppergate.open": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0044,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.997,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "uppersensor.active": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0028,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.0082,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "uppersensor.direction": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.173,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.8284,
+    "match_in_0.6s_window": 0.8314,
+    "tol": 0.05
+   },
+   "uppervalve.open": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0044,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.9918,
+    "exact_nearest": 0.997,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   },
+   "upperwater.height": {
+    "lag_s": 0.0,
+    "n": 338,
+    "mean_abs_diff": 0.0004,
+    "median_abs_diff": 0.0004,
+    "max_abs_diff": 0.0004,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.05
+   }
+  }
+ },
+ "ground_truth_dnp3_wire_tshark_g30v6": {
+  "overall": {
+   "lag_s": 0.6,
+   "n": 6102,
+   "mean_abs_diff": 0.0819,
+   "median_abs_diff": 0.0,
+   "max_abs_diff": 3.25,
+   "exact_nearest": 0.9049,
+   "match_in_0.6s_window": 0.9228,
+   "tol": 0.001,
+   "mean_abs_diff_by_lag": {
+    "-3.0": 1.0858,
+    "-2.8": 1.0315,
+    "-2.6": 0.9709,
+    "-2.4": 0.9112,
+    "-2.2": 0.8484,
+    "-2.0": 0.7889,
+    "-1.8": 0.731,
+    "-1.6": 0.6689,
+    "-1.4": 0.609,
+    "-1.2": 0.5431,
+    "-1.0": 0.4828,
+    "-0.8": 0.4266,
+    "-0.6": 0.3626,
+    "-0.4": 0.3035,
+    "-0.2": 0.2346,
+    "0.0": 0.1744,
+    "0.2": 0.1228,
+    "0.4": 0.0859,
+    "0.6": 0.0819,
+    "0.8": 0.1,
+    "1.0": 0.1411,
+    "1.2": 0.2006,
+    "1.4": 0.2636,
+    "1.6": 0.3256,
+    "1.8": 0.3925,
+    "2.0": 0.4498,
+    "2.2": 0.5088,
+    "2.4": 0.571,
+    "2.6": 0.6301,
+    "2.8": 0.6947,
+    "3.0": 0.7536
+   }
+  },
+  "per_tag": {
+   "boat.direction": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0236,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 2.0,
+    "exact_nearest": 0.9882,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "boat.location": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 1.2898,
+    "median_abs_diff": 1.25,
+    "max_abs_diff": 3.25,
+    "exact_nearest": 0.0383,
+    "match_in_0.6s_window": 0.1888,
+    "tol": 0.001
+   },
+   "lock.height": {
+    "lag_s": 0.6,
+    "n": 678,
+    "mean_abs_diff": 0.0387,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.275,
+    "exact_nearest": 0.6696,
+    "match_in_0.6s_window": 0.7109,
+    "tol": 0.001
+   },
+   "locksensor.active": {
+    "lag_s": 0.6,
+    "n": 678,
+    "mean_abs_diff": 0.0103,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.9897,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "locksensor.direction": {
+    "lag_s": 0.6,
+    "n": 678,
+    "mean_abs_diff": 0.0074,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.9926,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "lowergate.open": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0059,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.9941,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "lowersensor.active": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.0,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "lowersensor.direction": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0088,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 2.0,
+    "exact_nearest": 0.9941,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "lowervalve.open": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0029,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.9971,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "lowerwater.height": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.0,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "uppergate.open": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0118,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.9882,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "uppersensor.active": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0029,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.9971,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "uppersensor.direction": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0088,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 2.0,
+    "exact_nearest": 0.9941,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "uppervalve.open": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0059,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 1.0,
+    "exact_nearest": 0.9941,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   },
+   "upperwater.height": {
+    "lag_s": 0.6,
+    "n": 339,
+    "mean_abs_diff": 0.0,
+    "median_abs_diff": 0.0,
+    "max_abs_diff": 0.0,
+    "exact_nearest": 1.0,
+    "match_in_0.6s_window": 1.0,
+    "tol": 0.001
+   }
+  },
+  "note": "independent tshark decode of the double-precision static points stock Zeek does not extract"
+ },
+ "ingest": {
+  "docker": {
+   "pz-zeek": {
+    "cpu_pct_mean": 0.46,
+    "cpu_pct_max": 0.63,
+    "mem_mib_mean": 91.8,
+    "mem_mib_max": 92.54
+   },
+   "pz-ing": {
+    "cpu_pct_mean": 1.0,
+    "cpu_pct_max": 3.93,
+    "mem_mib_mean": 61.5,
+    "mem_mib_max": 62.3
+   },
+   "pz-es": {
+    "cpu_pct_mean": 4.25,
+    "cpu_pct_max": 12.27,
+    "mem_mib_mean": 2408.1,
+    "mem_mib_max": 2410.496
+   }
+  },
+  "live_ingest_latency": {
+   "n_new_batches": 45,
+   "arrival_delay_s_median": 0.715,
+   "p95": 1.389,
+   "max": 1.96,
+   "note": "age (query time minus packet timestamp) of each DNP3 poll batch the first time ES returned it; sampled every 0.25 s so resolution is 0.25 s"
+  },
+  "ingestor_poll_s": 2
+ },
+ "live_vs_pcap": {
+  "dnp3_points": {
+   "live": 8169,
+   "pcap": 8169,
+   "identical_records": 8169,
+   "live_only": 0,
+   "pcap_only": 0
+  },
+  "dnp3": {
+   "live": 678,
+   "pcap": 678,
+   "identical_records": 678,
+   "live_only": 0,
+   "pcap_only": 0
+  },
+  "modbus_detailed": {
+   "live": 1352,
+   "pcap": 1352,
+   "identical_records": 1352,
+   "live_only": 0,
+   "pcap_only": 0
+  }
+ },
+ "es_docs_in_window": {
+  "live_es_9205": {
+   "dnp3_points": 8169,
+   "modbus": 1352,
+   "modbus_detailed": 1352,
+   "dnp3": 678
+  },
+  "pcap_es_9206": {
+   "dnp3_points": 8169,
+   "modbus": 1352,
+   "modbus_detailed": 1352,
+   "dnp3": 678
+  }
+ },
+ "zeek_vs_tshark_g30v6": {
+  "wire_points": 6102,
+  "zeek_equal": 6102,
+  "zeek_missing": 0,
+  "equal_rate": 1.0,
+  "method": "tshark (independent dissector) g30v6 static points vs Zeek dnp3_points g30v6 rows with the same RTU, index and timestamp (+-20 ms)"
+ },
+ "bundle_notes": {
+  "run": "second capture (360 s run + margin) after parseus.zeek double-precision fix; the first capture (658 s, 9693 packets, before the fix) is not used for results: it showed only 2 of 12 points/poll (g30v1 idx 3,5)",
+  "analysis_window": "pcap clipped to where provider sampler and Modbus poller overlapped"
+ }
+}

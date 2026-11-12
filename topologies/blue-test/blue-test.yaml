@@ -1,0 +1,40 @@
+apiVersion: phenix.sandia.gov/v1
+kind: Topology
+metadata:
+  name: blue-test
+spec:
+  nodes:
+  - general:
+      hostname: blue
+      description: Kali Purple + Malcolm boot test (eth0 mgmt, eth1 capture NIC, no IP)
+    hardware:
+      cpu: host
+      memory: 24576
+      vcpus: 8
+      os_type: linux
+      drives:
+      - image: kali-purple-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device
+        usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: mgmt
+        address: 172.16.9.20
+        mask: 16
+        proto: static
+        type: ethernet
+        vlan: BTEST
+      - name: capture   # placeholder IP; the image's capture-nic.service flushes it (promisc, no IP)
+        address: 192.0.2.250
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: BCAP
+    type: VirtualMachine

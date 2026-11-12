@@ -1,0 +1,30 @@
+apiVersion: phenix.sandia.gov/v1
+kind: Topology
+metadata:
+  name: ign-amd64
+spec:
+  nodes:
+  - general:
+      hostname: ignition
+    hardware:
+      cpu: max
+      memory: 8192
+      vcpus: 4
+      os_type: linux
+      drives:
+      - image: ignition-amd64.qc2
+        interface: virtio
+        inject_partition: 1
+    advanced:
+      qemu: /usr/bin/qemu-system-x86_64
+      vga: std
+      qemu-append: ""
+    network:
+      interfaces:
+      - {address: 10.117.4.70, mask: 24, name: exp, proto: static, type: ethernet, vlan: EXP}
+    commands:
+    - exec bash -c "/usr/local/bin/ignition/gwcmd --restore /phenix/ignition.gwbk -y >> /var/log/gwcmd-restore.log 2>&1; /usr/local/bin/ignition/gwcmd -r >> /var/log/gwcmd-restore.log 2>&1"
+    injections:
+    - src: /phenix/ignition-test/soap-hil_20240612.gwbk
+      dst: /phenix/ignition.gwbk
+    type: VirtualMachine

@@ -1,0 +1,37 @@
+apiVersion: phenix.sandia.gov/v2
+kind: Scenario
+metadata:
+  name: waterway-mini
+  annotations:
+    topology: waterway-mini
+spec:
+  apps:
+  - name: sceptre
+    assetDir: /phenix/topologies/phase4
+    hosts:
+    - hostname: waterway-provider
+      metadata:
+        publish_endpoint: udp://*;239.0.0.1:40000
+        publish_points: /phenix/topologies/phase4/injects/publishPoints.txt
+        simulator: Simulink
+        solver: /phenix/topologies/phase4/injects/simulinksolver
+        type: provider
+    - hostname: rtu-1
+      metadata:
+        modbus:
+        - name: lowerwater
+          type: water
+        - name: lock
+          type: water
+        - name: lowergate
+          type: gate
+        - name: lowervalve
+          type: valve
+        - name: lowersensor
+          type: boat-sensor
+        - name: locksensor
+          type: boat-sensor
+        infrastructure: waterway
+        logic: lowergate.open = 1*((lowersensor.direction == 1) && (lowersensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 0*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 1*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height >= lowerwater.height - 0.1) && (lock.height <= lowerwater.height + 0.1)) + 0*((lowersensor.direction == -1) && (lowersensor.active == 1)); lowervalve.open = 1*((lowersensor.direction == 1) && (lowersensor.active == 1) && (lock.height > lowerwater.height)) + 0*((locksensor.direction == 1) && (locksensor.active == 1) && (lock.height >= lowerwater.height)) + 1*((locksensor.direction == -1) && (locksensor.active == 1) && (lock.height > lowerwater.height)) + 0*((lowersensor.direction == -1) && (lowersensor.active == 1))
+        provider: waterway-provider
+        type: fd-server

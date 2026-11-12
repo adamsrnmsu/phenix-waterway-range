@@ -1,0 +1,20 @@
+lima-phenix: 8/fa0248af-9606-42fa-b580-58b5c96e40fb/stdout:
+rtu-1.boat.direction = 0.992
+rtu-1.boat.location = 92.241
+rtu-1.lock.height = 4.99
+rtu-1.locksensor.active = 0.0
+rtu-1.locksensor.direction = 0.0
+rtu-1.lowergate.open = 0.992
+rtu-1.lowersensor.active = 0.992
+rtu-1.lowersensor.direction = 0.992
+rtu-1.lowervalve.open = 0.0
+rtu-1.lowerwater.height = 4.99
+rtu-2.lock.height = 4.99
+rtu-2.locksensor.active = 0.0
+rtu-2.locksensor.direction = 0.0
+rtu-2.uppergate.open = 0.0
+rtu-2.uppersensor.active = 0.0
+rtu-2.uppersensor.direction = 0.0
+rtu-2.uppervalve.open = 0.0
+rtu-2.upperwater.height = 15.0
+SUMMARY points_in_config=18 readable=18 failed=0

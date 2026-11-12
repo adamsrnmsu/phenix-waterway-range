@@ -1,0 +1,32 @@
+{#- Variables: opc_endpoint (e.g. opc.tcp://10.1.2.50:4840), view_name (default "Lock"),
+    tags: list of {rtu, point} -> tag name/address "<rtu>.<point>" / "ns=2;s=<rtu>.<point>",
+    view: lock_view.build({name: tag id}) -> {items, svg} (scada/lock_view.py) -#}
+{%- set view_name = view_name | default("Lock") -%}
+{
+  "devices": {
+    "0": {"id": "0", "name": "FUXA Server", "enabled": true, "type": "FuxaServer", "property": {}, "tags": {}},
+    "d_opc": {
+      "id": "d_opc", "name": "opc", "enabled": true, "type": "OPCUA", "polling": 1000,
+      "property": {"address": "{{ opc_endpoint }}"},
+      "tags": {
+{%- for t in tags %}
+        "t{{ loop.index }}": {"id": "t{{ loop.index }}", "name": "{{ t.rtu }}.{{ t.point }}", "type": "number",
+          "address": "ns=2;s={{ t.rtu }}.{{ t.point }}", "daq": {"enabled": false, "interval": 60, "restored": false}}{{ "," if not loop.last }}
+{%- endfor %}
+      }
+    }
+  },
+  "hmi": {
+    "views": [
+      {
+        "id": "v_lock", "name": "{{ view_name }}", "profile": {"width": 1280, "height": 720, "bkcolor": "#ffffffff"},
+        "variables": {},
+        "items": {{ view["items"] | tojson }},
+        "svgcontent": {{ view["svg"] | tojson }}
+      }
+    ],
+    "layout": {"start": "v_lock", "navigation": {"mode": "void", "type": "inline", "items": []}, "header": {}}
+  },
+  "version": "1.01", "name": "waterway", "server": {"id": "0", "name": "FUXA Server", "type": "FuxaServer", "property": {}},
+  "texts": [], "alarms": [], "recipes": []
+}

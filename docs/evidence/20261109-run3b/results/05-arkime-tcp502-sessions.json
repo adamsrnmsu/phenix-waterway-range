@@ -1,0 +1,395 @@
+{
+ "took": 15,
+ "timed_out": false,
+ "_shards": {
+  "total": 2,
+  "successful": 2,
+  "skipped": 1,
+  "failed": 0
+ },
+ "hits": {
+  "total": {
+   "value": 14,
+   "relation": "eq"
+  },
+  "max_score": null,
+  "hits": [
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mAR5JkzXMXFKAIXdEO5rgcVe",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202543257,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202543307,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 19710,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202543307
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mAR8zdmlwbJJW62c4bY9DMYw",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202543257,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202543307,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.102"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 21150,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202543307
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mARi8upVUGBD8oPlVkCcLEmf",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202634252,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202634266,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 19710,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202634266
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mAQirVj0u8hL8YS2cf3Add9w",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202634252,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202634266,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.102"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 21150,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202634266
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-tgVt_PNsC3dJd4DJYrWl1kkT",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202621146,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202637467,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.102"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 60630,
+      "packets": 774
+     }
+    },
+    "sort": [
+     1794202637467
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-tgXC-X2OG4pAI46Qag4dst3V",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202564172,
+     "firstPacket": 1794202564125,
+     "@timestamp": 1794202637467,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.1.200"
+     },
+     "network": {
+      "bytes": 634,
+      "packets": 9
+     }
+    },
+    "sort": [
+     1794202637467
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-tgW1tHWImtpJRLv7POg2sj0-",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202622150,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202637467,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 56580,
+      "packets": 775
+     }
+    },
+    "sort": [
+     1794202637467
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mAQmj7VSADBAIIYK0P6W6Q5V",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202564172,
+     "firstPacket": 1794202564125,
+     "@timestamp": 1794202655507,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.1.200"
+     },
+     "network": {
+      "bytes": 634,
+      "packets": 9
+     }
+    },
+    "sort": [
+     1794202655507
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mASOaLXzfTxMKrWIoQupqgPJ",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202725007,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202725046,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.102"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 21150,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202725046
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mAQm_1fOdIRNIrx97VvujRWF",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202725007,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202725046,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 19710,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202725046
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mATxLaVp_w1Ja6qfZ_qJxT-k",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202816653,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202816666,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 19929,
+      "packets": 273
+     }
+    },
+    "sort": [
+     1794202816666
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mAQdn61tG0ZFF4VXBob99JXP",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202816653,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202816666,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.102"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 21385,
+      "packets": 273
+     }
+    },
+    "sort": [
+     1794202816666
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mAQU0-1X_LBHLr2eqvF8Wjch",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202907217,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202907266,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.101"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 19710,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202907266
+    ]
+   },
+   {
+    "_index": "arkime_sessions3-261109",
+    "_id": "261109-mASFIQikmE5FYL2Y9d39qNU0",
+    "_score": null,
+    "_source": {
+     "lastPacket": 1794202907217,
+     "firstPacket": 1794202361789,
+     "@timestamp": 1794202907266,
+     "destination": {
+      "port": 502,
+      "ip": "10.1.1.102"
+     },
+     "source": {
+      "ip": "10.1.2.50"
+     },
+     "network": {
+      "bytes": 21150,
+      "packets": 270
+     }
+    },
+    "sort": [
+     1794202907266
+    ]
+   }
+  ]
+ },
+ "aggregations": {
+  "pair": {
+   "doc_count_error_upper_bound": 0,
+   "sum_other_doc_count": 0,
+   "buckets": [
+    {
+     "key": "10.1.2.50",
+     "doc_count": 12,
+     "dst": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+       {
+        "key": "10.1.1.101",
+        "doc_count": 6
+       },
+       {
+        "key": "10.1.1.102",
+        "doc_count": 6
+       }
+      ]
+     }
+    },
+    {
+     "key": "10.1.1.200",
+     "doc_count": 2,
+     "dst": {
+      "doc_count_error_upper_bound": 0,
+      "sum_other_doc_count": 0,
+      "buckets": [
+       {
+        "key": "10.1.1.101",
+        "doc_count": 2
+       }
+      ]
+     }
+    }
+   ]
+  }
+ }
+}
