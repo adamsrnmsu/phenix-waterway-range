@@ -25,6 +25,13 @@ outputs:
   storagetank.temperature:      {type: analog, expr: "20"}
   storagetank.emergency_shutoff: {type: binary, expr: "storagetank.tank_level >= 9.5"}
   storagetank.tank_level: {type: analog}
+  # inputs published as outputs too: the stock bennu-simulink-provider serves every publishPoints slot, and an unpublished binary
+  # input reads "0" (not true/false), which crashes the stock bennu-field-deviced (std::bad_variant_access) when it reads its output tags at start
+  pump.control:               {type: binary}
+  valve.open:                 {type: binary}
+  storagetank.level_setpoint: {type: analog}
+  storagetank.fill_control:   {type: binary}
+  storagetank.empty_control:  {type: binary}
 power:
   tags: pypower
   islands: deenergize
