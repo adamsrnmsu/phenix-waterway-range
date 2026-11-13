@@ -38,7 +38,7 @@ spec:
       vcpus: 1
       os_type: linux
       drives:
-      - image: bennu-arm64.qc2
+      - image: bennu-ferrofire-arm64.qc2
         interface: virtio
         inject_partition: 2
     advanced: *id001
@@ -67,7 +67,7 @@ spec:
       vcpus: 1
       os_type: linux
       drives:
-      - image: bennu-arm64.qc2
+      - image: bennu-ferrofire-arm64.qc2
         interface: virtio
         inject_partition: 2
     advanced: *id001
@@ -96,7 +96,7 @@ spec:
       vcpus: 1
       os_type: linux
       drives:
-      - image: bennu-arm64.qc2
+      - image: bennu-ferrofire-arm64.qc2
         interface: virtio
         inject_partition: 2
     advanced: *id001
@@ -125,7 +125,7 @@ spec:
       vcpus: 1
       os_type: linux
       drives:
-      - image: bennu-arm64.qc2
+      - image: bennu-ferrofire-arm64.qc2
         interface: virtio
         inject_partition: 2
     advanced: *id001
@@ -141,6 +141,35 @@ spec:
         vlan: EXP
       - name: mgmt
         address: 172.16.1.7
+        mask: 16
+        proto: static
+        type: ethernet
+        vlan: MGMT
+    type: VirtualMachine
+  - general:
+      hostname: dnp3-master
+    hardware:
+      cpu: host
+      memory: 1024
+      vcpus: 1
+      os_type: linux
+      drives:
+      - image: bennu-ferrofire-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced: *id001
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: exp
+        address: 10.117.4.110
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: EXP
+      - name: mgmt
+        address: 172.16.1.20
         mask: 16
         proto: static
         type: ethernet

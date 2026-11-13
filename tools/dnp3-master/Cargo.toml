@@ -1,0 +1,10 @@
+[package]
+name = "dnp3-master"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# Independent DNP3 master (stepfunc dnp3 crate, released on crates.io) for the soap-arm64 breaker-write check (ww-1df.28).
+[dependencies]
+dnp3 = { version = "1.8", default-features = false }
+tokio = { version = "1", features = ["rt", "macros", "time"] }

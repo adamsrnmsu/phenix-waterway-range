@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """soap-arm64-mini: the SOAP power range (sceptre-phenix-topologies/soap) cut down to what the pybennu-power-solver drop-in needs:
-power-provider (PyPower, case300) + rtu-1..4 (DNP3 fd-servers). No Ignition/netmonitor/attacker/siren/scorch.
+power-provider (PyPower, case300) + rtu-1..4 (DNP3 fd-servers) + dnp3-master (test master). No Ignition/netmonitor/attacker/siren/scorch.
 usage: gen.py [PROVIDER_IMAGE]   -> soap-arm64-topology.yaml, soap-arm64-scenario.yaml (ww-1df.9, ww-90o.6)"""
 import sys, yaml
 img = sys.argv[1] if len(sys.argv) > 1 else 'bennu-ferrofire-arm64.qc2'
@@ -15,8 +15,10 @@ def nic(name, addr, mask, vlan):
     return {'name': name, 'address': addr, 'mask': mask, 'proto': 'static', 'type': 'ethernet', 'vlan': vlan}
 nodes = [node('power-provider', img, 2048, 2, [nic('mgmt', '172.16.1.2', 16, 'MGMT')])]
 for i in range(1, 5):
-    nodes.append(node(f'rtu-{i}', 'bennu-arm64.qc2', 1024, 1,
+    nodes.append(node(f'rtu-{i}', img, 1024, 1,   # same image as the provider: it carries the multicast route + UDP sysctls (ww-1df.28)
                       [nic('exp', f'10.117.4.{100 + i}', 24, 'EXP'), nic('mgmt', f'172.16.1.{3 + i}', 16, 'MGMT')]))
+# dnp3-master: runs tools/dnp3-master (independent stepfunc DNP3 master) against an RTU outstation over EXP (ww-1df.28); the fd-server outstations listen only on their EXP address (tcp://10.117.4.10N:20000)
+nodes.append(node('dnp3-master', img, 1024, 1, [nic('exp', '10.117.4.110', 24, 'EXP'), nic('mgmt', '172.16.1.20', 16, 'MGMT')]))
 topo = {'apiVersion': 'phenix.sandia.gov/v1', 'kind': 'Topology', 'metadata': {'name': 'soap-arm64'}, 'spec': {'nodes': nodes}}
 A = '/phenix/topologies/soap-arm64'
 def rtu(n, dnp3, infra='power-transmission'):
