@@ -6,6 +6,9 @@ LINUX_FUXA = "--linux-fuxa" in sys.argv
 # host entry, nothing to configure), so the scenario output is identical with or without it.
 # --dnp3: rtu-1/rtu-2 also serve DNP3 (a `dnp3:` list equal to their `modbus:` list); ferrofire's field device answers both.
 DNP3 = "--dnp3" in sys.argv
+# --ferrofire-rtu: rtu-1/rtu-2 run the ferrofire RTU image; `firmware: ferrofire` makes the sceptre app start it
+# (/usr/sbin/ferrofire-rtu-start) instead of bennu-watcherd.
+FERROFIRE_RTU = "--ferrofire-rtu" in sys.argv
 TOPOS = os.environ.get("SCEPTRE_PHENIX_TOPOLOGIES", os.path.expanduser("~/git/sceptre-phenix-topologies"))
 up = yaml.safe_load(open(os.path.join(TOPOS, "waterway/waterway-scenario.yaml")))
 A = "/phenix/topologies/waterway-arm64"
@@ -36,6 +39,8 @@ for h in up["spec"]["apps"][0]["hosts"]:
             m["modbus"] = m["modbus"] + [{"name": "boat", "type": "boat"}]
         if DNP3:
             m["dnp3"] = [dict(d) for d in m["modbus"]]  # copies: no YAML aliases
+        if FERROFIRE_RTU:
+            m["firmware"] = "ferrofire"
     hosts.append({"hostname": n, "metadata": m})
 if LINUX_FUXA:  # the topology has an engineer workstation the upstream scenario lacks
     hosts.append({"hostname": "engineer-workstation",

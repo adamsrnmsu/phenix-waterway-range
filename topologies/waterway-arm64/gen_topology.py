@@ -24,6 +24,10 @@ DNP3 = "--dnp3" in sys.argv
 # 172.16.1.250 is shared with mitm's blue node; fine, they never run together.
 PURPLE = "--purple" in sys.argv
 
+# --ferrofire-rtu: rtu-1/rtu-2 boot the ferrofire Buildroot RTU image (images/ferrofire-rtu.sh), which carries ferrofire
+# itself, so the ferrofire/shim injections go; pair with gen_scenario.py --ferrofire-rtu (`firmware: ferrofire`)
+FERROFIRE_RTU = "--ferrofire-rtu" in sys.argv
+
 def vm(host, desc, image, ifs, mem=1024, vcpus=2, gui=False, injections=None, os="linux", kind="VirtualMachine"):
     n = {"general": {"hostname": host, "description": desc},
          "hardware": {"cpu": "host", "memory": mem, "vcpus": vcpus, "os_type": os,
@@ -51,8 +55,8 @@ def rtu(host, n):
     # shim goes to /usr/local/bin: /usr/bin/bennu-field-deviced is a symlink to it (bennu-arm64.sh), and injecting
     # onto a real file avoids guessing how phenix treats a symlink dst
     extra = [("ferrofire", "/usr/local/bin/ferrofire", "0755"),
-           ("ferrofire-fd-shim.sh", "/usr/local/bin/bennu-field-deviced", "0755")] if DNP3 else None
-    return vm(host, "SCEPTRE RTU", "bennu-arm64.qc2",
+           ("ferrofire-fd-shim.sh", "/usr/local/bin/bennu-field-deviced", "0755")] if DNP3 and not FERROFIRE_RTU else None
+    return vm(host, "SCEPTRE RTU", "ferrofire-rtu-arm64.qc2" if FERROFIRE_RTU else "bennu-arm64.qc2",
               [nic("IF0", f"10.1.1.{100+n}", 24, "ICS", "10.1.1.1"), nic("mgmt", f"172.16.1.{100+n}", 16, "MGMT")],
               injections=extra)
 
