@@ -18,6 +18,12 @@ MQTT = "--mqtt" in sys.argv
 # --dnp3: rtu-1/rtu-2 run ferrofire's field device (Modbus 502 + DNP3 20000) behind a bennu-field-deviced shim
 DNP3 = "--dnp3" in sys.argv
 
+# --purple: add a kali-purple demo box (PEAT, ICS VLAN 10.1.1.250) with a capture NIC on vlan MIRROR.
+# NIC order is IF0, mgmt, capture, so capture NIC = index 2 -> `scripts/mirror.sh waterway purple 2`
+# (blue-test and mitm's blue use index 1; a wrong index mirrors the wrong tap silently).
+# 172.16.1.250 is shared with mitm's blue node; fine, they never run together.
+PURPLE = "--purple" in sys.argv
+
 def vm(host, desc, image, ifs, mem=1024, vcpus=2, gui=False, injections=None, os="linux", kind="VirtualMachine"):
     n = {"general": {"hostname": host, "description": desc},
          "hardware": {"cpu": "host", "memory": mem, "vcpus": vcpus, "os_type": os,
@@ -74,12 +80,17 @@ if MQTT:
     nodes.append(vm("mqtt-broker", "Mosquitto MQTT broker", "mqtt-arm64.qc2",
                     [nic("IF0", "10.1.1.60", 24, "ICS", "10.1.1.1"), nic("mgmt", "172.16.1.60", 16, "MGMT")],
                     mem=512, vcpus=1))
+if PURPLE:
+    nodes.append(vm("purple", "Kali Purple + PEAT", "kali-purple-parseus-arm64.qc2",
+                    [nic("IF0", "10.1.1.250", 24, "ICS", "10.1.1.1"), nic("mgmt", "172.16.1.250", 16, "MGMT"),
+                     nic("capture", "192.0.2.250", 24, "MIRROR")],  # placeholder IP on the capture NIC
+                    mem=8192, vcpus=4, gui=True))
 doc = {"apiVersion": "phenix.sandia.gov/v1", "kind": "Topology", "metadata": {"name": "waterway-arm64"},
        "spec": {"nodes": nodes}}
 
 if __name__ == "__main__":
     if "--self-test" in sys.argv:
-        k = 10 if MQTT else 9
+        k = 9 + MQTT + PURPLE
         assert len(nodes) == k and len({n["general"]["hostname"] for n in nodes}) == k
         ips = [i["address"] for n in nodes for i in n["network"]["interfaces"]]
         assert len(ips) == len(set(ips)), "duplicate address"

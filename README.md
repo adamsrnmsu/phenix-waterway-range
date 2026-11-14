@@ -208,6 +208,8 @@ minimega puts all VMs on OVS bridge `phenix` (`mega_tapN` ports; each experiment
 ```bash
 scripts/mirror.sh mitm blue 1          # <experiment> <blue vm> <capture NIC index (0-based)>; run on the Mac or inside Lima
 scripts/mirror.sh mitm blue 1 --off    # remove it
+# waterway `gen_topology.py --purple` box: NIC order IF0, mgmt, capture, so the capture NIC is index 2:
+# scripts/mirror.sh waterway purple 2
 ```
 It mirrors every NIC of the experiment except those on MGMT and the capture VLAN (select_src_port+select_dst_port per tap, because
 OVS `select_vlan` does not match traffic from access ports; output-port = blue's capture tap), so packets that cross the router appear
