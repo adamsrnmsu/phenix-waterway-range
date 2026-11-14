@@ -137,7 +137,7 @@ os = Buildroot
 firmware sha256 = 9084F760A1CE1939B1C0DF0700AD454056296E4786DF197CFF0DCC17B9CBF3BD (/home/sceptre/ferrofire.firmware, 8772512 bytes)
 logic.original = var_rtu-1_O40000 = 1*((var_rtu-1_I30005 == 1) && (var_rtu-1_I30004 == 1) && ...
 tags = 24 | registers = 20 | io = 24
-services = ftp/21, ssh/22, telnet/23, modbus/502, dnp3/20000
+services = ftp/21 (closed: the RTU runs no FTP server), ssh/22, telnet/23, modbus/502, dnp3/20000
 ```
 
 ## 5. Modify and push
