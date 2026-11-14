@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SCEPTRE>
+    <field-device>
+
+        <name>rtu-1</name>
+        <cycle-time>1000</cycle-time>
+        <tags>
+            
+            <external-tag>
+                <name>var_rtu-1_I0</name>
+                <io>rtu-1_I0</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I1</name>
+                <io>rtu-1_I1</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I2</name>
+                <io>rtu-1_I2</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_O3</name>
+                <io>rtu-1_O3</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I4</name>
+                <io>rtu-1_I4</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_O5</name>
+                <io>rtu-1_O5</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I6</name>
+                <io>rtu-1_I6</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I7</name>
+                <io>rtu-1_I7</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I8</name>
+                <io>rtu-1_I8</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I9</name>
+                <io>rtu-1_I9</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I10</name>
+                <io>rtu-1_I10</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I11</name>
+                <io>rtu-1_I11</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30000</name>
+                <io>rtu-1_I30000</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30001</name>
+                <io>rtu-1_I30001</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30002</name>
+                <io>rtu-1_I30002</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_O40000</name>
+                <io>rtu-1_O40000</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30003</name>
+                <io>rtu-1_I30003</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_O40001</name>
+                <io>rtu-1_O40001</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30004</name>
+                <io>rtu-1_I30004</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30005</name>
+                <io>rtu-1_I30005</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30006</name>
+                <io>rtu-1_I30006</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30007</name>
+                <io>rtu-1_I30007</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30008</name>
+                <io>rtu-1_I30008</io>
+                <type>analog</type>
+            </external-tag>
+            
+            <external-tag>
+                <name>var_rtu-1_I30009</name>
+                <io>rtu-1_I30009</io>
+                <type>analog</type>
+            </external-tag>
+        </tags>
+        <comms>
+            <dnp3-server>
+                <endpoint>tcp://10.1.1.101:20000</endpoint>
+                <address>10</address>
+                <event-logging>rtu-1-dnp3-outstation.log</event-logging>
+            
+                <analog-input>
+                    <address>0</address>
+                    <tag>var_rtu-1_I0</tag>
+                </analog-input>
+            
+                <analog-input>
+                    <address>1</address>
+                    <tag>var_rtu-1_I1</tag>
+                </analog-input>
+            
+                <analog-input>
+                    <address>2</address>
+                    <tag>var_rtu-1_I2</tag>
+                </analog-input>
+            
+                <analog-output>
+                    <address>3</address>
+                    <tag>var_rtu-1_O3</tag>
+                </analog-output>
+            
+                <analog-input>
+                    <address>4</address>
+                    <tag>var_rtu-1_I4</tag>
+                </analog-input>
+            
+                <analog-output>
+                    <address>5</address>
+                    <tag>var_rtu-1_O5</tag>
+                </analog-output>
+            
+                <analog-input>
+                    <address>6</address>
+                    <tag>var_rtu-1_I6</tag>
+                </analog-input>
+            
+                <analog-input>
+                    <address>7</address>
+                    <tag>var_rtu-1_I7</tag>
+                </analog-input>
+            
+                <analog-input>
+                    <address>8</address>
+                    <tag>var_rtu-1_I8</tag>
+                </analog-input>
+            
+                <analog-input>
+                    <address>9</address>
+                    <tag>var_rtu-1_I9</tag>
+                </analog-input>
+            
+                <analog-input>
+                    <address>10</address>
+                    <tag>var_rtu-1_I10</tag>
+                </analog-input>
+            
+                <analog-input>
+                    <address>11</address>
+                    <tag>var_rtu-1_I11</tag>
+                </analog-input>
+            </dnp3-server>
+            <modbus-server>
+                <endpoint>tcp://10.1.1.101:502</endpoint>
+                <event-logging>rtu-1-modbus-tcp-server.log</event-logging>
+            
+                <input-register>
+                    <address>30000</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30000</tag>
+                </input-register>
+            
+                <input-register>
+                    <address>30001</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30001</tag>
+                </input-register>
+            
+                <input-register>
+                    <address>30002</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30002</tag>
+                </input-register>
+            
+                <holding-register>
+                    <address>40000</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_O40000</tag>
+                </holding-register>
+            
+                <input-register>
+                    <address>30003</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30003</tag>
+                </input-register>
+            
+                <holding-register>
+                    <address>40001</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_O40001</tag>
+                </holding-register>
+            
+                <input-register>
+                    <address>30004</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30004</tag>
+                </input-register>
+            
+                <input-register>
+                    <address>30005</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30005</tag>
+                </input-register>
+            
+                <input-register>
+                    <address>30006</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30006</tag>
+                </input-register>
+            
+                <input-register>
+                    <address>30007</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30007</tag>
+                </input-register>
+            
+                <input-register>
+                    <address>30008</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30008</tag>
+                </input-register>
+            
+                <input-register>
+                    <address>30009</address>
+                    <max-value>1000</max-value>
+                    <min-value>0</min-value>
+                    <tag>var_rtu-1_I30009</tag>
+                </input-register>
+            </modbus-server>
+        </comms>
+        <input>
+            <endpoint>udp://172.16.1.101;239.0.0.1:40000</endpoint>
+            
+            <analog>
+                <id>rtu-1_I0</id>
+                <name>lowerwater.height</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I1</id>
+                <name>lock.height</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I2</id>
+                <name>lowergate.open</name>
+            </analog>
+                        
+            <analog>
+                <id>rtu-1_I4</id>
+                <name>lowervalve.open</name>
+            </analog>
+                        
+            <analog>
+                <id>rtu-1_I6</id>
+                <name>lowersensor.active</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I7</id>
+                <name>lowersensor.direction</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I8</id>
+                <name>locksensor.active</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I9</id>
+                <name>locksensor.direction</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I10</id>
+                <name>boat.location</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I11</id>
+                <name>boat.direction</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30000</id>
+                <name>lowerwater.height</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30001</id>
+                <name>lock.height</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30002</id>
+                <name>lowergate.open</name>
+            </analog>
+                        
+            <analog>
+                <id>rtu-1_I30003</id>
+                <name>lowervalve.open</name>
+            </analog>
+                        
+            <analog>
+                <id>rtu-1_I30004</id>
+                <name>lowersensor.active</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30005</id>
+                <name>lowersensor.direction</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30006</id>
+                <name>locksensor.active</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30007</id>
+                <name>locksensor.direction</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30008</id>
+                <name>boat.location</name>
+            </analog>
+            
+            <analog>
+                <id>rtu-1_I30009</id>
+                <name>boat.direction</name>
+            </analog>
+        </input>
+        <output>
+            <endpoint>tcp://172.16.1.2:5555</endpoint>
+                                                
+            <analog>
+                <id>rtu-1_O3</id>
+                <name>lowergate.open</name>
+            </analog>
+                        
+            <analog>
+                <id>rtu-1_O5</id>
+                <name>lowervalve.open</name>
+            </analog>
+                                                                                                                        
+            <analog>
+                <id>rtu-1_O40000</id>
+                <name>lowergate.open</name>
+            </analog>
+                        
+            <analog>
+                <id>rtu-1_O40001</id>
+                <name>lowervalve.open</name>
+            </analog>
+                                                                                </output>
+        <logic>
+            <![CDATA[
+            
+                    
+            var_rtu-1_O40000 = 1*((var_rtu-1_I30005 == 1) && (var_rtu-1_I30004 == 1) && (var_rtu-1_I30001 >= var_rtu-1_I30000 - 0.1) && (var_rtu-1_I30001 <= var_rtu-1_I30000 + 0.1)) + 0*((var_rtu-1_I30007 == 1) && (var_rtu-1_I30006 == 1) && (var_rtu-1_I30001 >= var_rtu-1_I30000 - 0.1) && (var_rtu-1_I30001 <= var_rtu-1_I30000 + 0.1)) + 1*((var_rtu-1_I30007 == -1) && (var_rtu-1_I30006 == 1) && (var_rtu-1_I30001 >= var_rtu-1_I30000 - 0.1) && (var_rtu-1_I30001 <= var_rtu-1_I30000 + 0.1)) + 0*((var_rtu-1_I30005 == -1) && (var_rtu-1_I30004 == 1))
+                    
+            var_rtu-1_O40001 = 1*((var_rtu-1_I30005 == 1) && (var_rtu-1_I30004 == 1) && (var_rtu-1_I30001 > var_rtu-1_I30000)) + 0*((var_rtu-1_I30007 == 1) && (var_rtu-1_I30006 == 1) && (var_rtu-1_I30001 >= var_rtu-1_I30000)) + 1*((var_rtu-1_I30007 == -1) && (var_rtu-1_I30006 == 1) && (var_rtu-1_I30001 > var_rtu-1_I30000)) + 0*((var_rtu-1_I30005 == -1) && (var_rtu-1_I30004 == 1))
+            ]]>
+        </logic>
+    </field-device>
+</SCEPTRE>
+
