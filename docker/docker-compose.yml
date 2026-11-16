@@ -1,4 +1,6 @@
 # Upstream sceptre-phenix/docker/docker-compose.yml with local arm64 image names; es/kibana dropped (not needed for the spike).
+# /tmp/minimega (minimega base dir and its command socket) is on the VM disk, not ./tmp on the virtiofs mount of ~/git:
+# a socket left there by an unclean VM stop cannot be removed from the guest (rm: Operation not supported), so minimega crash-loops.
 x-common: &common
   init: true
   network_mode: host
@@ -28,7 +30,7 @@ services:
       - /etc/phenix:/etc/phenix
       - /var/run/netns:/var/run/netns:shared
       - /phenix:/phenix:shared
-      - ./tmp/minimega:/tmp/minimega
+      - /var/lib/phenix-range/minimega:/tmp/minimega
       - ./tmp/phenix:/tmp/phenix
     depends_on:
       - minimega
@@ -49,7 +51,7 @@ services:
       - /var/log/phenix:/var/log/phenix
       - /var/run/netns:/var/run/netns:shared
       - /phenix:/phenix:shared
-      - ./tmp/minimega:/tmp/minimega
+      - /var/lib/phenix-range/minimega:/tmp/minimega
       - ./tmp/phenix:/tmp/phenix
     healthcheck:
       test: minimega -e version
