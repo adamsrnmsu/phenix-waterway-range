@@ -1,3 +1,5 @@
+> **Status:** not upstreamed. Decided 2026-11-16 to keep the ignition image downstream in this repo only; the sandialabs branch was deleted. The patch applies to sceptre-phenix-images main at 424e72b (after #50).
+
 ## What
 
 - `make ignition` builds `ignition.qc2` (Ubuntu noble): the official Ignition 8.1.55 gateway tree under `/usr/local/bin/ignition`, an `ignition.service` unit, a `gwcmd` wrapper, and miniccc injected.

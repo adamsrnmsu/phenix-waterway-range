@@ -1,4 +1,4 @@
-From d893dee7cfe74f8d823e70931a630c89b3a700ba Mon Sep 17 00:00:00 2001
+From b479b3146f2748b15d0b6aff5c96d190419c43ec Mon Sep 17 00:00:00 2001
 From: Ryan Adams <radams2@unm.edu>
 Date: Sun, 8 Nov 2026 22:22:08 -0700
 Subject: [PATCH] feat(images): add ignition image (Ignition 8.1 gateway for
@@ -8,6 +8,8 @@ make ignition builds ignition.qc2 (Ubuntu noble) from the official
 inductiveautomation/ignition tree. With IGNITION_ACCEPT_EULA=1 the image
 commissions headlessly (pre-start staging of /phenix/ignition.gwbk plus an
 env drop-in), so the soap topology's gwcmd restore works.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 ---
  .gitignore          |  1 +
  Makefile            | 22 ++++++++++-
@@ -16,21 +18,21 @@ env drop-in), so the soap topology's gwcmd restore works.
  create mode 100755 scripts/ignition.sh
 
 diff --git a/.gitignore b/.gitignore
-index c357020..d533d33 100644
+index 8d63b82..dc3c2bf 100644
 --- a/.gitignore
 +++ b/.gitignore
-@@ -48,3 +48,4 @@ cursor_mcp.json
- # Windsurf
- .windsurf/
+@@ -50,3 +50,4 @@ cursor_mcp.json
  .windsurfrules
+ scripts/kali-purple.configured.sh
+ overlays/parseus-bundle
 +overlays/ignition/
 diff --git a/Makefile b/Makefile
-index d3e773f..44c7f58 100644
+index 82b3f5d..d873ef0 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1,4 +1,4 @@
--.PHONY: help check_clean bookworm kali kali-harmonie jammy noble bennu minirouter _minirouter_img docker-hello-world ntp vyos ubuntu-soaptools clean ot-sim lint install-dev update-actions
-+.PHONY: help check_clean bookworm kali kali-harmonie jammy noble bennu minirouter _minirouter_img docker-hello-world ntp vyos ubuntu-soaptools ignition clean ot-sim lint install-dev update-actions
+-.PHONY: help check_clean bookworm kali kali-harmonie kali-purple kali-purple-bundle jammy noble bennu minirouter _minirouter_img docker-hello-world ntp vyos ubuntu-soaptools clean ot-sim lint install-dev update-actions
++.PHONY: help check_clean bookworm kali kali-harmonie kali-purple kali-purple-bundle jammy noble bennu minirouter _minirouter_img docker-hello-world ntp vyos ubuntu-soaptools ignition clean ot-sim lint install-dev update-actions
  
  .ONESHELL: # for heredoc and exit
  
@@ -45,7 +47,7 @@ index d3e773f..44c7f58 100644
  
  # Show this help
  help:
-@@ -140,6 +144,22 @@ ubuntu-soaptools:
+@@ -160,6 +164,22 @@ ubuntu-soaptools:
  	@$(PHENIX_IMAGE_BUILD)
  	@$(INJECT_MINICCC)
  
@@ -169,3 +171,6 @@ index 0000000..ab27763
 +UNIT
 +mkdir -p /etc/systemd/system/multi-user.target.wants
 +ln -sf /etc/systemd/system/ignition.service /etc/systemd/system/multi-user.target.wants/ignition.service
+-- 
+2.54.0 (Apple Git-157)
+
