@@ -1,8 +1,8 @@
 # Modbus fixes: evidence (sceptre-bennu branch fix-modbus-request-validation)
 
 Commits on upstream main cd3bb5b, one per bug:
-- a2f8ba2 `fix(modbus): reject FC15/FC16 requests shorter than their byte count`
-- c956e80 `fix(modbus): scale holding and input registers independently`
+- 7aa78bd `fix(modbus): reject FC15/FC16 requests shorter than their byte count`
+- bcc610a `fix(modbus): scale holding and input registers independently`
 
 BEFORE is upstream cd3bb5b and AFTER is the branch head. On the range both are native arm64 builds (`../tools/build-arm64.sh`), installed on rtu-1 and rtu-2 with `../tools/mkdeploy.sh`. `range-*/rtu1-state.txt` shows the installed bundle and the md5s.
 

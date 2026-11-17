@@ -31,3 +31,5 @@ Each finding was hunted on upstream main cd3bb5b by one agent and reproduced ind
 - **Tools:** in [tools/](tools/). `mb.py` is a raw Modbus client, `zreq.py` a raw ZMTP REQ client, `forge_pub.py` a provider-publish forger, and `ccrun.sh` runs a script in a guest via minimega cc.
 
 Not in these PRs: a few further bennu-brash and pybennu findings are tracked separately.
+
+Note: the branch commits were later amended only to set the executable bit on the new test scripts, which CI's prek requires. The SHAs in the READMEs are the current ones. Bundle labels in the raw files (`bennu-modbus-c956e80`, `bennu-datapath-3d437f0`, `bennu-dnp3-104-cc56e96`) keep the SHAs from before that amend; the source is identical.

@@ -5,7 +5,7 @@ Commits on upstream main cd3bb5b, one per bug:
 - 9db6bb1 `fix(distributed): last value wins and malformed points reject a provider WRITE`
 - ca93009 `fix(comms): reply ERR to a non-numeric CommandInterface WRITE instead of aborting`
 - 4916cf2 `fix(comms): read CommandInterface and Provider requests by size, not up to a NUL`
-- 3d437f0 `fix(field-deviced): treat a pidfile whose process is gone as stale`
+- 1c7b11b `fix(field-deviced): treat a pidfile whose process is gone as stale`
 
 BEFORE is upstream cd3bb5b and AFTER is the branch head. On the range both are native arm64 builds installed on simulink-provider, rtu-1 and rtu-2.
 

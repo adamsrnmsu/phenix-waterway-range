@@ -1,7 +1,7 @@
 # DNP3 / IEC-104 fixes: before/after on the live arm64 bennucamp range
 
-Branch fix-dnp3-104-commands (a39c7d2, 263e8ff, cc56e96). BEFORE = bundle bennu-cd3bb5b-arm64 (unfixed upstream),
-AFTER = bennu-dnp3-104-cc56e96-arm64, both installed on rtu-1 and rtu-2 via `SEND=<bundle> ccrun.sh <host> deploy-<bundle>.sh 30`
+Branch fix-dnp3-104-commands (ee5e66b, 182b55b, 029fb7a). BEFORE = bundle bennu-cd3bb5b-arm64 (unfixed upstream),
+AFTER = bennu-dnp3-104-029fb7a-arm64, both installed on rtu-1 and rtu-2 via `SEND=<bundle> ccrun.sh <host> deploy-<bundle>.sh 30`
 (`range-*/state-rtu-*.txt` show /etc/bennu-bundle and md5s). The Modbus field device kept running throughout;
 all extra field devices were started as `bennu-field-device --f <xml>` and killed at the end of each phase.
 Both phases are produced by one script: `../tools/ev-dnp3-104-phase.sh before|after` (helpers ev-dnp3-*.sh, ev-104-*.sh, ev-dnp3-master.py, ev-104-master.py;
@@ -11,7 +11,7 @@ The masters are the container tests' raw-frame python code with the host/port pa
 ev-104-master.py from test/iec104_ioa_alias.py). Pcaps were taken with tcpdump on the sending host; tshark checked on the Mac.
 Files per phase: range-before/, range-after/.
 
-## 1. DNP3 AnalogOutput Int32/Int16/Double64 (a39c7d2, ww-bb5.6)
+## 1. DNP3 AnalogOutput Int32/Int16/Double64 (ee5e66b, ww-bb5.6)
 Topology: outstations on rtu-2 10.1.1.102:20997 (direct-operate AO idx 1) and :20998 (same AO with `<sbo>1</sbo>`); master = kali 10.1.1.200 across the net.
 Command: `ev-dnp3-kali.sh` on kali = `python3 ev-dnp3-master.py 10.1.1.102 20997 0` then `... 20998 1`. Logs: `dnp3-kali.txt`, rtu-2 outstation logs `dnp3-rtu2-stop.txt`.
 Each variation (g41v1 Int32, g41v2 Int16, g41v4 Double) is sent as direct operate (FC5) to idx 99 (nonexistent) and idx 1, followed by g40v1 readback; Float32 idx 99 is the reference.
@@ -28,7 +28,7 @@ Pcap `dnp3.pcap` (kali side, both ports, tcp filter host 10.1.1.102): FC5 reques
 Decisive frame: response to g41v1 idx 99, payload `...2901 17 01 63 4d000000 <status>`: BEFORE frame 6 status byte 00, AFTER 0c (12). The g40v1 readback response
 (`28 01 00 01 01 ..`): BEFORE `01 00000000` (value 0), AFTER `01 4d000000` (value 77). tshark: `tshark -r dnp3.pcap -d tcp.port==20997,dnp3 -Y 'tcp.srcport==20997 && tcp.len>0' -T fields -e frame.number -e tcp.payload`.
 
-## 2. IEC-104 24-bit IOA truncated to 16 bits (263e8ff, ww-bb5.9)
+## 2. IEC-104 24-bit IOA truncated to 16 bits (182b55b, ww-bb5.9)
 Topology: 104 server on rtu-2 10.1.1.102:25405 (`/tmp/ev-104-25405.xml`, double subtype, direct operate), raw master on kali. IOA 0 is a configured binary output; 65536 is not configured.
 Command: `ev-104-master-kali.sh` on kali = `python3 ev-104-master.py 10.1.1.102 25405` (C_SC_NA_1 ON to IOA 65536, then IOA 0). Files `104-ioa-kali.txt`, `104-rtu2-stop.txt` (server log).
 
@@ -41,7 +41,7 @@ Pcap `104-ioa.pcap` (kali side, port 25405): `tshark -r 104-ioa.pcap -d tcp.port
 BEFORE: frames 22 (ACT_CON, nega=False, ioa 65536), 23 (ACT_TERM), 27/28 for IOA 0. AFTER: frame 21 ACT_CON nega=True for 65536, no ACT_TERM, then 27/29 normal for IOA 0.
 (The "write" is visible in the server log, not on the wire: the wire shows the positive vs negative confirmation.)
 
-## 3. IEC-104 client ignores periodic binary ASDUs (cc56e96, ww-bb5.10)
+## 3. IEC-104 client ignores periodic binary ASDUs (029fb7a, ww-bb5.10)
 Topology: servers on rtu-2 10.1.1.102:25407 (subtype double, reverse-polls M_DP_TB_1) and :25408 (subtype single, M_SP_NA_1), rpoll-rate 1 s;
 stock 104 client field device on rtu-1 (`/tmp/ev-104cl-<port>.xml`, endpoint rewritten to the rtu-2 server, command-interface 127.0.0.1:2<port>), 9 s per server.
 Command: `ev-104-client-rtu1.sh` on rtu-1; evidence = client log lines `IOA: 100 value:` as in test/iec104_client_binary_updates.py. Files `104-client-rtu1.txt` (counts + first 40 log lines), `104-client.pcap` (rtu-1 side, ports 25407/25408).
