@@ -1,0 +1,14 @@
+lima-phenix: 118/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+2026-11-17T05:21:17Z
+no field device process
+nothing listening on 502
+--- /tmp/fd-fg.log tail
+INFO: Parser changed file name: "/etc/sceptre/config.xml" --> "/etc/sceptre/config.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-modbus-tcp" -> "libbennu-modbus-tcp.so
+I: Client connect (tcp://172.16.1.2:5555): Connecting to provider
+A new incoming connection started.
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+terminate called after throwing an instance of 'std::bad_variant_access'
+  what():  std::get: wrong index for variant

@@ -1,0 +1,17 @@
+lima-phenix: 207/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+2026-11-17T05:55:05Z
+   2074     186 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+LISTEN 0      4096      10.1.1.101:502       0.0.0.0:*          
+--- stderr log tail
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+--- pidfile
+2074[   28.376574] fbcon: Taking over console
+[   28.378890] virtio_gpu virtio0: [drm] drm_plane_enable_fb_damage_clips() not called
+[   28.380063] Console: switching to colour frame buffer device 128x48

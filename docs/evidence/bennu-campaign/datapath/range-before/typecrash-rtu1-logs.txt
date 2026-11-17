@@ -1,0 +1,44 @@
+lima-phenix: 98/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+total 1076
+drwxr-xr-x 2 root root    4096 Nov 17 04:59 .
+drwxr-xr-x 4 root root    4096 Nov 17 04:59 ..
+-rw-r--r-- 1 root root       0 Nov 11 23:55 .gitkeep
+-rw-rw-rw- 1 root root    2440 Nov 17 05:17 default-bennu-field-deviced-stderr.log
+-rw-rw-rw- 1 root root     363 Nov 17 05:17 default-bennu-field-deviced-stdout.log
+-rw-rw-rw- 1 root root 1076206 Nov 17 05:18 watcher-stderr.log
+-rw-rw-rw- 1 root root     742 Nov 17 05:03 watcher-stdout.log
+I: Client connect (tcp://172.16.1.2:5555): Connecting to provider
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: Client connect (tcp://172.16.1.2:5555): Connecting to provider
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK

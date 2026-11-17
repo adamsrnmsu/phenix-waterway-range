@@ -1,0 +1,32 @@
+lima-phenix: 260/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T06:05:07Z
+##### direct-operate point (port 20997, no sbo)
+sbo=False Int32 g41v1 idx99 status=0 (Float32 reference 12)
+sbo=False Int32 g41v1 idx1 direct operate status=0 readback=0
+sbo=False Int16 g41v2 idx99 status=0 (Float32 reference 12)
+sbo=False Int16 g41v2 idx1 direct operate status=0 readback=0
+sbo=False Double g41v4 idx99 status=0 (Float32 reference 12)
+sbo=False Double g41v4 idx1 direct operate status=0 readback=0
+FAIL:
+  Int32 g41v1 to nonexistent idx 99 returned 0, expected 12
+  Int32 g41v1 direct operate on idx 1: status 0, readback 0, want 0 and 77
+  Int16 g41v2 to nonexistent idx 99 returned 0, expected 12
+  Int16 g41v2 direct operate on idx 1: status 0, readback 0, want 0 and 77
+  Double g41v4 to nonexistent idx 99 returned 0, expected 12
+  Double g41v4 direct operate on idx 1: status 0, readback 0, want 0 and 77.0
+##### SBO point (port 20998)
+sbo=True Int32 g41v1 idx99 status=0 (Float32 reference 12)
+sbo=True Int32 g41v1 idx1 direct operate status=0 readback=0
+sbo=True Int16 g41v2 idx99 status=0 (Float32 reference 12)
+sbo=True Int16 g41v2 idx1 direct operate status=0 readback=0
+sbo=True Double g41v4 idx99 status=0 (Float32 reference 12)
+sbo=True Double g41v4 idx1 direct operate status=0 readback=0
+FAIL:
+  Int32 g41v1 to nonexistent idx 99 returned 0, expected 12
+  Int32 g41v1 direct operate on SBO point: status 0, readback 0 (want NO_SELECT=2, not applied)
+  Int16 g41v2 to nonexistent idx 99 returned 0, expected 12
+  Int16 g41v2 direct operate on SBO point: status 0, readback 0 (want NO_SELECT=2, not applied)
+  Double g41v4 to nonexistent idx 99 returned 0, expected 12
+  Double g41v4 direct operate on SBO point: status 0, readback 0 (want NO_SELECT=2, not applied)
+PCAP 9086 bytes
+(pcap saved as dnp3.pcap)

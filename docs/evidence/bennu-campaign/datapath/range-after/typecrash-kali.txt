@@ -1,0 +1,16 @@
+lima-phenix: 205/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T05:54:27Z
+--- rtu-1 before
+REPLY 0001000000050104020000
+--- forge (multicast as the provider, 500 datagrams over 10 s): lowersensor.active is <analog> on rtu-1, send the text value true
+--- rtu-1 30004 (lowersensor.active) while the forged values arrive
+REPLY 0001000000050104020041
+REAL from 172.16.1.2 group 54386972605942b body b'lowerwater.height:5,lock.height:15,upperwater.height:15,lowergate.open:0,lowerva'
+FORGED sent 500 x b'\x0f54386972605942blowersensor.active:true,\x00' to 239.0.0.1
+2026-11-17T05:54:41Z
+--- rtu-1 after
+REPLY 0001000000050104020000
+REPLY 0001000000050104020000
+REPLY 0001000000050104020000
+PCAP 56679 bytes
+(pcap saved as typecrash.pcap)

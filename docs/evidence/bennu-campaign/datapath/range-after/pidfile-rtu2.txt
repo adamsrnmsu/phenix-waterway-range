@@ -1,0 +1,12 @@
+lima-phenix: 212/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stderr:
+Starting field-device process...
+212/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+2026-11-17T05:55:53Z
+bennu-datapath-3d437f0-arm64
+field device pid 781, pidfile 781
+502 closed (device gone)
+pidfile still holds 781
+--- bennu-field-deviced --c start
+rc=0
+    826 /usr/bin/bennu-field-deviced --c start --env default --file /etc/sceptre/config.xml
+LISTEN 0      4096      10.1.1.102:502       0.0.0.0:*

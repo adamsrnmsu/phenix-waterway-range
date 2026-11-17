@@ -1,0 +1,50 @@
+lima-phenix: 351/b2b5cd8b-0927-4c03-9b68-efc5f678c603/stdout:
+simulink-provider
+2026-11-17T06:19:22Z
+    408    4363   892 ./simulinksolver -tf inf
+    649      91  4776 bennu-simulink-provider --server-endpoint tcp://172.16.1.2:5555 --publish-endpoint udp://*;239.0.0.1:40000
+pid 649 fds=14
+bennu-modbus-c956e80-arm64
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+cf5986809e4fc4491976db5c4d681562  /usr/local/lib/libbennu-modbus-tcp.so.6.0.1794894597
+8de452ffe822c2cf704b54d4066246a1  /usr/local/lib/libbennu-field-device-base.so.6.0.1794894597
+9da83abf86ddf8cf743b5385bb52cd88  /usr/local/lib/libbennu-distributed.so.6.0.1794894597
+tcp   LISTEN 0      100                         172.16.1.2:5555       0.0.0.0:*    users:(("bennu-simulink-",pid=649,fd=9))
+lima-phenix: 353/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+rtu-1
+2026-11-17T06:19:29Z
+   3343      67  5692 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+pid 3343 fds=20
+bennu-modbus-c956e80-arm64
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+d0efda83b2d67b87cbc6134914db651f  /usr/local/lib/libbennu-modbus-tcp.so.6.0.1794894993
+5efe79d86626f28d188899c6bcee7b97  /usr/local/lib/libbennu-field-device-base.so.6.0.1794894993
+3be9cce74016add04119355c8d983d30  /usr/local/lib/libbennu-distributed.so.6.0.1794894993
+udp   UNCONN 0      0                              0.0.0.0:40000      0.0.0.0:*    users:(("bennu-field-dev",pid=3343,fd=12))
+tcp   LISTEN 0      4096                        10.1.1.101:502        0.0.0.0:*    users:(("bennu-field-dev",pid=3343,fd=17))
+lima-phenix: 355/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+rtu-2
+2026-11-17T06:19:39Z
+   1417      45  5676 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+pid 1417 fds=19
+bennu-modbus-c956e80-arm64
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+d0efda83b2d67b87cbc6134914db651f  /usr/local/lib/libbennu-modbus-tcp.so.6.0.1794894993
+5efe79d86626f28d188899c6bcee7b97  /usr/local/lib/libbennu-field-device-base.so.6.0.1794894993
+3be9cce74016add04119355c8d983d30  /usr/local/lib/libbennu-distributed.so.6.0.1794894993
+udp   UNCONN 0      0                               0.0.0.0:40000      0.0.0.0:*    users:(("bennu-field-dev",pid=1417,fd=12))
+tcp   LISTEN 0      4096                         10.1.1.102:502        0.0.0.0:*    users:(("bennu-field-dev",pid=1417,fd=16))
+lima-phenix: 358/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T06:19:47Z
+BENCH host=10.1.1.101 fc=4 addr=30000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=0.96 p99_ms=2.14
+BENCH host=10.1.1.101 fc=3 addr=40000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=0.94 p99_ms=1.71
+BENCH host=10.1.1.102 fc=4 addr=30000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=0.94 p99_ms=1.65
+BENCH host=10.1.1.102 fc=3 addr=40000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=0.95 p99_ms=1.79
+lima-phenix: 360/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+PROBE queries=200 failed=0 mean_ms=55
+I: Client connect (tcp://172.16.1.2:5555): Connecting to provider
+I: ACK
+Reply:

@@ -1,0 +1,48 @@
+lima-phenix: 279/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stderr:
++ cd /tmp/miniccc/files
+++ head -1
+++ ls -t 179489569330038-bennu-dnp3-104-cc56e96-arm64.tgz
++ tar -C / -xzf 179489569330038-bennu-dnp3-104-cc56e96-arm64.tgz
++ ldconfig
+/sbin/ldconfig.real: /usr/local/lib/libzmq.so.5 is not a symbolic link
+
+/sbin/ldconfig.real: /usr/local/lib/libhelics.so.3 is not a symbolic link
+
++ '[' -f /home/sceptre/bennu-field-deviced.firmware ']'
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-brash /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-field-device /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-field-deviced /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-probe /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-simulink-provider /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-simulink-provider-helics /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-test-bp-server /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-test-ep-server /usr/bin/
++ for f in /usr/local/bin/bennu-*
++ ln -sf /usr/local/bin/bennu-watcherd /usr/bin/
++ echo bennu-dnp3-104-cc56e96-arm64
++ '[' -f /etc/sceptre/watcher.ini ']'
++ pkill -f 'bennu-field-deviced --c start'
++ sleep 2
++ /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+Restarting field-device process....+ pgrep -f bennu-simulink-provider
++ sleep 3
++ ps -eo pid,etimes,args
++ grep -v grep
++ grep -E 'bennu|solver'
++ md5sum /usr/local/bin/bennu-field-device /usr/local/bin/bennu-simulink-provider
++ cat /etc/bennu-bundle
+
+279/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+   1138       6 bash /tmp/miniccc/files/179489569230310-deploy-bennu-dnp3-104-cc56e96-arm64.sh
+   1157       3 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+bennu-dnp3-104-cc56e96-arm64

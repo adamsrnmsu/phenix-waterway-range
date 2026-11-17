@@ -1,0 +1,20 @@
+lima-phenix: 161/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T05:42:55Z
+--- read 40000 (FC03) before
+REPLY 0001000000050103020000
+REPLY 0001000000050103020000
+REPLY 0001000000050103020000
+--- truncated FC16: addr 40000 qty 1 bytecount 2, NO data (PDU 109c40000102)
+REPLY 000100000003019003
+--- truncated FC16 qty 128 bytecount 0 (uint8 wrap) PDU 109c40008000
+REPLY 000100000003019003
+--- truncated FC15: addr 0 qty 1 bytecount 1, NO data (PDU 0f0000000101)
+REPLY 000100000003018f03
+--- read 40000 after
+REPLY 0001000000050103020000
+REPLY 0001000000050103020000
+REPLY 0001000000050103020000
+--- control (outside the capture): well-formed bench
+BENCH host=10.1.1.101 fc=3 addr=40000 n=200 ok=200 exc=0 timeout=0 p50_ms=1.07 p99_ms=2.36
+PCAP 7500 bytes
+(pcap saved as fc16.pcap)

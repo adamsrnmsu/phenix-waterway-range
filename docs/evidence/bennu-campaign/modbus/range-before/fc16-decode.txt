@@ -1,0 +1,34 @@
+Frame 29: Packet, 85 bytes on wire (680 bits), 85 bytes captured (680 bits)
+Linux cooked capture v2
+Internet Protocol Version 4, Src: 10.1.1.200, Dst: 10.1.1.101
+Transmission Control Protocol, Src Port: 59562, Dst Port: 502, Seq: 1, Ack: 1, Len: 13
+Modbus/TCP
+    Transaction Identifier: 1
+    Protocol Identifier: 0
+    Length: 7
+    Unit Identifier: 1
+Modbus
+    0... .... = Exception: No
+    .001 0000 = Function Code: Write Multiple Registers (16)
+    Reference Number: 40000
+    Word Count: 1
+    Byte Count: 2
+    Data: <MISSING>
+
+Frame 31: Packet, 84 bytes on wire (672 bits), 84 bytes captured (672 bits)
+Linux cooked capture v2
+Internet Protocol Version 4, Src: 10.1.1.101, Dst: 10.1.1.200
+Transmission Control Protocol, Src Port: 502, Dst Port: 59562, Seq: 1, Ack: 14, Len: 12
+Modbus/TCP
+    Transaction Identifier: 1
+    Protocol Identifier: 0
+    Length: 6
+    Unit Identifier: 1
+Modbus
+    0... .... = Exception: No
+    .001 0000 = Function Code: Write Multiple Registers (16)
+    [Request Frame: 29]
+    [Time from request: 1.466000 milliseconds]
+    Reference Number: 40000
+    Word Count: 1
+

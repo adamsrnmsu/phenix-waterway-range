@@ -1,0 +1,12 @@
+lima-phenix: 340/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stderr:
+bennu-field-deviced with environment default is already running, so either stop or restart the process!
+
+340/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+2026-11-17T06:17:33Z
+bennu-cd3bb5b-arm64
+field device pid 1344, pidfile 1344
+502 closed (device gone)
+pidfile still holds 1344
+--- bennu-field-deviced --c start
+rc=1
+nothing on 502

@@ -1,0 +1,86 @@
+lima-phenix: 76/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+total 880
+drwxr-xr-x 2 root root   4096 Nov 17 04:59 .
+drwxr-xr-x 4 root root   4096 Nov 17 04:59 ..
+-rw-r--r-- 1 root root      0 Nov 11 23:55 .gitkeep
+-rw-rw-rw- 1 root root   1603 Nov 17 05:14 default-bennu-field-deviced-stderr.log
+-rw-rw-rw- 1 root root    286 Nov 17 05:14 default-bennu-field-deviced-stdout.log
+-rw-rw-rw- 1 root root 875016 Nov 17 05:14 watcher-stderr.log
+-rw-rw-rw- 1 root root    742 Nov 17 05:03 watcher-stdout.log
+==> /etc/sceptre/log/default-bennu-field-deviced-stdout.log <==
+I: Client connect (tcp://172.16.1.2:5555): Connecting to provider
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: Client connect (tcp://172.16.1.2:5555): Connecting to provider
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+I: ACK
+
+==> /etc/sceptre/log/watcher-stdout.log <==
+Tue Nov 17 04:59:04 2026 - Unable to open the lockfile /var/run/default-bennu-field-deviced.pid.              - WARNING   
+Tue Nov 17 04:59:04 2026 - Starting field-device process....                                                  - INFO      
+Tue Nov 17 04:59:05 2026 - DONE                                                                               - INFO      
+Tue Nov 17 04:59:05 2026 - Firmware Version Hash: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855- INFO      
+Tue Nov 17 05:03:44 2026 - field-device stopped                                                               - INFO      
+Tue Nov 17 05:03:44 2026 - field-device started                                                               - INFO      
+==> /etc/sceptre/log/default-bennu-field-deviced-stderr.log <==
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+
+==> /etc/sceptre/log/watcher-stderr.log <==
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+pid = 545
+    545     646 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml

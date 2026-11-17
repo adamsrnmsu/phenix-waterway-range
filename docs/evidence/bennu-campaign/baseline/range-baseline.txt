@@ -1,0 +1,255 @@
+lima-phenix: 46/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T05:07:12Z
+BENCH host=10.1.1.101 fc=4 addr=30000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=1.48 p99_ms=14.77
+BENCH host=10.1.1.101 fc=3 addr=40000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=1.31 p99_ms=7.90
+BENCH host=10.1.1.102 fc=4 addr=30000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=1.02 p99_ms=3.75
+BENCH host=10.1.1.102 fc=3 addr=40000 n=2000 ok=2000 exc=0 timeout=0 p50_ms=0.94 p99_ms=1.89
+lima-phenix: 48/01b159b8-9370-4518-b9c0-08c255b251b5/stderr:
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   565 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   567 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   569 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   571 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   573 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   575 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   577 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   579 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   581 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   583 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   585 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   587 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   589 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   591 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   593 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   595 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   597 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   599 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   601 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   603 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   605 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   607 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   609 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   611 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   613 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   615 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   617 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   619 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   621 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   623 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   625 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   627 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   629 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   631 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   633 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   635 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   637 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   639 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   641 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   643 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   645 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   647 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   649 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   651 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   653 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   655 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   657 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   659 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   661 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   663 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   665 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   667 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   669 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   671 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   673 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   675 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   677 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   679 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   681 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   683 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   685 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   687 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   689 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   691 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   693 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   695 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   697 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   699 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   701 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   703 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   705 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   707 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   709 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   711 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   713 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   715 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   717 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   719 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   721 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   723 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   725 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   727 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   729 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   731 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   733 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   735 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   737 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   739 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   741 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   743 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   745 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   747 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   749 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   751 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   753 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   755 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   757 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   759 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   761 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   763 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   765 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   767 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   769 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   771 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   773 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   775 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   777 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   779 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   781 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   783 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   785 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   787 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   789 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   791 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   793 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   795 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   797 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   799 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   801 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   803 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   805 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   807 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   809 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   811 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   813 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   815 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   817 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   819 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   821 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   823 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   825 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   827 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   829 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   831 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   833 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   835 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   837 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   839 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   841 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   843 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   845 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   847 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   849 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   851 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   853 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   855 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   857 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   859 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   861 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   863 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   865 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   867 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   869 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   871 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   873 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   875 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   877 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   879 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   881 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   883 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   885 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   887 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   889 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   891 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   893 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   895 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   897 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   899 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   901 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   903 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   905 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   907 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   909 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   911 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   913 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   915 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   917 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   919 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   921 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   923 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   925 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   927 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   929 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   931 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   933 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   935 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   937 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   939 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   941 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   943 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   945 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   947 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   949 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   951 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   953 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   955 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   957 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   959 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   961 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 3:   963 Aborted                 timeout 3 bennu-probe -e tcp://172.16.1.2:5555 -c query > /dev/null 2>&1
+/tmp/miniccc/files/179489209331305-bench-probe.sh: line 4: bc: command not found
+
+48/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+PROBE queries=200 failed=200 mean_ms=
+terminate called after throwing an instance of 'boost::wrapexcept<boost::program_options::unknown_option>'
+  what():  unrecognised option '-e'
+lima-phenix: 50/b2b5cd8b-0927-4c03-9b68-efc5f678c603/stdout:
+simulink-provider
+2026-11-17T05:08:55Z
+    407     135  4708 bennu-simulink-provider --server-endpoint tcp://172.16.1.2:5555 --publish-endpoint udp://*;239.0.0.1:40000
+    408     135   892 ./simulinksolver -tf inf
+pid 407 fds=14
+-rwxr-xr-x 1 root root  89896 Nov 17 04:26 /usr/local/bin/bennu-field-device
+-rwxr-xr-x 1 root root 177576 Nov 17 04:26 /usr/local/bin/bennu-simulink-provider
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+tcp   LISTEN 0      100                         172.16.1.2:5555       0.0.0.0:*    users:(("bennu-simulink-",pid=407,fd=9))
+lima-phenix: 52/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+rtu-1
+2026-11-17T05:09:01Z
+    417     598  3832 bennu-watcherd restart --f /etc/sceptre/config.xml --b /home/sceptre/bennu-field-deviced.firmware --w /etc/sceptre/watcher.ini
+    545     317  5684 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+pid 417 fds=4
+pid 545 fds=23
+-rwxr-xr-x 1 root root  89896 Nov 17 04:26 /usr/local/bin/bennu-field-device
+-rwxr-xr-x 1 root root 177576 Nov 17 04:26 /usr/local/bin/bennu-simulink-provider
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+udp   UNCONN 0      0                              0.0.0.0:40000      0.0.0.0:*    users:(("bennu-field-dev",pid=545,fd=10))
+tcp   LISTEN 0      4096                        10.1.1.101:502        0.0.0.0:*    users:(("bennu-field-dev",pid=545,fd=17))
+lima-phenix: 54/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+rtu-2
+2026-11-17T05:09:11Z
+    418     607  3840 bennu-watcherd restart --f /etc/sceptre/config.xml --b /home/sceptre/bennu-field-deviced.firmware --w /etc/sceptre/watcher.ini
+    512     313  5676 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+pid 418 fds=4
+pid 512 fds=23
+-rwxr-xr-x 1 root root  89896 Nov 17 04:26 /usr/local/bin/bennu-field-device
+-rwxr-xr-x 1 root root 177576 Nov 17 04:26 /usr/local/bin/bennu-simulink-provider
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+udp   UNCONN 0      0                               0.0.0.0:40000      0.0.0.0:*    users:(("bennu-field-dev",pid=512,fd=12))
+tcp   LISTEN 0      4096                         10.1.1.102:502        0.0.0.0:*    users:(("bennu-field-dev",pid=512,fd=16))
+lima-phenix: 58/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+PROBE queries=200 failed=0 mean_ms=56
+I: Client connect (tcp://172.16.1.2:5555): Connecting to provider
+I: ACK
+Reply:

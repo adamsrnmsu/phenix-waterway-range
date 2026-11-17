@@ -1,0 +1,17 @@
+lima-phenix: 174/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stderr:
+Stopping field-device process....DONE
+
+174/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+96,97c96,97
+<                     <address>40000</address>
+<                     <max-value>1000</max-value>
+---
+>                     <address>30000</address>
+>                     <max-value>1</max-value>
+                <name>var_rtu-2_I30000</name>
+                <name>var_rtu-2_O40000</name>
+                <id>rtu-2_I30000</id>
+                <name>upperwater.height</name>
+                <id>rtu-2_O40000</id>
+                <name>uppergate.open</name>
+LISTEN 0      4096      10.1.1.102:502       0.0.0.0:*

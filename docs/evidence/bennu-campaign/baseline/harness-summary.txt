@@ -1,0 +1,5 @@
+100% tests passed, 0 tests failed out of 33
+THROUGHPUT window=60.0s requests=560 tag_writes=28000 requests_per_sec=9.33 tag_writes_per_sec=466.50
+THROUGHPUT cycles_observed=559 seconds_per_cycle=0.107 (mean gap between writes of p0)
+(tags=50 cycle-time=100ms window=60s)
+exit=0

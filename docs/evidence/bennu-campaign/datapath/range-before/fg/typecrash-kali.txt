@@ -1,0 +1,40 @@
+lima-phenix: 116/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stderr:
+Traceback (most recent call last):
+  File "/tmp/miniccc/files/179489283722165-mb.py", line 47, in <module>
+    s = socket.create_connection((a[2], 502), timeout=3)
+  File "/usr/lib/python3.14/socket.py", line 874, in create_connection
+    raise exceptions[0]
+  File "/usr/lib/python3.14/socket.py", line 859, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+Traceback (most recent call last):
+  File "/tmp/miniccc/files/179489283722165-mb.py", line 47, in <module>
+    s = socket.create_connection((a[2], 502), timeout=3)
+  File "/usr/lib/python3.14/socket.py", line 874, in create_connection
+    raise exceptions[0]
+  File "/usr/lib/python3.14/socket.py", line 859, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+Traceback (most recent call last):
+  File "/tmp/miniccc/files/179489283722165-mb.py", line 47, in <module>
+    s = socket.create_connection((a[2], 502), timeout=3)
+  File "/usr/lib/python3.14/socket.py", line 874, in create_connection
+    raise exceptions[0]
+  File "/usr/lib/python3.14/socket.py", line 859, in create_connection
+    sock.connect(sa)
+    ~~~~~~~~~~~~^^^^
+ConnectionRefusedError: [Errno 111] Connection refused
+
+116/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T05:20:39Z
+--- rtu-1 before
+REPLY 0001000000050104020000
+--- forge (multicast as the provider, 500 datagrams over 10 s): lowersensor.active is <analog> on rtu-1, send the text value true
+REAL from 172.16.1.2 group 54386972605942b body b'lowerwater.height:5,lock.height:11.625,upperwater.height:15,lowergate.open:0,low'
+FORGED sent 500 x b'\x0f54386972605942blowersensor.active:true,\x00' to 239.0.0.1
+2026-11-17T05:20:53Z
+--- rtu-1 after
+PCAP 54065 bytes
+(pcap saved as typecrash.pcap)

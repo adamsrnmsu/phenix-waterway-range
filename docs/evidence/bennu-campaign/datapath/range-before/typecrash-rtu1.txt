@@ -1,0 +1,17 @@
+lima-phenix: 96/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+2026-11-17T05:17:59Z
+    417    1135 bennu-watcherd restart --f /etc/sceptre/config.xml --b /home/sceptre/bennu-field-deviced.firmware --w /etc/sceptre/watcher.ini
+nothing listening on 502
+--- stderr log tail
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+A new incoming connection started.
+Modbus RTU receive message failed with error: End of file
+--- pidfile
+545[   28.376574] fbcon: Taking over console
+[   28.378890] virtio_gpu virtio0: [drm] drm_plane_enable_fb_damage_clips() not called
+[   28.380063] Console: switching to colour frame buffer device 128x48

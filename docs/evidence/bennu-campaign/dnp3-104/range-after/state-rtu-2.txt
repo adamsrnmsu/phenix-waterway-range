@@ -1,0 +1,13 @@
+lima-phenix: 283/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+rtu-2
+2026-11-17T06:08:49Z
+   1157      34  5684 /usr/bin/bennu-field-deviced --c restart --env default --file /etc/sceptre/config.xml
+pid 1157 fds=19
+bennu-dnp3-104-cc56e96-arm64
+bda89fd10cc2b52c315de37ebf90ddca  /usr/local/bin/bennu-field-device
+103ed45291bc2cfe79c416b653e234ec  /usr/local/bin/bennu-simulink-provider
+d0efda83b2d67b87cbc6134914db651f  /usr/local/lib/libbennu-modbus-tcp.so.6.0.1794894993
+5efe79d86626f28d188899c6bcee7b97  /usr/local/lib/libbennu-field-device-base.so.6.0.1794894993
+3be9cce74016add04119355c8d983d30  /usr/local/lib/libbennu-distributed.so.6.0.1794894993
+udp   UNCONN 0      0                               0.0.0.0:40000      0.0.0.0:*    users:(("bennu-field-dev",pid=1157,fd=12))
+tcp   LISTEN 0      4096                         10.1.1.102:502        0.0.0.0:*    users:(("bennu-field-dev",pid=1157,fd=16))

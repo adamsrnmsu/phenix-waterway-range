@@ -1,0 +1,41 @@
+lima-phenix: 291/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+=== /tmp/ev-dnp3-20997.log
+INFO: Parser changed file name: "/tmp/ev-dnp3-20997.xml" --> "..//tmp/ev-dnp3-20997.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-dnp3-module" -> "libbennu-dnp3-module.so
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+add dnp3 binary-input brkr
+add dnp3 binary-output load-breaker-toggle
+add dnp3 analog-input load-power
+add dnp3 analog-output load-mw-setpoint
+ms(1794895738048) INFO    bennu-dnp3-CHANNEL - Listening on: 10.1.1.102:20997
+Binary Size is 1 and Analog Size is 1.
+Binary Output Size is 1 and Analog Output Size is 1.
+ms(1794895751658) INFO    bennu-dnp3-CHANNEL - Accepted connection from: 10.1.1.200
+ms(1794895756869) WARN    bennu-dnp3-CHANNEL - End of file
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+E: Client send: server seems to be offline, abandoning
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+E: OutputModule: provider not responding, will retry writes
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+E: Client send: server seems to be offline, abandoning
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5997): Connecting to provider
+=== /tmp/ev-dnp3-20998.log
+INFO: Parser changed file name: "/tmp/ev-dnp3-20998.xml" --> "..//tmp/ev-dnp3-20998.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-dnp3-module" -> "libbennu-dnp3-module.so
+I: Client connect (tcp://127.0.0.1:5998): Connecting to provider
+add dnp3 binary-input brkr
+add dnp3 binary-output load-breaker-toggle
+add dnp3 analog-input load-power
+add dnp3 analog-output load-mw-setpoint
+ms(1794895738068) INFO    bennu-dnp3-CHANNEL - Listening on: 10.1.1.102:20998
+Binary Size is 1 and Analog Size is 1.
+Binary Output Size is 1 and Analog Output Size is 1.
+ms(1794895756885) INFO    bennu-dnp3-CHANNEL - Accepted connection from: 10.1.1.200
+ms(1794895760891) WARN    bennu-dnp3-CHANNEL - End of file
+1
+LISTEN 0      4096      10.1.1.102:502       0.0.0.0:*

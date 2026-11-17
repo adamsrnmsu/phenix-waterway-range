@@ -1,0 +1,10 @@
+lima-phenix: 294/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+bennu-dnp3-104-cc56e96-arm64
+LISTEN 0      4096      10.1.1.102:502        0.0.0.0:*    users:(("bennu-field-dev",pid=1157,fd=16))
+LISTEN 0      2         10.1.1.102:25405      0.0.0.0:*    users:(("bennu-field-dev",pid=1249,fd=13))
+LISTEN 0      2         10.1.1.102:25407      0.0.0.0:*    users:(("bennu-field-dev",pid=1251,fd=9)) 
+LISTEN 0      2         10.1.1.102:25408      0.0.0.0:*    users:(("bennu-field-dev",pid=1258,fd=12))
+   1238 bash /tmp/miniccc/files/17948957998570-ev-104-start.sh
+   1249 bennu-field-device --f /tmp/ev-104-25405.xml
+   1251 bennu-field-device --f /tmp/ev-104-25407.xml
+   1258 bennu-field-device --f /tmp/ev-104-25408.xml

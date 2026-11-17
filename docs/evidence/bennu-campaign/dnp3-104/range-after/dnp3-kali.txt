@@ -1,0 +1,20 @@
+lima-phenix: 289/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T06:09:11Z
+##### direct-operate point (port 20997, no sbo)
+sbo=False Int32 g41v1 idx99 status=12 (Float32 reference 12)
+sbo=False Int32 g41v1 idx1 direct operate status=0 readback=77
+sbo=False Int16 g41v2 idx99 status=12 (Float32 reference 12)
+sbo=False Int16 g41v2 idx1 direct operate status=0 readback=77
+sbo=False Double g41v4 idx99 status=12 (Float32 reference 12)
+sbo=False Double g41v4 idx1 direct operate status=0 readback=77
+PASS
+##### SBO point (port 20998)
+sbo=True Int32 g41v1 idx99 status=12 (Float32 reference 12)
+sbo=True Int32 g41v1 idx1 direct operate status=2 readback=0
+sbo=True Int16 g41v2 idx99 status=12 (Float32 reference 12)
+sbo=True Int16 g41v2 idx1 direct operate status=2 readback=0
+sbo=True Double g41v4 idx99 status=12 (Float32 reference 12)
+sbo=True Double g41v4 idx1 direct operate status=2 readback=0
+PASS
+PCAP 9086 bytes
+(pcap saved as dnp3.pcap)

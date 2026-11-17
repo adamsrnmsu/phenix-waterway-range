@@ -1,0 +1,8 @@
+lima-phenix: 257/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+bennu-cd3bb5b-arm64
+LISTEN 0      4096      10.1.1.102:502        0.0.0.0:*    users:(("bennu-field-dev",pid=1000,fd=16))
+LISTEN 0      4096      10.1.1.102:20997      0.0.0.0:*    users:(("bennu-field-dev",pid=1045,fd=16))
+LISTEN 0      4096      10.1.1.102:20998      0.0.0.0:*    users:(("bennu-field-dev",pid=1047,fd=15))
+   1032 bash /tmp/miniccc/files/179489549330641-ev-dnp3-start.sh
+   1045 bennu-field-device --f /tmp/ev-dnp3-20997.xml
+   1047 bennu-field-device --f /tmp/ev-dnp3-20998.xml

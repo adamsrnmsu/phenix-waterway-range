@@ -1,0 +1,100 @@
+lima-phenix: 300/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+##### client -> server port 25407 (double-point server)
+2026-11-17T06:10:48Z
+IOA 100 value lines: 10
+ASDU types:
+      2 RECVD ASDU type: C_IC_NA_1(100) elements: 1
+      1 RECVD ASDU type: M_DP_NA_1(3) elements: 4
+     36 RECVD ASDU type: M_DP_TB_1(31) elements: 1
+     10 RECVD ASDU type: M_ME_NC_1(13) elements: 4
+--- first 40 lines of client log
+INFO: Parser changed file name: "/tmp/ev-104cl-25407.xml" --> "..//tmp/ev-104cl-25407.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-iec60870-5-module" -> "libbennu-iec60870-5-module.so
+Connecting to: 10.1.1.102:25407
+Connection established
+Started IEC60870-5-104-CLIENT -- RTU Connection: tcp://10.1.1.102:25407
+Received STARTDT_CON
+RECVD ASDU type: M_DP_TB_1(31) elements: 1
+  double point information:
+    IOA: 0 value: 0
+RECVD ASDU type: M_DP_TB_1(31) elements: 1
+  double point information:
+    IOA: 1 value: 0
+RECVD ASDU type: M_DP_TB_1(31) elements: 1
+  double point information:
+    IOA: 100 value: 0
+RECVD ASDU type: M_DP_TB_1(31) elements: 1
+  double point information:
+    IOA: 101 value: 0
+RECVD ASDU type: M_ME_NC_1(13) elements: 4
+  measured short values:
+    IOA: 2 value: 0.000000
+    IOA: 3 value: 0.000000
+    IOA: 102 value: 0.000000
+    IOA: 103 value: 0.000000
+RECVD ASDU type: C_IC_NA_1(100) elements: 1
+RECVD ASDU type: M_DP_NA_1(3) elements: 4
+  double point information:
+    IOA: 0 value: 0
+    IOA: 1 value: 0
+    IOA: 100 value: 0
+    IOA: 101 value: 0
+RECVD ASDU type: M_ME_NC_1(13) elements: 4
+  measured short values:
+    IOA: 2 value: 0.000000
+    IOA: 3 value: 0.000000
+    IOA: 102 value: 0.000000
+    IOA: 103 value: 0.000000
+RECVD ASDU type: C_IC_NA_1(100) elements: 1
+RECVD ASDU type: M_DP_TB_1(31) elements: 1
+##### client -> server port 25408 (single-point server)
+2026-11-17T06:10:58Z
+IOA 100 value lines: 10
+ASDU types:
+      2 RECVD ASDU type: C_IC_NA_1(100) elements: 1
+     10 RECVD ASDU type: M_ME_NC_1(13) elements: 4
+     10 RECVD ASDU type: M_SP_NA_1(1) elements: 4
+--- first 40 lines of client log
+INFO: Parser changed file name: "/tmp/ev-104cl-25408.xml" --> "..//tmp/ev-104cl-25408.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-iec60870-5-module" -> "libbennu-iec60870-5-module.so
+Connecting to: 10.1.1.102:25408
+Connection established
+Started IEC60870-5-104-CLIENT -- RTU Connection: tcp://10.1.1.102:25408
+Received STARTDT_CON
+RECVD ASDU type: M_SP_NA_1(1) elements: 4
+  single point information:
+    IOA: 0 value: 0
+    IOA: 1 value: 0
+    IOA: 100 value: 0
+    IOA: 101 value: 0
+RECVD ASDU type: C_IC_NA_1(100) elements: 1
+RECVD ASDU type: M_SP_NA_1(1) elements: 4
+  single point information:
+    IOA: 0 value: 0
+    IOA: 1 value: 0
+    IOA: 100 value: 0
+    IOA: 101 value: 0
+RECVD ASDU type: M_ME_NC_1(13) elements: 4
+  measured short values:
+    IOA: 2 value: 0.000000
+    IOA: 3 value: 0.000000
+    IOA: 102 value: 0.000000
+    IOA: 103 value: 0.000000
+RECVD ASDU type: C_IC_NA_1(100) elements: 1
+RECVD ASDU type: M_ME_NC_1(13) elements: 4
+  measured short values:
+    IOA: 2 value: 0.000000
+    IOA: 3 value: 0.000000
+    IOA: 102 value: 0.000000
+    IOA: 103 value: 0.000000
+RECVD ASDU type: M_SP_NA_1(1) elements: 4
+  single point information:
+    IOA: 0 value: 0
+    IOA: 1 value: 0
+    IOA: 100 value: 0
+    IOA: 101 value: 0
+RECVD ASDU type: M_ME_NC_1(13) elements: 4
+PCAP 14824 bytes
+(pcap saved as 104-client.pcap)

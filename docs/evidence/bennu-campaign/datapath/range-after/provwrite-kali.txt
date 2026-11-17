@@ -1,0 +1,15 @@
+lima-phenix: 210/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T05:55:24Z
+--- duplicate tag: last value should win
+REQ b'READ=lowervalve.open\x00' -> REPLY b'ACK=0\x00'
+REQ b'WRITE=lowervalve.open:1,lowervalve.open:0\x00' -> REPLY b'ACK=Updated tags in Simulink provider\x00'
+REQ b'READ=lowervalve.open\x00' -> REPLY b'ACK=0\x00'
+REQ b'WRITE=lowervalve.open:0,lowervalve.open:1\x00' -> REPLY b'ACK=Updated tags in Simulink provider\x00'
+REQ b'READ=lowervalve.open\x00' -> REPLY b'ACK=0\x00'
+--- malformed point in a batch is dropped, batch still ACKed
+REQ b'WRITE=lowervalve.open:0,no-colon-here\x00' -> REPLY b'ERR=Malformed WRITE payload\x00'
+REQ b'READ=lowervalve.open\x00' -> REPLY b'ACK=0\x00'
+--- nothing parseable at all, still ACKed
+REQ b'WRITE=junk\x00' -> REPLY b'ERR=Malformed WRITE payload\x00'
+PCAP 14101 bytes
+(pcap saved as provwrite.pcap)

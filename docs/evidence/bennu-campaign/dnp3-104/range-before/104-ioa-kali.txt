@@ -1,0 +1,5 @@
+lima-phenix: 268/37d5a1b5-b588-4d75-84da-8a2f54e9108f/stdout:
+2026-11-17T06:06:09Z
+IOA 65536 ACT_CON negative=False; IOA 0 ACT_CON negative=False
+PCAP 3236 bytes
+(pcap saved as 104-ioa.pcap)

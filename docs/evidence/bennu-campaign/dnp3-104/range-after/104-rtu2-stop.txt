@@ -1,0 +1,82 @@
+lima-phenix: 302/17857ee9-8d28-41c9-bc5b-7f54a2dcc933/stdout:
+=== /tmp/ev-104-25405.log
+INFO: Parser changed file name: "/tmp/ev-104-25405.xml" --> "..//tmp/ev-104-25405.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-iec60870-5-module" -> "libbennu-iec60870-5-module.so
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+add iec60870-5-104 binary-input I_generator-1_bus-1.active
+add iec60870-5-104 binary-input I_load-1_bus-1.active
+add iec60870-5-104 binary-output O_generator-1_bus-1.active
+add iec60870-5-104 binary-output O_load-1_bus-1.active
+add iec60870-5-104 analog-input I_bus-1.gen_mw
+add iec60870-5-104 analog-input I_load-1_bus-1.mw
+add iec60870-5-104 analog-output O_bus-1.gen_mw
+add iec60870-5-104 analog-output O_load-1_bus-1.mw
+starting slave: tcp://10.1.1.102:25405
+Initialized IEC60870-5-104 server: tcp://10.1.1.102:25405 (select-before-operate disabled)
+New connection request from 10.1.1.200
+Connection opened (0xaaaafa8fe978)
+Connection activated (0xaaaafa8fe978)
+received single command
+EXECUTE single command IOA: 65536 rejected (invalid output point)
+received single command
+IOA: 0 switch to 1
+Connection closed (0xaaaafa8fe978)
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+E: Client send: server seems to be offline, abandoning
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+E: OutputModule: provider not responding, will retry writes
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+E: Client send: server seems to be offline, abandoning
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+E: Client send: server seems to be offline, abandoning
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+I: Client connect (tcp://127.0.0.1:5405): Connecting to provider
+=== /tmp/ev-104-25407.log
+INFO: Parser changed file name: "/tmp/ev-104-25407.xml" --> "..//tmp/ev-104-25407.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-iec60870-5-module" -> "libbennu-iec60870-5-module.so
+I: Client connect (tcp://127.0.0.1:5407): Connecting to provider
+add iec60870-5-104 binary-input I_generator-1_bus-1.active
+add iec60870-5-104 binary-input I_load-1_bus-1.active
+add iec60870-5-104 binary-output O_generator-1_bus-1.active
+add iec60870-5-104 binary-output O_load-1_bus-1.active
+add iec60870-5-104 analog-input I_bus-1.gen_mw
+add iec60870-5-104 analog-input I_load-1_bus-1.mw
+add iec60870-5-104 analog-output O_bus-1.gen_mw
+add iec60870-5-104 analog-output O_load-1_bus-1.mw
+starting slave: tcp://10.1.1.102:25407
+Initialized IEC60870-5-104 server: tcp://10.1.1.102:25407 (select-before-operate disabled)
+New connection request from 10.1.1.101
+Connection opened (0xaaaab262c978)
+Connection activated (0xaaaab262c978)
+Received interrogation for group 20
+Connection closed (0xaaaab262c978)
+=== /tmp/ev-104-25408.log
+INFO: Parser changed file name: "/tmp/ev-104-25408.xml" --> "..//tmp/ev-104-25408.xml"
+INFO: Loader changed library name: "bennu-field-device-base" -> "libbennu-field-device-base.so
+INFO: Loader changed library name: "bennu-iec60870-5-module" -> "libbennu-iec60870-5-module.so
+I: Client connect (tcp://127.0.0.1:5408): Connecting to provider
+add iec60870-5-104 binary-input I_generator-1_bus-1.active
+add iec60870-5-104 binary-input I_load-1_bus-1.active
+add iec60870-5-104 binary-output O_generator-1_bus-1.active
+add iec60870-5-104 binary-output O_load-1_bus-1.active
+add iec60870-5-104 analog-input I_bus-1.gen_mw
+add iec60870-5-104 analog-input I_load-1_bus-1.mw
+add iec60870-5-104 analog-output O_bus-1.gen_mw
+add iec60870-5-104 analog-output O_load-1_bus-1.mw
+starting slave: tcp://10.1.1.102:25408
+Initialized IEC60870-5-104 server: tcp://10.1.1.102:25408 (select-before-operate disabled)
+New connection request from 10.1.1.101
+Connection opened (0xaaab0d71bab8)
+Connection activated (0xaaab0d71bab8)
+Received interrogation for group 20
+Connection closed (0xaaab0d71bab8)
+switch-to count on 25405: 1
+1
+LISTEN 0      4096      10.1.1.102:502       0.0.0.0:*

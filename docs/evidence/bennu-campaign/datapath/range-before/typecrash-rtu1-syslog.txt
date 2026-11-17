@@ -1,0 +1,17 @@
+lima-phenix: 102/01b159b8-9370-4518-b9c0-08c255b251b5/stdout:
+Nov 17 05:02:24 rtu-1 bennu-field-deviced[526]: bennu-field-deviced | START | pid: 421
+Nov 17 05:02:24 rtu-1 bennu-field-deviced[526]: bennu-field-deviced is already running, so either stop or restart the process!
+Nov 17 05:03:05 rtu-1 bennu-field-deviced[535]: Unable to open the lockfile /var/run/shell-server.pid.
+Nov 17 05:03:05 rtu-1 bennu-field-deviced[535]: bennu-field-deviced | START | pid: 421
+Nov 17 05:03:05 rtu-1 bennu-field-deviced[535]: bennu-field-deviced is already running, so either stop or restart the process!
+Nov 17 05:03:43 rtu-1 bennu-field-deviced[544]: Unable to open the lockfile /var/run/shell-server.pid.
+Nov 17 05:03:43 rtu-1 bennu-field-deviced[544]: bennu-field-deviced | START | pid: 421
+Nov 17 05:03:43 rtu-1 bennu-field-deviced[544]: bennu-field-deviced | STOP  | pid: 421
+Nov 17 05:02:24 phenix bennu-field-deviced: bennu-field-deviced | START | pid: 421
+Nov 17 05:02:24 phenix bennu-field-deviced: bennu-field-deviced is already running, so either stop or restart the process!
+Nov 17 05:03:05 phenix bennu-field-deviced: Unable to open the lockfile /var/run/shell-server.pid.
+Nov 17 05:03:05 phenix bennu-field-deviced: bennu-field-deviced | START | pid: 421
+Nov 17 05:03:05 phenix bennu-field-deviced: bennu-field-deviced is already running, so either stop or restart the process!
+Nov 17 05:03:43 phenix bennu-field-deviced: Unable to open the lockfile /var/run/shell-server.pid.
+Nov 17 05:03:43 phenix bennu-field-deviced: bennu-field-deviced | START | pid: 421
+Nov 17 05:03:43 phenix bennu-field-deviced: bennu-field-deviced | STOP  | pid: 421
