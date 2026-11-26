@@ -177,7 +177,7 @@ px config create /phenix/topologies/waterway-arm64/waterway-scenario.yaml
 px exp create waterway -t waterway-arm64 -s waterway-arm64
 px exp start waterway
 mm namespace waterway clear cc filter       # a stale cc filter silently swallows `cc exec`
-px exp stop waterway                        # repeatable: px exp start waterway again
+scripts/exp-down.sh -k waterway   # stop, keep the experiment, verify minimega is empty; then `px exp start waterway` again
 ```
 Boot takes ~2 min; `mm namespace waterway cc clients` should list 9 arm64 clients.
 
