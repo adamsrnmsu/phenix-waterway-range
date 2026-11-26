@@ -333,7 +333,7 @@ back from the provider) shows the same 65 / 131 / 196 pulses one poll later.
 
 ```bash
 scripts/mirror.sh wwff purple 2 --off
-px exp stop wwff && px exp delete wwff
+scripts/exp-down.sh wwff   # stop + delete, then checks minimega really holds no VMs (ww-585.39)
 px cfg delete scenario/waterway-arm64-ff && px cfg delete topology/waterway-arm64-ff
 mm clear namespace wwff
 rm -rf ~/phenix/topologies/wwff     # and the cc scratch dirs under /phenix/images

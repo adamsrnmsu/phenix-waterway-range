@@ -67,7 +67,7 @@ phenix experiment scorch mitm -r 0
 # ... ARP tables and OPC checked while the attack was live (below) ...
 # run 1: stop ettercap, stop+collect mitm-capture pcap
 phenix experiment scorch mitm -r 1
-px exp stop mitm
+scripts/exp-down.sh -k mitm
 ```
 
 ## (1) ARP tables: kali's MAC poisons rtu-1 <-> router
