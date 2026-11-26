@@ -1,0 +1,3 @@
+1795674654.5603,dnp3,direct_operate_crob0,error:[Errno 104] Connection reset by peer
+1795674654.5646,dnp3,cold_restart,error:[Errno 104] Connection reset by peer
+1795674654.5694,dnp3,warm_restart,error:[Errno 104] Connection reset by peer

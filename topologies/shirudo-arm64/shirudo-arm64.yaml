@@ -1,0 +1,139 @@
+# shirudo-arm64: one shirudo-protected field device (rtu-s) with live values from a provider, Kali to attack it and
+# Kali Purple watching the OT VLAN through an OVS mirror. Rendered by shirudo/up.sh: @D@ = /phenix/shirudo/<pin>.
+# Isolated like the other arm64 test topologies: own VLANs (SHOT, SHPROV, SHCAP), no gateway, no internet.
+# rtu-s: shirudo's kernel, initrd and vTPM (swtpm on the phenix VM host, started by up.sh), snapshot false so the
+# disk stays with its vTPM. Its addresses are baked into the image (images/ferrofire-shirudo.sh), matched by these MACs.
+# Its third NIC is QEMU user-net with SSH on the phenix VM's 127.0.0.1:22110: host-only management.
+apiVersion: phenix.sandia.gov/v1
+kind: Topology
+metadata:
+  name: shirudo-arm64
+spec:
+  nodes:
+  - general:
+      hostname: provider
+      description: SCEPTRE Simulink provider (Rust simulinksolver), as waterway-provider
+    hardware:
+      cpu: host
+      memory: 2048
+      vcpus: 2
+      os_type: linux
+      drives:
+      - image: bennu-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: mgmt
+        address: 172.16.1.2
+        mask: 16
+        proto: static
+        type: ethernet
+        vlan: SHPROV
+        gateway: 172.16.1.1   # nothing answers there: the default route lets the provider's multicast out (as waterway)
+    type: VirtualMachine
+  - general:
+      hostname: rtu-s
+      description: shirudo-protected ferrofire RTU (Modbus 502, DNP3 20000)
+      snapshot: false
+    hardware:
+      cpu: host
+      memory: 4096
+      vcpus: 4
+      os_type: linux
+      drives:
+      - image: ferrofire-shirudo-arm64.qc2
+        interface: virtio
+    advanced:
+      machine: virt
+      kernel: '@D@/kernel/Image'
+      initrd: '@D@/vms/rtu-s/initrd.img'
+      append: root=/dev/vda1 rootwait rw console=ttyAMA0,115200n8 loglevel=7 net.ifnames=0 lsm=bpf bpf.keyring_unsealed=1 dm_verity.keyring_unsealed=1 initcall_debug ignore_loglevel
+      qemu-append: -machine gic-version=host -drive file=@D@/vms/rtu-s/seed.img,if=virtio,format=raw,readonly=on -netdev user,id=mgmt0,restrict=on,hostfwd=tcp:127.0.0.1:22110-:22 -device virtio-net-pci,netdev=mgmt0,mac=52:54:00:12:34:56 -chardev socket,id=chrtpm,path=@D@/tpm/rtu-s/swtpm.sock -tpmdev emulator,id=tpm0,chardev=chrtpm -device tpm-tis-device,tpmdev=tpm0 -chardev socket,id=console,path=@D@/vms/rtu-s/console.sock,server=on,wait=off,logfile=@D@/vms/rtu-s/console.log,logappend=on -serial chardev:console
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: ot
+        address: 10.1.1.101
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: SHOT
+        mac: 02:5e:10:01:01:65
+        driver: virtio-net-pci
+      - name: prov
+        address: 172.16.1.101
+        mask: 16
+        proto: static
+        type: ethernet
+        vlan: SHPROV
+        mac: 02:5e:10:10:01:65
+        driver: virtio-net-pci
+    type: VirtualMachine
+  - general:
+      hostname: kali
+      description: offensive Kali, attacker and Modbus master
+    hardware:
+      cpu: host
+      memory: 4096
+      vcpus: 4
+      os_type: linux
+      drives:
+      - image: kali-offense-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.50
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: SHOT
+    type: VirtualMachine
+  - general:
+      hostname: purple
+      description: Kali Purple + parseus; capture NIC (index 1) fed by scripts/mirror.sh
+    hardware:
+      cpu: host
+      memory: 24576
+      vcpus: 8
+      os_type: linux
+      drives:
+      - image: kali-purple-parseus-arm64.qc2
+        interface: virtio
+        inject_partition: 2
+    advanced:
+      machine: virt
+      vga: virtio
+      qemu-append: -bios /usr/share/AAVMF/AAVMF_CODE.fd -device virtio-gpu-pci -device usb-kbd,bus=xhci.0
+    overrides:
+      bus=usb-bus.0: bus=xhci.0
+    network:
+      interfaces:
+      - name: IF0
+        address: 10.1.1.250
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: SHOT
+      - name: capture   # placeholder IP: a mirror target only
+        address: 192.0.2.250
+        mask: 24
+        proto: static
+        type: ethernet
+        vlan: SHCAP
+    type: VirtualMachine

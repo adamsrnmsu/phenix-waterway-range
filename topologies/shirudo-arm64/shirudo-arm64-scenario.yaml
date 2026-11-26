@@ -1,0 +1,20 @@
+# sceptre app for the provider only (same metadata as waterway-arm64's waterway-provider). rtu-s is not listed: its
+# field device and config are baked into the shirudo target image.
+apiVersion: phenix.sandia.gov/v2
+kind: Scenario
+metadata:
+  name: shirudo-arm64
+  annotations:
+    topology: shirudo-arm64
+spec:
+  apps:
+  - name: sceptre
+    assetDir: /phenix/topologies/waterway-arm64
+    hosts:
+    - hostname: provider
+      metadata:
+        type: provider
+        simulator: Simulink
+        publish_endpoint: udp://*;239.0.0.1:40000
+        publish_points: /phenix/topologies/waterway-arm64/injects/publishPoints.txt
+        solver: /phenix/topologies/waterway-arm64/injects/simulinksolver

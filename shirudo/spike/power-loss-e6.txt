@@ -1,0 +1,13 @@
+# E6: TPM2_Shutdown(CLEAR) by hand, then hard kill, ref, 2026-11-26T17:50:25Z
+## boot F (baseline): ok ()
+   clock before:  reset_count: 5 restart_count: 0 safe: yes 
+   -> tpm2_shutdown -c: ERROR:tcti:src/util-io/io.c:114:write_all() failed to write to fd 3: Permission denied 
+ERROR:tcti:src/tss2-tcti/tcti-device.c:124:tcti_device_transmit() wrong number of bytes written. Expected 12, wrote 0. 
+ERROR:esys:src/tss2-esys/api/Esys_Shutdown.c:182:Esys_Shutdown_Async() Finish (Execute Async) ErrorCode (0x000a000a) 
+ERROR:esys:src/tss2-esys/api/Esys_Shutdown.c:72:Esys_Shutdown() Error in async function ErrorCode (0x000a000a) 
+ERROR: Esys_Shutdown(0xA000A) - tcti:IO failure
+ERROR: Unable to run tpm2_shutdown
+   -> hard kill
+## boot G (after Shutdown(CLEAR) + kill): tampered (ChainIntact WARN, UpatchesMeasured WARN, TpmMeasured WARN, ConfigActive ALERT)
+   init: init: loading authenticated boot settings failed: Structure needs cleaning
+   clock after:  reset_count: 5 restart_count: 1 safe: yes 

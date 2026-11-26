@@ -1,0 +1,16 @@
+mass_dns: warning: Unable to open /etc/resolv.conf. Try using --system-dns or specify valid servers with --dns-servers: No such file or directory
+Unable to determine any DNS servers. . Falling back to --system-dns. Specify valid servers with --dns-servers
+
+Starting Nmap 7.991 ( https://nmap.org ) at 2026-11-26 05:23 +0000
+Nmap scan report for 10.1.1.101
+Host is up (0.0011s latency).
+Not shown: 1026 closed tcp ports (reset)
+PORT      STATE SERVICE    VERSION
+22/tcp    open  ssh        OpenSSH 10.2p1 Ubuntu 2ubuntu3.8 (Ubuntu Linux; protocol 2.0)
+502/tcp   open  mbap?
+20000/tcp open  tcpwrapped
+MAC Address: 02:5E:10:01:01:65 (Unknown)
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 15.24 seconds

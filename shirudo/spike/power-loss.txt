@@ -1,0 +1,22 @@
+# power-loss characterisation, ref, shirudo 8c35953fa779, 2026-11-26T07:45:28Z
+## E1: plain poweroff on a healthy boot
+## boot 1 (baseline): ok ()
+   init: init: complete (LSM active, writable state sealed)
+   -> systemctl poweroff : 
+      state after 120 s at most: QUIT
+## E2: kill, boot, kill, boot
+## boot 2 (after a clean poweroff): ok ()
+   init: init: complete (LSM active, writable state sealed)
+   -> hard kill
+## boot 3 (after kill #1): tampered (ChainIntact WARN, UpatchesMeasured WARN, TpmMeasured WARN, ConfigActive ALERT)
+   init: init: loading authenticated boot settings failed: Structure needs cleaning
+   -> hard kill
+## boot 4 (after kill #2): tampered (ChainIntact WARN, UpatchesMeasured WARN, TpmMeasured WARN, ConfigActive ALERT)
+   init: init: loading authenticated boot settings failed: Structure needs cleaning
+## E3: recovery from the tampered state
+   -> systemctl poweroff --check-inhibitors=no: 
+      state after 120 s at most: QUIT
+## boot 5 (after a forced clean poweroff): ok ()
+   init: init: complete (LSM active, writable state sealed)
+   -> systemctl poweroff --check-inhibitors=no: 
+      state after 120 s at most: QUIT

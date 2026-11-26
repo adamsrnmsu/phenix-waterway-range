@@ -1,0 +1,17 @@
+phase	type	signature	count
+dnp3	alert OT connection to the field device from a non-master	3
+dnp3	alert OT DNP3 cold restart	1
+dnp3	alert OT DNP3 direct operate	1
+dnp3	alert OT DNP3 warm restart	1
+fuzz	alert OT connection to the field device from a non-master	600
+fuzz	alert OT Modbus function 43 (MEI)	1
+fuzz	alert OT Modbus write multiple registers (FC16)	1
+fuzz	alert OT Modbus write single coil (FC5)	1
+fuzz	alert OT Modbus write single register (FC6)	1
+fuzz	alert SURICATA DNP3 Length too small	1
+fuzz	alert SURICATA DNP3 Too many points in message	32
+fuzz	alert SURICATA DNP3 Unknown object	24
+fuzz	alert SURICATA Modbus invalid Length	51
+fuzz	alert SURICATA Modbus invalid Value	14
+fuzz	alert SURICATA Modbus unsolicited response	17
+fuzz	anomaly INVALID_RECORD_TYPE	1

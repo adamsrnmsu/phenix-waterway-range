@@ -1,0 +1,8 @@
+{"t":"2026-11-26T08:01:23.938394+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T08:01:23.938394+0000","type":"alert","sig":"OT DNP3 direct operate","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T08:01:23.942101+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T08:01:23.944740+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T08:01:23.944740+0000","type":"alert","sig":"OT DNP3 cold restart","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T08:01:23.942101+0000","type":"alert","sig":"OT DNP3 direct operate","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T08:01:23.948019+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T08:01:23.948019+0000","type":"alert","sig":"OT DNP3 warm restart","src":"10.1.1.66","dst":"10.1.1.101"}

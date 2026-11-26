@@ -1,0 +1,5 @@
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2026-11-26 07:57:30
+[DATA] max 4 tasks per 1 server, overall 4 tasks, 20 login tries (l:1/p:20), ~5 tries per task
+[DATA] attacking ssh://10.1.1.101:22/
+[ERROR] target ssh://10.1.1.101:22/ does not support password authentication (method reply 4).

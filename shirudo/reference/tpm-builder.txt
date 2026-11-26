@@ -1,0 +1,41 @@
+ExecStart=
+ExecStart="/usr/bin/swtpm" "socket" "--tpmstate" "dir=/Users/ryanadams/git/shirudo/build/test-vm/vms/ref/tpm,mode=0700" "--ctrl" "type=unixio,path=tpm/swtpm-sock" "--tpm2" "--log" "file=/Users/ryanadams/git/shirudo/build/test-vm/vms/ref/swtpm.log,level=20"
+/usr/bin/swtpm socket --tpmstate dir=/Users/ryanadams/git/shirudo/build/test-vm/vms/ref/tpm,mode=0700 --ctrl type=unixio,path=tpm/swtpm-sock --tpm2 --log file=/Users/ryanadams/git/shirudo/build/test-vm/vms/ref/swtpm.log,level=20 
+658:		"$REPO_ROOT/testing/vm/tpm-builder.sh" "$RUN_DIR/tpm" "$RUN_DIR/tpm-names" \
+1697:# tpm2-tools load tpm2-tss's swtpm TCTI only when tpm-builder.sh runs. grep
+build/test-vm/vms/ref:
+console.log
+console.sock
+created-at
+ek-ca.pem
+enroll.json
+image
+initrd-build.log
+initrd.img
+meta-data
+network-config
+oci-ca
+otel-ca
+qemu.log
+qemu.pid
+qemu.unit
+result
+rootfs.qcow2
+seed.img
+shirudo-build
+ssh
+ssh.port
+swtpm.log
+swtpm.unit
+tpm
+tpm-names
+user-data
+
+build/test-vm/vms/ref/tpm:
+swtpm-sock
+swtpm.pid
+tpm2-00.permall
+
+# tpm-builder invocation (testing/vm/run.sh:658, pin 8c35953f), run before swtpm starts:
+# testing/vm/tpm-builder.sh "$RUN_DIR/tpm" "$RUN_DIR/tpm-names" "$RUN_DIR/ek-ca.pem" "$RUN_DIR/enroll.json" "$VM_NAME"
+# then: <bundle>/root/usr/local/bin/shirudo version --version-id > "$RUN_DIR/shirudo-build"

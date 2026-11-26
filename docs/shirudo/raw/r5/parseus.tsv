@@ -1,0 +1,9 @@
+phase	dataset	docs
+dnp3	modbus	0
+dnp3	modbus_detailed	0
+dnp3	dnp3	3
+dnp3	dnp3_points	0
+fuzz	modbus	150
+fuzz	modbus_detailed	4
+fuzz	dnp3	81
+fuzz	dnp3_points	0

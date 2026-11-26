@@ -1,0 +1,47 @@
+# power-loss characterisation (isolate), ref, shirudo 8c35953fa779, 2026-11-26T17:43:55Z
+## E4: sync, then hard kill
+## boot A (baseline): ok ()
+   init: init: complete (LSM active, writable state sealed)
+   -> sync: done
+   -> hard kill
+## boot B (after sync + kill): tampered (ChainIntact WARN, UpatchesMeasured WARN, TpmMeasured WARN, ConfigActive ALERT)
+   init: init: loading authenticated boot settings failed: Structure needs cleaning
+     | [    6.618509] localhost systemd[1]: Starting shirudo-initrd.service - shirudo: bring up the BPF LSM and bind the register from the initrd...
+     | [    6.745118] localhost shirudo[226]: initrd: /sysroot/var/lib/shirudo bound writable at /var/lib/shirudo for config recovery
+     | [    6.747027] localhost shirudo[226]: mounted private bpffs at /run/shirudo/bpffs (mode=0700,nosuid,nodev,noexec)
+     | [    7.096197] localhost shirudo[226]: bpf keyring serial=277009036: /run/shirudo/runtime/keys/cert.der enrolled (key serial=685013540)
+     | [    7.096284] localhost shirudo[226]: bpf keyring serial=277009036: keys/trusted/d67dad50c95e5cfedddad97fca43fa960645989e53acd38e22b00ef66d1d0f8f.der enrolled (key serial=489455)
+     | [    7.096476] localhost shirudo[226]: bpf keyring serial=277009036: 2 certificates enrolled and sealed
+     | [    8.369002] localhost shirudo[226]: bpf2 and seal attached: lsm/bpf gate live, writable state sealed
+     | [    8.829454] localhost shirudo[226]: init: loading authenticated boot settings failed: Structure needs cleaning
+     | [    8.949568] localhost shirudo[226]: Pre-flight checks:
+     | [    8.949568] localhost shirudo[226]:   OK    root
+     | [    8.949568] localhost shirudo[226]:   OK    bpf_lsm_active
+     | [    8.949568] localhost shirudo[226]:   OK    bpffs_supported
+     | [    8.949568] localhost shirudo[226]:   OK    signed_loader_kernel_abi
+     | [    8.949568] localhost shirudo[226]:   OK    kernel_lsm_hooks
+     | [    8.949568] localhost shirudo[226]:   OK    module_signatures
+     | [    8.949568] localhost shirudo[226]:   OK    cert_on_disk
+     | [    8.949568] localhost shirudo[226]:   OK    cert_algorithm
+     | [    8.949568] localhost shirudo[226]:   OK    cert_kernel_support
+     | [    8.949568] localhost shirudo[226]:   OK    kernel_keyring
+     | [    8.949568] localhost shirudo[226]:   OK    embedded_loader
+     | [    8.949568] localhost shirudo[226]:   OK    tpm2_reachable
+     | [    8.949568] localhost shirudo[226]: 12 of 12 passed
+     | [    8.950169] localhost systemd[1]: shirudo-initrd.service: Main process exited, code=exited, status=1/FAILURE
+     | [    8.950239] localhost systemd[1]: shirudo-initrd.service: Failed with result 'exit-code'.
+     | [    8.950415] localhost systemd[1]: Failed to start shirudo-initrd.service - shirudo: bring up the BPF LSM and bind the register from the initrd.
+   -> systemctl poweroff --check-inhibitors=no: 
+      state after 120 s at most: QUIT
+## E5: hard kill of QEMU, swtpm kept running
+## boot C (baseline): ok ()
+   init: init: complete (LSM active, writable state sealed)
+   -> hard kill of QEMU only (swtpm still running)
+## boot D (after a QEMU-only kill): tampered (ChainIntact WARN, UpatchesMeasured WARN, TpmMeasured WARN, ConfigActive ALERT)
+   init: init: loading authenticated boot settings failed: Structure needs cleaning
+   -> systemctl poweroff --check-inhibitors=no: 
+      state after 120 s at most: QUIT
+## boot E (after a forced clean poweroff): ok ()
+   init: init: complete (LSM active, writable state sealed)
+   -> systemctl poweroff --check-inhibitors=no: 
+      state after 120 s at most: QUIT

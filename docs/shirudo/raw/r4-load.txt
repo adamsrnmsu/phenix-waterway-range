@@ -1,0 +1,8 @@
+upatch load: modbus-guard loaded, 1 programs, keyring 928390969
+upatch load: modbus-guard measured, register a471c6c8353d4ec8e7c1d3cc68bc9512d31eca7f4f6afda26c3f3c49a807d43a
+image: waiting for another shirudo command to release the config operation lock
+Status:                ok
+  XdpCovered         OK      every device an XDP upatch selects runs it
+mgmt prog/xdp id 171
+ot prog/xdp id 171
+prov prog/xdp id 171

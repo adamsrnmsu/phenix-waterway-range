@@ -1,0 +1,8 @@
+1795673923.2455,malformed,truncated_mbap,timeout
+1795673924.2494,malformed,length_gt_payload,timeout
+1795673925.2528,malformed,oversized_pdu,closed
+1795673925.2572,malformed,length_zero,closed
+1795673925.2602,malformed,fc_0x00,resp:000a0000000101
+1795673925.2627,malformed,fc_0x2b,resp:000b0000000101
+1795673925.2650,malformed,fc_0x5a,resp:000c0000000101
+1795673925.2673,malformed,fc_0x7f,resp:000d0000000101

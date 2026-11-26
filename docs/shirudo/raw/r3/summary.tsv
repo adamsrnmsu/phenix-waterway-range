@@ -1,0 +1,9 @@
+phase	attacker_pkts_pcap	suricata_events	parseus_docs	kobs_net_accepts_attacker	kobs_priv_records	tamper_total	status	fd
+baseline	0	0	612	0	0	329	ok	active
+recon	2110	9	444	6	0	337	ok	active
+write	30	6	196	3	0	337	ok	active
+malformed	72	11	227	8	0	337	ok	active
+dnp3	18	6	190	3	0	337	ok	active
+fuzz	4842	744	471	600	0	337	ok	active
+ssh	0	1	153	0	0	337	ok	active
+tamper	0	0	272	0	0	386	ok	active

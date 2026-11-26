@@ -24,3 +24,6 @@ __pycache__/
 topologies/*/injects/simulinksolver
 topologies/*/injects/ferrofire
 
+
+# shirudo run captures (kept on the phenix VM under /var/lib/shirudo-range/pcap)
+docs/shirudo/raw/**/*.pcap

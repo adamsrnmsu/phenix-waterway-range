@@ -1,0 +1,9 @@
+upatch load: map 0 (verdicts) pinned at /run/shirudo/bpffs/upatches/modbus-guard/maps/verdicts
+upatch load: modbus-guard loaded, 1 programs, keyring 928390969
+upatch load: modbus-guard measured, register 4a94351bf26315de6328e26ab999a966db6178db5749bb7d8c916fc67c61d351
+image: waiting for another shirudo command to release the config operation lock
+  modbus-guard              yes     load    bpf   5c94831e2246219c..
+image: waiting for another shirudo command to release the config operation lock
+Status:                ok
+  XdpCovered         OK      every device an XDP upatch selects runs it
+prog/xdp id 128

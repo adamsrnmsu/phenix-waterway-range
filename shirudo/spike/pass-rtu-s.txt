@@ -1,0 +1,94 @@
+## status
+image: waiting for another shirudo command to release the config operation lock
+Host:                  rtu-s
+Roles:                 target
+Status:                ok
+Version ID:            d2d29ffaa278dc36ff0ec6c5367aee40fbbecfcfbc816bd5d6b4ad4e0b418147
+
+Conditions:
+  TYPE               STATUS  DETAIL
+  LsmAttached        OK      lsm/bpf link present and pinned
+  KeyringSealed      OK      bpf serial 376986095, dm-verity serial 825352500, pins match
+  ChainIntact        OK      live register equals the eventlog replay
+  UpatchesMeasured   OK      every pinned or archived upatch is in this boot's records
+  TpmMeasured        OK      NV index 0x01818E00 readable
+  ConfigActive       OK      config 4579a76bc100.. is active
+  XdpCovered         OK      every device an XDP upatch selects runs it
+
+Tamper attempts (this boot):
+  LoadNotLoader            15  program load that is not a signed loader
+  MapCreate                 1  map creation by another executable
+  BpfCommand               12  detach, update, delete or unclassified bpf() command
+
+Integrity attempts (this boot):
+  none
+
+Loaded upatches (0):
+  none
+
+Folded: keyrings, TPM measurement, assets (--show-full)
+## build and sign
+wrote pass-check-rtu-s/basic.upatch (insns=992 sig=4853 data=2408 sections=2 maps=0 progs=1 decoders=0 name=basic)
+wrote pass-check-rtu-s/basic.unload.upatch (insns=1320 sig=4853 data=2824 sections=2 maps=1 progs=1 decoders=0 name=basic UNLOAD)
+## load
+upatch load: signed loader accepted, keyring 376986095, 124 instructions
+upatch load: loader ran, 0 maps and 1 programs
+upatch load: program 0 (fentry) pinned at /run/shirudo/bpffs/upatches/basic/link
+upatch load: basic loaded, 1 programs, keyring 376986095
+upatch load: basic measured, register 12804621256241b7bffef37a6135117f05cb69f9aae08ccd905bdf621edc0865
+image: waiting for another shirudo command to release the config operation lock
+Archived upatches (/var/lib/shirudo/upatches):
+  NAME                      LOADED  TYPE    KIND  PAYLOAD
+  basic                     yes     load    bpf   790263bab48dcd0c..
+## attest
+  OK    nonce matches the request
+  OK    attestation key: restricted, fixed to this TPM
+  OK    attestation key: name matches its public area
+  OK    attestation key: the pinned key
+  OK    endorsement key: name matches its public area
+  OK    endorsement key: TCG default template under the endorsement policy
+  OK    quote: ECDSA signature by the attestation key
+  OK    quote: signed by the key as an endorsement primary
+  OK    quote: carries the nonce
+  OK    quote: covers the PCRs the document lists
+  OK    quote: PCR digest matches the listed values
+  OK    register: ECDSA signature by the attestation key
+  OK    register: signed by the key as an endorsement primary
+  OK    register: carries the nonce
+  OK    register: certification names the listed index
+  OK    register: certified contents match the listed value
+  OK    quote and certification are of one TPM boot
+  OK    config: config root history matches the quoted PCR
+  NOTE  config root has no operator approval; use --expect-config-root with --expect-config-pcr
+  NOTE  config records a selection; operation completion depends on trusted runtime guards
+  OK    eventlog: this boot has an init record
+  OK    register: the document names index 0x01818E00 and PCRs 9 and 11
+  OK    register: public area is bound to PCRs 9 and 11 as recorded
+  NOTE  binding: made in the initrd
+  OK    eventlog: one init record for this TPM reset (1 this boot)
+  OK    register: init record is of the TPM's current reset count
+  OK    eventlog: 2 records replay to the certified value
+  OK    anchor: record digest matches the index name
+  OK    anchor: PCR 9 equals the recorded value extended by the anchor
+  OK    state: register equals the expected value
+  NOTE  event after boot: upatch_load basic
+verdict: ok
+## unload
+image: waiting for another shirudo command to release the config operation lock
+upatch unload: signed loader accepted, keyring 376986095, 165 instructions
+upatch unload: basic carries the directive's payload
+upatch unload: basic measured, register 371d08059510e6fe959b4bbb32e2d94bc4d97aee511cce5ff3f863cbee304b6e
+upatch unload: basic detached and unpinned
+Archived upatches (/var/lib/shirudo/upatches):
+  none
+PASS pass-check rtu-s (minimega, port 22102)
+
+## field device on rtu-s (Task 3 Step 3, 2026-11-25)
+ferrofire 2026.11.15 (aarch64 musl release), ferrofire-rtu.service from /etc/sceptre/config.xml
+(topologies/ferrofire-rtu-test/injects/rtu-1-config.xml), its addresses 10.1.1.101 and 172.16.1.101 put on lo for
+the check:
+  ferrofire-rtu.service: active
+  LISTEN 0 128 10.1.1.101:502   0.0.0.0:*
+  LISTEN 0 128 10.1.1.101:20000 0.0.0.0:*
+  shirudo status: ok (before and after the pass check above)
+Note: ferrofire-rtu-start seeds /home/sceptre/config.xml only once; a new config.xml needs that copy removed.
