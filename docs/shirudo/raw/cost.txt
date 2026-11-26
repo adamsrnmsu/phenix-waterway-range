@@ -1,0 +1,16 @@
+## kernel-obs
+cpu us=0.95% sy=6.13% idle=86.32%
+mem used_MiB=213 avail_MiB=3721
+ferrofire_rss_KiB=2800
+kernel-obs 
+## kernel-obs+modbus-guard
+cpu us=0.92% sy=5.75% idle=86.65%
+mem used_MiB=193 avail_MiB=3741
+ferrofire_rss_KiB=2800
+kernel-obs modbus-guard 
+## none
+cpu us=0.87% sy=7.17% idle=85.27%
+mem used_MiB=185 avail_MiB=3749
+ferrofire_rss_KiB=2800
+
+1

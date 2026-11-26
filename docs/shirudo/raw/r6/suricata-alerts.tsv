@@ -1,0 +1,2 @@
+phase	type	signature	count
+ssh	alert OT SSH connection to a field device	1

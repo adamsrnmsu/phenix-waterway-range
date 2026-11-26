@@ -1,0 +1,12 @@
+# E7: power loss with the TPM losing power first (swtpm SIGKILLed, so it sends no Shutdown), ref, 2026-11-26T17:54:41Z
+   (recovering boot G first: clean poweroff)
+## boot H (baseline): ok ()
+   clock:  reset_count: 6 restart_count: 0 safe: yes 
+   -> swtpm SIGKILL, then QEMU kill
+## boot I (after TPM-first power loss): ok ()
+   init: init: complete (LSM active, writable state sealed)
+   clock:  reset_count: 7 restart_count: 0 safe: yes 
+## control: QEMU kill only (swtpm alive, sends Shutdown(STATE) on disconnect)
+## boot J (after QEMU-first kill): tampered (ChainIntact WARN, UpatchesMeasured WARN, TpmMeasured WARN, ConfigActive ALERT)
+   clock:  reset_count: 7 restart_count: 1 safe: yes 
+## boot K (after a clean poweroff): ok ()

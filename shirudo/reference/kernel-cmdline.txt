@@ -1,0 +1,2 @@
+root=/dev/vda1 rootwait rw console=ttyAMA0,115200n8 loglevel=7 net.ifnames=0 lsm=bpf bpf.keyring_unsealed=1 dm_verity.keyring_unsealed=1 initcall_debug ignore_loglevel 
+7.4-shirudo-ci-20261123

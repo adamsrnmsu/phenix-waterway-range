@@ -1,0 +1,5 @@
+upatch unload: modbus-guard measured, register 8a39a2f9cd7fac4e32da76278c078abf7ac1e998618f37eaa113aa752ed4d05c
+upatch unload: modbus-guard detached and unpinned
+image: waiting for another shirudo command to release the config operation lock
+0
+0

@@ -1,0 +1,13 @@
+# Local Suricata rules for the shirudo-arm64 OT VLAN (purple, capture NIC). attack.sh appends Suricata's own
+# modbus-events, dnp3-events and decoder-events rules on purple. sids 9100000-9100099.
+alert modbus any any -> any 502 (msg:"OT Modbus write single coil (FC5)"; modbus: function 5; sid:9100001; rev:1;)
+alert modbus any any -> any 502 (msg:"OT Modbus write single register (FC6)"; modbus: function 6; sid:9100002; rev:1;)
+alert modbus any any -> any 502 (msg:"OT Modbus write multiple registers (FC16)"; modbus: function 16; sid:9100003; rev:1;)
+alert modbus any any -> any 502 (msg:"OT Modbus function 43 (MEI)"; modbus: function 43; sid:9100005; rev:1;)
+alert modbus any any -> any 502 (msg:"OT Modbus function 90"; modbus: function 90; sid:9100006; rev:1;)
+alert modbus any any -> any 502 (msg:"OT Modbus function 127"; modbus: function 127; sid:9100007; rev:1;)
+alert dnp3 any any -> any 20000 (msg:"OT DNP3 direct operate"; dnp3_func: direct_operate; sid:9100010; rev:1;)
+alert dnp3 any any -> any 20000 (msg:"OT DNP3 cold restart"; dnp3_func: cold_restart; sid:9100011; rev:1;)
+alert dnp3 any any -> any 20000 (msg:"OT DNP3 warm restart"; dnp3_func: warm_restart; sid:9100012; rev:1;)
+alert tcp any any -> any 22 (msg:"OT SSH connection to a field device"; flow:to_server; flags:S; sid:9100020; rev:1;)
+alert tcp !10.1.1.50 any -> any [502,20000] (msg:"OT connection to the field device from a non-master"; flow:to_server; flags:S; sid:9100021; rev:1;)

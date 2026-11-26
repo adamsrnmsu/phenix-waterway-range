@@ -1,0 +1,5 @@
+phase	type	signature	count
+dnp3	alert OT connection to the field device from a non-master	4
+dnp3	alert OT DNP3 cold restart	1
+dnp3	alert OT DNP3 direct operate	2
+dnp3	alert OT DNP3 warm restart	1

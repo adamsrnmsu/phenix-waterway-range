@@ -1,0 +1,777 @@
+{"t":"2026-11-26T05:23:29.379018+0000","type":"alert","sig":"OT SSH connection to a field device","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:30.446017+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:30.969790+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:31.428819+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:31.429461+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:31.428108+0000","type":"alert","sig":"OT SSH connection to a field device","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:43.377308+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:43.383259+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:23:43.372941+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:15.204429+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:15.204429+0000","type":"alert","sig":"OT Modbus write single coil (FC5)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:15.210271+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:15.207793+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:15.207793+0000","type":"alert","sig":"OT Modbus write single register (FC6)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:15.210271+0000","type":"alert","sig":"OT Modbus write multiple registers (FC16)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:45.894031+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:46.897089+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.900575+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.906826+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.902507+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.911679+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.909382+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.909382+0000","type":"alert","sig":"OT Modbus function 43 (MEI)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.913578+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:14.634529+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:14.629537+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:14.637192+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.956262+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.965361+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.962038+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.970959+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.974628+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.977253+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.979906+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.982357+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.987259+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.989708+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.992755+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.995116+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:41.998361+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.001135+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.006237+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.009670+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.011805+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.014332+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.018241+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.021812+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.031111+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.025579+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.027836+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.036566+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.038917+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.044753+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.048796+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.052779+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.056739+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.060819+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.065528+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.068610+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.073565+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.077258+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.082952+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.080678+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.087388+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.090061+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.094967+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.093062+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.097664+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.105156+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.111722+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.102329+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.108529+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.114370+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.117739+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.114370+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.114370+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.114370+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.114370+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.111722+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.111722+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.124253+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.128314+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.140130+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.133984+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.137352+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.147354+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.149307+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.152667+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.145400+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.158129+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.155761+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.167502+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.164866+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.164866+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.164866+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.164866+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.164866+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.170659+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.174787+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.172818+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.181471+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.181471+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.181471+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.181471+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.181471+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.186632+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.180015+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.180015+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.180015+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.180015+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.180015+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.184672+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.188747+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.191948+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.196921+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.199808+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.206135+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.202464+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.208712+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.212777+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.215075+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.215075+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.215075+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.217616+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.219634+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.224625+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.221883+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.229013+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.236209+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.232013+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.233847+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.237995+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.242736+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.244559+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.246388+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.249032+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.253807+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.258560+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.252002+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.261016+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.266598+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.263313+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.268356+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.268356+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.272761+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.275101+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.277405+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.279090+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.268356+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.281716+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.283628+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.289235+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.291722+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.294416+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.297255+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.300304+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.307679+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.304578+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.308962+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.311903+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.314039+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.316485+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.326244+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.321009+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.323911+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.329895+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.328683+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.328683+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.328683+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.328683+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.328683+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.328683+0000","type":"alert","sig":"OT Modbus write multiple registers (FC16)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.336607+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.334269+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.338721+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.342367+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.348173+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.352532+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.358464+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.362663+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.368705+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.377349+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.372998+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.387708+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.383165+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.387708+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.387708+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.387708+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.387708+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.392170+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.396608+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.403287+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.409146+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.414695+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.418919+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.423198+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.427876+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.433326+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.439009+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.442931+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.448115+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.448115+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.448115+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.448115+0000","type":"alert","sig":"OT Modbus write single register (FC6)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.452527+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.456813+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.462017+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.470269+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.475001+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.479575+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.488519+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.484140+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.494381+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.498665+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.498665+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.498665+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.504171+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.508317+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.512459+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.516883+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.523266+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.527960+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.532487+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.536901+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.540682+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.555562+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.551245+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.547037+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.559824+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.564031+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.568407+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.575984+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.580851+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.584166+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.588883+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.593155+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.599515+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.608145+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.603963+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.612640+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.617321+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.621858+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.628178+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.632822+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.636987+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.641523+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.649111+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.654242+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.658621+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.662814+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.667231+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.672856+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.684742+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.678931+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.688526+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.692778+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.696892+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.706517+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.701085+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.706517+0000","type":"alert","sig":"OT Modbus function 43 (MEI)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.710614+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.714548+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.718812+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.723088+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.728802+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.734315+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.738750+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.738750+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.743112+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.738750+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.749198+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.753354+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.760201+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.768742+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.764201+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.777685+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.773136+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.783775+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.789469+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.795043+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.800980+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.806055+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.810302+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.815998+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.821549+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.831477+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.827000+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.837362+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.837362+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.837362+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.844168+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.849984+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.855416+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.861417+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.867107+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.871499+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.878358+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.883654+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.890047+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.895663+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.901744+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.895663+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.895663+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.901744+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.901744+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.909417+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.915529+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.921314+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.926800+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.935401+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.939971+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.947097+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.953117+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.958710+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.964365+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.969924+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.977037+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.982912+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.988408+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.994058+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.998077+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.002403+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.008263+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.014112+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.019609+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.025160+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.030332+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.036777+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.040922+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.046366+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.050756+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.055030+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.057065+0000","type":"anomaly","sig":"INVALID_RECORD_TYPE","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.059327+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.066478+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.072410+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.076841+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.081637+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.086880+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.092881+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.104993+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.099183+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.110629+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.116130+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.120469+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.127768+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.131030+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.136809+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.140978+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.146568+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.152413+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.158032+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.163777+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.175072+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.169136+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.179721+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.186656+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.192178+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.197852+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.202211+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.207679+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.218211+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.214367+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.222696+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.227120+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.232340+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.232340+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.232340+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.236859+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.243855+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.249181+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.254380+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.265249+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.259722+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.265249+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.265249+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.265249+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.265249+0000","type":"alert","sig":"SURICATA Modbus invalid Value","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.265249+0000","type":"alert","sig":"OT Modbus write single coil (FC5)","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.272288+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.277870+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.281222+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.288210+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.284286+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.292005+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.297957+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.299872+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.295044+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.306329+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.304392+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.311286+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.308931+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.318733+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.315362+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.321943+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.326194+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.327559+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.323722+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.336805+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.334766+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.338588+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.340838+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.332361+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.343333+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.346191+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.350824+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.348593+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.353569+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.355166+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.363811+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.359905+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.366250+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.368209+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.361790+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.372016+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.369555+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.376002+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.377984+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.379983+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.374109+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.387237+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.389718+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.382398+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.385325+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.391699+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.395694+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.397554+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.393352+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.399617+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.401610+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.403978+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.409847+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.407324+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.411693+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.415247+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.417067+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.412954+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.421761+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.419343+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.424343+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.426089+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.432576+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.436894+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.428905+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.438725+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.440576+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.434956+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.445240+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.443029+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.448047+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.450636+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.452712+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.459809+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.457703+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.467247+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.464808+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.471756+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.469853+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.474064+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.475295+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.477845+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.480114+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.489197+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.484479+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.491020+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.493037+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.495472+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.500157+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.497418+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.503540+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.505253+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.507760+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.510145+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.512959+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.519195+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.520997+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.526110+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.523539+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.517268+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.528350+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.530935+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.536365+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.533472+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.538225+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.540899+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.545163+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.547791+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.549630+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.552300+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.555045+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.557372+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.564961+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.562198+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.559583+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.567829+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.570651+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.575205+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.577939+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.579901+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.584995+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.587969+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.582372+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.589827+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.592352+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.597762+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.594927+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.600343+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.607990+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.605159+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.610244+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.615862+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.612931+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.621200+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.618359+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.626650+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.623869+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.629285+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.631976+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.639052+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.641861+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.636488+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.647622+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.644276+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.650120+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.652734+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.656984+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.658972+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.655038+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.663289+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.666007+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.668955+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.670880+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.676241+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.677986+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.673706+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.680311+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.684947+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.687902+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.682974+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.692329+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.695047+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.697638+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.700309+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.703057+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.708215+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.705684+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.710869+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.713467+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.715684+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.718137+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.722882+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.725507+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.732543+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.734282+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.728124+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.730557+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.739364+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.741238+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.736979+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.749259+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.742983+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.744897+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.751362+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.753574+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.756272+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.758645+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.761484+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.764292+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.767415+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.769882+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.775843+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.772964+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.783016+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.780141+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.787584+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.785018+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.789831+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.792383+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.794902+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.797252+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.801650+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.799827+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.804122+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.808376+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.816297+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.811166+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.813893+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.819314+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.821761+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.824543+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.829660+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.827105+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.834721+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.832328+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.841897+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.839267+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.844386+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.846962+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.849476+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.852148+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.860005+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.854810+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.857473+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.865135+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.862567+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.869867+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.872870+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.875730+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.878083+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.880865+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.886028+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.891482+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.883078+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.888632+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.896939+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.894111+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.901376+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.903650+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.905671+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.908258+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.910736+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.913304+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.915862+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.918368+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.923956+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.921323+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.925775+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.932518+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.934892+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.936784+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.930065+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.938797+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.942764+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.940863+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.944710+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.947117+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.949832+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.952812+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.957023+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.961370+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.965464+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.963924+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.959381+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.967103+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.972196+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.970147+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.974244+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.979041+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.976808+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.985385+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.987841+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.983046+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.995798+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.989576+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.991833+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.997327+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.993560+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.999095+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.004834+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.006801+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.011140+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.014675+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.019484+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.012969+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.017501+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.026174+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.024223+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.022101+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.027768+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.030270+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.032615+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.039253+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.036914+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.041667+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.044068+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.050335+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.046463+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.049143+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.053146+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.055818+0000","type":"alert","sig":"OT connection to the field device from a non-master","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:24:47.909382+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:24:47.909382+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:26:13.974390+0000","type":"alert","sig":"OT SSH connection to a field device","src":"10.1.1.50","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:14.629537+0000","type":"alert","sig":"OT DNP3 direct operate","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:14.637192+0000","type":"alert","sig":"OT DNP3 warm restart","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:14.634529+0000","type":"alert","sig":"OT DNP3 cold restart","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.180015+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.180015+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.111722+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.111722+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.232340+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.232340+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.174787+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.174787+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.086880+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.086880+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.621858+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.621858+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.338588+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.350824+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.567829+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.592352+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.377984+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.202464+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.202464+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.355166+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.918368+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.610244+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.018241+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.018241+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.436894+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.049143+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.895663+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.895663+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.811166+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.744897+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.215075+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.215075+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.738750+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.738750+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.639052+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.323722+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.348593+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.736979+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.985385+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.710869+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.477845+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.829660+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.469853+0000","type":"alert","sig":"SURICATA DNP3 Length too small","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.979041+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.753574+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.841897+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.676241+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.930065+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.706517+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.706517+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.804122+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.938797+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.498665+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.498665+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.734282+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.426089+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.687902+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:44.004834+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.612931+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.530935+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.741238+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.343333+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.562198+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.417067+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.538225+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.526110+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.799827+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.389718+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.967103+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.399617+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.837362+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.837362+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.901744+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.901744+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.925775+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.258560+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.258560+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.869867+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.361790+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.340838+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.464808+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:42.268356+0000","type":"alert","sig":"SURICATA Modbus unsolicited response","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:42.268356+0000","type":"alert","sig":"SURICATA Modbus invalid Length","src":"10.1.1.101","dst":"10.1.1.66"}
+{"t":"2026-11-26T05:25:43.644276+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.846962+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.503540+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.415247+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.993560+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.284286+0000","type":"alert","sig":"SURICATA DNP3 Unknown object","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.666007+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}
+{"t":"2026-11-26T05:25:43.839267+0000","type":"alert","sig":"SURICATA DNP3 Too many points in message","src":"10.1.1.66","dst":"10.1.1.101"}

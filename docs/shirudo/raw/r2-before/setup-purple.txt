@@ -1,0 +1,3 @@
+[8913 - W#01-eth1] 2026-11-26 05:37:42 Info: ioctl: eth1: MTU 1500
+[8910 - Suricata-Main] 2026-11-26 05:37:42 Notice: threads: Threads created -> W: 8 FM: 1 FR: 1   Engine started.
+8910 suricata -D -i eth1 -S /root/suri/all.rules -l /root/suri --set app-layer.protocols.modbus.enabled=yes --set app-layer.protocols.dnp3.enabled=yes --set vars.address-groups.HOME_NET=[10.1.1.0/24]

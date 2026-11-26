@@ -1,0 +1,17 @@
+phase	dataset	docs
+baseline	modbus	64
+baseline	modbus_detailed	64
+baseline	dnp3	32
+baseline	dnp3_points	384
+write	modbus	20
+write	modbus_detailed	17
+write	dnp3	7
+write	dnp3_points	84
+malformed	modbus	32
+malformed	modbus_detailed	26
+malformed	dnp3	13
+malformed	dnp3_points	156
+fuzz	modbus	283
+fuzz	modbus_detailed	142
+fuzz	dnp3	150
+fuzz	dnp3_points	828

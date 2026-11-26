@@ -1,0 +1,119 @@
+## status
+Host:                  ref
+Roles:                 target
+Status:                ok
+Version ID:            d2d29ffaa278dc36ff0ec6c5367aee40fbbecfcfbc816bd5d6b4ad4e0b418147
+
+Conditions:
+  TYPE               STATUS  DETAIL
+  LsmAttached        OK      lsm/bpf link present and pinned
+  KeyringSealed      OK      bpf serial 139736602, dm-verity serial 1031684384, pins match
+  ChainIntact        OK      live register equals the eventlog replay
+  UpatchesMeasured   OK      every pinned or archived upatch is in this boot's records
+  TpmMeasured        OK      NV index 0x01818E00 readable
+  ConfigActive       OK      config 4579a76bc100.. is active
+  XdpCovered         OK      every device an XDP upatch selects runs it
+
+Tamper attempts (this boot):
+  LoadNotLoader            21  program load that is not a signed loader
+  MapCreate                 1  map creation by another executable
+  BpfCommand               14  detach, update, delete or unclassified bpf() command
+
+Integrity attempts (this boot):
+  none
+
+Loaded upatches (0):
+  none
+
+Folded: keyrings, TPM measurement, assets (--show-full)
+## build and sign
+wrote pass-check-ref/basic.upatch (insns=992 sig=4853 data=2408 sections=2 maps=0 progs=1 decoders=0 name=basic)
+wrote pass-check-ref/basic.unload.upatch (insns=1320 sig=4853 data=2824 sections=2 maps=1 progs=1 decoders=0 name=basic UNLOAD)
+## load
+image: waiting for another shirudo command to release the config operation lock
+upatch load: signed loader accepted, keyring 139736602, 124 instructions
+upatch load: loader ran, 0 maps and 1 programs
+upatch load: program 0 (fentry) pinned at /run/shirudo/bpffs/upatches/basic/link
+upatch load: basic loaded, 1 programs, keyring 139736602
+upatch load: basic measured, register a27548401ef84c0bd3fc628a1f520a27709cf602f9301a1ebbb52e12305ab2d2
+Archived upatches (/var/lib/shirudo/upatches):
+  NAME                      LOADED  TYPE    KIND  PAYLOAD
+  basic                     yes     load    bpf   8cd993e889e97bab..
+## attest
+  OK    nonce matches the request
+  OK    attestation key: restricted, fixed to this TPM
+  OK    attestation key: name matches its public area
+  OK    attestation key: the pinned key
+  OK    endorsement key: name matches its public area
+  OK    endorsement key: TCG default template under the endorsement policy
+  OK    quote: ECDSA signature by the attestation key
+  OK    quote: signed by the key as an endorsement primary
+  OK    quote: carries the nonce
+  OK    quote: covers the PCRs the document lists
+  OK    quote: PCR digest matches the listed values
+  OK    register: ECDSA signature by the attestation key
+  OK    register: signed by the key as an endorsement primary
+  OK    register: carries the nonce
+  OK    register: certification names the listed index
+  OK    register: certified contents match the listed value
+  OK    quote and certification are of one TPM boot
+  OK    config: config root history matches the quoted PCR
+  NOTE  config root has no operator approval; use --expect-config-root with --expect-config-pcr
+  NOTE  config records a selection; operation completion depends on trusted runtime guards
+  OK    eventlog: this boot has an init record
+  OK    register: the document names index 0x01818E00 and PCRs 9 and 11
+  OK    register: public area is bound to PCRs 9 and 11 as recorded
+  NOTE  binding: made in the initrd
+  OK    eventlog: one init record for this TPM reset (1 this boot)
+  OK    register: init record is of the TPM's current reset count
+  OK    eventlog: 2 records replay to the certified value
+  OK    anchor: record digest matches the index name
+  OK    anchor: PCR 9 equals the recorded value extended by the anchor
+  OK    state: register equals the expected value
+  NOTE  event after boot: upatch_load basic
+verdict: ok
+## unload
+image: waiting for another shirudo command to release the config operation lock
+upatch unload: signed loader accepted, keyring 139736602, 165 instructions
+upatch unload: basic carries the directive's payload
+upatch unload: basic measured, register a6e0909c1ce16e43d5849ba244b3eb13c086654c89522c85654517e8fd69fadb
+upatch unload: basic detached and unpinned
+Archived upatches (/var/lib/shirudo/upatches):
+  none
+PASS pass-check ref (minimega, port 22101)
+
+## QEMU argv: minimega (spike/qemu-cmdline-minimega.txt) vs shirudo run.sh (reference/qemu-cmdline.txt)
+Same: -enable-kvm, -cpu host, -smp 4, 4 GiB, -machine virt + gic-version=host, rootfs.qcow2 + seed.img on virtio,
+-kernel/-initrd/-append (append identical), user netdev with SSH hostfwd on virtio-net-pci, swtpm chardev +
+-tpmdev emulator + tpm-tis-device, console chardev socket with logfile on -serial.
+Different, each with its reason:
+- QEMU 6.2.0 (minimega container, Ubuntu jammy) vs 10.2.1 (shirudo-dev). No effect seen on boot, TPM or attest.
+- -M virt,its=off: this repo's kvm wrapper turns off the GICv3 ITS for nested KVM on Apple vz. shirudo-dev boots
+  with ITS on but needs the kvm-arm.vgic_v3_*_trap host kernel arguments instead.
+- -drive if=virtio,cache=writeback (minimega) vs -device virtio-blk-pci (run.sh); seed.img read-write and
+  format-probed as raw instead of readonly raw. The guest sees the same /dev/vda, /dev/vdb.
+- No -virtfs shares (src, bundle, out, kernel, otel, oci). run.sh mounts them over SSH after each boot for its own
+  tests; shirudo init does not use them. Upatches and evidence move over SSH (pass-check.sh --mm).
+- minimega additions: -vnc, -qmp, -rtc clock=vm, USB xHCI + tablet + kbd, virtio-gpu, virtio-serial cc port,
+  pci-bridge, empty cdrom, -S (start paused, minimega starts it), -net none, -uuid. None reach shirudo.
+- -no-reboot, -display none, -monitor none (run.sh) are absent: minimega manages the process.
+
+## Power-loss finding (2026-11-25)
+A hard kill of QEMU (run.sh vm-stop, minimega vm kill) is a power loss for the target. The next boot completes, but
+shirudo-initrd fails with "init: loading authenticated boot settings failed: Structure needs cleaning" (EUCLEAN from
+the config activation checks): status "tampered" (ConfigActive ALERT, ChainIntact/TpmMeasured WARN, register not
+bound), shirudo.service failed, and plain "systemctl poweroff" is refused ("active block inhibitor").
+"systemctl poweroff --check-inhibitors=no", then a fresh boot (new swtpm process, same state), comes back "ok".
+Seen 2 of 2 times after a hard kill; 0 of 2 after a clean poweroff. stage.sh and launch.sh down now power off
+cleanly. Matters for OT: field devices lose power without warning.
+
+## Power-loss finding, third case (2026-11-25, Task 4)
+shirudo/down.sh's first version waited on a minimega query that errored (.filter on a column not in .columns), so
+phenix exp stop killed rtu-s mid-shutdown (console ended at "chrony"). The next boot: rtu-s shirudo status tampered.
+A clean down.sh (poweroff --check-inhibitors=no) and up.sh brought it back to ok. Totals: 3 of 3 hard kills -> next
+boot tampered; 3 of 3 recovered by a clean poweroff and another boot.
+
+## Power-loss root cause (2026-11-26, bead ww-hubl)
+Not a shirudo bug: swtpm sends TPM2_Shutdown(SU_STATE) when QEMU disconnects, so the next Startup(CLEAR) is a TPM
+restart (reset count unchanged) and shirudo sees the same TPM boot with its config PCR cleared (EUCLEAN). Killing
+swtpm first, as a real power loss, gives an ok boot (spike/power-loss-e7.txt; docs/shirudo-evidence.md, Power loss).

@@ -1,0 +1,9 @@
+phase	dataset	docs
+baseline	modbus	72
+baseline	modbus_detailed	72
+baseline	dnp3	36
+baseline	dnp3_points	432
+ssh	modbus	18
+ssh	modbus_detailed	18
+ssh	dnp3	9
+ssh	dnp3_points	108

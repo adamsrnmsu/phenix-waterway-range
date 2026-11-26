@@ -1,0 +1,9 @@
+active
+627 /usr/bin/ferrofire watch --firmware /home/sceptre/ferrofire.firmware --file /home/sceptre/config.xml
+LISTEN 0      128       10.1.1.101:20000 0.0.0.0:*
+LISTEN 0      128       10.1.1.101:502   0.0.0.0:*
+watch: firmware sha256=a1e59ef5245c381be733c75a9f8548f6d273282649f8561e5c33cc626abcd064
+watch: started pid=696
+Info: log control socket /run/ferrofire/field-device-696.sock
+Info: dnp3-server: starting
+Info: modbus-server: starting
